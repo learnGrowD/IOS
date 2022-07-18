@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Ex01AutoLayout" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lc2-TO-W5S">
+                                <rect key="frame" x="30" y="74" width="354" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="mzm-eL-IlT"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j3o-S1-e1e">
+                                <rect key="frame" x="173.5" y="154" width="67" height="31"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                <connections>
+                                    <action selector="changeLabel:" destination="BYZ-38-t0r" eventType="touchUpInside" id="HZS-3T-26F"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="x96-Pj-ef2">
+                                <rect key="frame" x="30" y="431" width="354" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W3D-Py-IEy">
+                                <rect key="frame" x="173.5" y="495" width="67" height="31"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                <connections>
+                                    <action selector="expressTF:" destination="BYZ-38-t0r" eventType="touchUpInside" id="DzW-Iv-Qsx"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Iq-LW-liG">
+                                <rect key="frame" x="186" y="556" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="x96-Pj-ef2" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="30" id="0yO-Jc-gDS"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="x96-Pj-ef2" secondAttribute="trailing" constant="30" id="FH5-MU-v6y"/>
+                            <constraint firstItem="x96-Pj-ef2" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="L9e-AM-Y3e"/>
+                            <constraint firstItem="W3D-Py-IEy" firstAttribute="top" secondItem="x96-Pj-ef2" secondAttribute="bottom" constant="30" id="QXR-TS-cFf"/>
+                            <constraint firstItem="0Iq-LW-liG" firstAttribute="top" secondItem="W3D-Py-IEy" secondAttribute="bottom" constant="30" id="aAY-tS-cLy"/>
+                            <constraint firstItem="Lc2-TO-W5S" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="30" id="dQy-i8-NWr"/>
+                            <constraint firstItem="x96-Pj-ef2" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="dks-tg-5jf"/>
+                            <constraint firstItem="j3o-S1-e1e" firstAttribute="top" secondItem="Lc2-TO-W5S" secondAttribute="bottom" constant="50" id="ePR-n6-J78"/>
+                            <constraint firstItem="Lc2-TO-W5S" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="30" id="f1F-oV-j6E"/>
+                            <constraint firstItem="W3D-Py-IEy" firstAttribute="centerX" secondItem="x96-Pj-ef2" secondAttribute="centerX" id="kuy-HQ-JXz"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Lc2-TO-W5S" secondAttribute="trailing" constant="30" id="lCk-l0-2Dk"/>
+                            <constraint firstItem="j3o-S1-e1e" firstAttribute="centerX" secondItem="Lc2-TO-W5S" secondAttribute="centerX" id="spM-NS-6Wh"/>
+                            <constraint firstItem="0Iq-LW-liG" firstAttribute="centerX" secondItem="W3D-Py-IEy" secondAttribute="centerX" id="w8B-71-F1V"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="label" destination="Lc2-TO-W5S" id="GqW-58-nYM"/>
+                        <outlet property="label2" destination="0Iq-LW-liG" id="YUb-Oy-K8e"/>
+                        <outlet property="tf" destination="x96-Pj-ef2" id="M5T-JT-BpN"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1195.6521739130435" y="387.72321428571428"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
