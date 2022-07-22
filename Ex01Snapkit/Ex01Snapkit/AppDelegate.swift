@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  Ex01Snapkit
 //
-//  Created by 도학태 on 2022/07/21.
+//  Created by 도학태 on 2022/07/22.
 //
 
 import UIKit
