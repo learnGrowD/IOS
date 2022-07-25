@@ -33,7 +33,7 @@ class ContentCollectionViewMainCell : UICollectionViewCell {
         //base StackView
         baseStackView.axis = .vertical
         baseStackView.alignment = .center
-        baseStackView.distribution = .fillProportionally
+        baseStackView.distribution = .fill
         baseStackView.spacing = 5
         
         [imageView, descriptionLabel, contentStackView].forEach {
