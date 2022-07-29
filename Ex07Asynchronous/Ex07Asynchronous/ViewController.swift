@@ -11,7 +11,33 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        let _ = DispatchQueue.main
+        let b = DispatchQueue.global()
+    
+        print("DO")
+        b.sync {
+            for _ in 0..<10 {
+                print("B")
+            }
+        }
+        
+        print("KK")
+        b.sync {
+            for _ in 0..<10 {
+                print("A")
+            }
+        }
+        
+        
+        b.async {
+            for _ in 0..<10 {
+                print("C")
+            }
+        }
+        
+        b.asyncAfter(deadline: .now() + 2) {
+            print("DD")
+        }
     }
 
 
