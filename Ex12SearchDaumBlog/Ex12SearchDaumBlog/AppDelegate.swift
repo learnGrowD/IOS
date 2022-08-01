@@ -1,8 +1,8 @@
 //
 //  AppDelegate.swift
-//  Ex12ST
+//  Ex12SearchDaumBlog
 //
-//  Created by 도학태 on 2022/07/31.
+//  Created by 도학태 on 2022/08/01.
 //
 
 import UIKit
