@@ -56,7 +56,7 @@ Observable.of("노랑반", "파랑반")
 
 
 print("-----merge1-----")
-let 강북 = Observable.from(["강북구", "성북구", "동대문구", "종로구"])
+let 강북 = Observable.from(["강북구", "성북구", "동대문구", "종로구", "AA"])
 let 강남 = Observable.from(["강남구", "강동구", "영등포구", "양천궅"])
 
 Observable.of(강북, 강남)
@@ -163,6 +163,8 @@ let 시험결과 = Observable
     .disposed(by: disposBag)
 
 
+
+//triger...
 print("-----withLatestFrom1-----")
 let 발사 = PublishSubject<Void>()
 let 달리기선수 = PublishSubject<String>()

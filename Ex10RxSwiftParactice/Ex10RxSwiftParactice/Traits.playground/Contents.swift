@@ -1,6 +1,9 @@
 import Foundation
 import RxSwift
 
+
+
+//traits란 -> UI처리에 특화된 Observable
 let disPoseBag = DisposeBag()
 
 enum TraitsError : Error {
