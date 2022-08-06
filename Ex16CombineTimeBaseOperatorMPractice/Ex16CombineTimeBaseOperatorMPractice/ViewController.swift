@@ -148,7 +148,154 @@ class ViewController: UIViewController {
         달리기선수.onNext("1")
         달리기선수.onNext("1, 2")
         달리기선수.onNext("1, 2, 3")
-    
+        발사.onNext(Void())
+        
+        
+        
+        let 출발 = PublishSubject<Void>()
+        let F1선수 = PublishSubject<String>()
+
+        F1선수
+            .sample(출발)
+            .subscribe(onNext : {
+                print($0)
+            })
+            .disposed(by: disposeBag)
+
+
+        F1선수.onNext("1")
+        F1선수.onNext("1, 2")
+        F1선수.onNext("1,   2, 3")
+        출발.onNext(Void())
+        F1선수.onNext("1,   2, 3, 4")
+        출발.onNext(Void())
+//        출발.onNext(Void())
+        
+        let aab1 = PublishSubject<String>()
+        let aab2 = PublishSubject<String>()
+        
+        let 선착순 = aab1.amb(aab2) //둘중 먼저 도달한 친구만 출력
+        
+        선착순
+            .subscribe(onNext : {
+                print($0)
+            })
+            .disposed(by: disposeBag)
+        
+        aab2.onNext("안녕하세요")
+        aab1.onNext("Hello")
+        aab2.onNext("RxSwift")
+        aab1.onNext("RxKotilin")
+        aab1.onNext("RxJava")
+        
+        let 학생1 = PublishSubject<String>()
+        let 학생2 = PublishSubject<String>()
+        let 학생3 = PublishSubject<String>()
+        
+        let 손들기 = PublishSubject<Observable<String>>()
+        let 손든사람만말할수있는교실 = 손들기.switchLatest()
+        
+        
+        손든사람만말할수있는교실
+            .subscribe(onNext : {
+                print($0)
+            })
+            .disposed(by: disposeBag)
+        
+        손들기.onNext(학생1)
+
+        학생1.onNext("학생1 : ㅁㅁ")
+        학생2.onNext("학생2 : ㅁㅁㅁㄴㅇ")
+
+
+        손들기.onNext(학생2)
+        학생2.onNext("학생2 : ㅁㅁㅁㄴㅇㅂㅈㅎㄱㄷㅎㄷㄱ")
+        학생1.onNext("학생1 : ㅁㅁㅂㅈㅇㅎㄹㅇㅍㅌㅊㅍㅌㅊㅍ")
+
+        손들기.onNext(학생3)
+        학생2.onNext("학생2 : ㅁㅁㅁㄴㅇㅂㅈㅎㄱㄷㅎㄷㄱㅂㄷㅎㄹㅎㄷㅉㄷㅎ")
+        학생3.onNext("학생3 : ㅁㅁㅂㅈㅇㅎㄹㅇㅍㅌㅊㅍㅌㅊㅍqwdqwdqwdqwqwf")
+
+        손들기.onNext(학생1)
+        학생1.onNext("학생1 : ㅁㅁㅁㄴㅇㅂㅈㅎㄱㄷㅎㄷㄱㅂㄷㅎㄹㅎㄷㅉㄷㅎㅂㅈㅇㅂㅈㅇ")
+        학생2.onNext("학생1 : ㅁㅁㅂㅈㅇㅎㄹㅇㅍㅌㅊㅍㅌㅊㅍqwdqwdqwdqwㅈㄷㄹㅈㄷㄱ혿ㄱㅎqwf")
+        학생3.onNext("학생2 : ㅁㅁㅁㄴㅇㅂㅈㅎㄱㄷㅎㄷㄱㅂㄷㅎㄹㅎㄷㅉㄷㅎ")
+        학생1.onNext("학생1 : ㅁㅁㅂㅈㅇㅎㄹㅇㅍㅌㅊㅍㅌㅊㅍqwdqwdqwdㅈㄷㅎㄹㅎㅈㄷㄱㅎㅈㄷㅎqwqwf")
+            
+        
+        Observable.from((1...10))
+            .reduce(0) {
+                $0 + $1
+            }
+            .subscribe(onNext : {
+                print($0)
+            })
+            .disposed(by: disposeBag)
+        
+        
+        Observable.from((1...10))
+            .scan(0) {
+                $0 + $1
+            }
+            .subscribe(onNext : {
+                print($0)
+            })
+            .disposed(by: disposeBag)
+        
+        
+        print("-----replay-----")
+        let 인사말 = PublishSubject<String>()
+        let 반복하는앵무새 = 인사말.replay(1)
+
+        반복하는앵무새.connect()
+        인사말.onNext("1. Hello")
+        인사말.onNext("2. hi")
+
+        반복하는앵무새
+            .subscribe(onNext : {
+            print($0)
+            })
+            .disposed(by: disposeBag)
+
+        인사말.onNext("3. 안녕하세요")
+        
+        let 닥터스트레인지 = PublishSubject<String>()
+        let 타임스톤 = 닥터스트레인지.replayAll()
+        타임스톤.connect()
+        
+        닥터스트레인지.onNext("1. 도르마무")
+        닥터스트레인지.onNext("2. 거래를 하러왔다")
+        닥터스트레인지.onNext("3. 거래를 하러왔다")
+        
+        
+        타임스톤
+            .subscribe(onNext : {
+                print($0)
+            })
+            .disposed(by: disposeBag)
+        
+//        Observable<Int>
+//            .interval(
+//                .seconds(3),
+//                scheduler: MainScheduler.instance
+//            )
+//            .subscribe(onNext : {
+//                print($0)
+//            })
+//            .disposed(by: disposeBag)
+
+//
+//        Observable<Int>
+//            .timer(
+//                .seconds(5),
+//                period: .seconds(1),
+//                scheduler: MainScheduler.instance
+//            )
+//            .subscribe(onNext : {
+//                print($0)
+//            })
+//            .disposed(by: disposeBag)
+        
     }
 
 }

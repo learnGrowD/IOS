@@ -40,30 +40,30 @@ let 타임스톤 = 닥터스트레인지.replayAll()
     .disposed(by: disposeBag)
 
 
-//print("-----buffer-----")
-//let source = PublishSubject<String>()
-//
-//var count = 0
-//let timer = DispatchSource.makeTimerSource()
-//
-//timer.schedule(deadline: .now() + 2, repeating: .seconds(1))
-//timer.setEventHandler {
-//    count += 1
-//    source.onNext("\(count)")
-//}
-//
-//timer.resume()
-//
-//source
-//    .buffer(
-//        timeSpan: .seconds(2),
-//        count: 2,
-//        scheduler: MainScheduler.instance
-//    )
-//    .subscribe(onNext : {
-//        print($0)
-//    })
-//    .disposed(by: disposeBag)
+print("-----buffer-----")
+let source = PublishSubject<String>()
+
+var count = 0
+let timer = DispatchSource.makeTimerSource()
+
+timer.schedule(deadline: .now() + 2, repeating: .seconds(1))
+timer.setEventHandler {
+    count += 1
+    source.onNext("\(count)")
+}
+
+timer.resume()
+
+source
+    .buffer(
+        timeSpan: .seconds(2),
+        count: 2,
+        scheduler: MainScheduler.instance
+    )
+    .subscribe(onNext : {
+        print($0)
+    })
+    .disposed(by: disposeBag)
 
 
 print("-----window-----")
