@@ -6,11 +6,15 @@
 //
 
 import Foundation
-import Alamofire
-import SwiftUI
+import RxSwift
 
 
-struct ApiService {
+class ApiService {
+    
+    static let instance = ApiService()
+    private init() {
+        
+    }
     
     static let scheme = "https"
     static let riotHost = "ddragon.leagueoflegends.com"
@@ -26,13 +30,27 @@ struct ApiService {
     
     
     
-    func riotChampionList() -> URLComponents {
+    func riotChampionList() -> Single<Result<Data, NetWorkError>> {
         var components = URLComponents()
         components.scheme = ApiService.scheme
         components.host = ApiService.riotHost
         components.path = ApiService.riotPath + "champion.json"
         
-        return components
+        guard let url = components.url else {
+            return .just(.failure(.invalidURL))
+        }
+        
+        let requset = NSMutableURLRequest(url: url)
+        requset.httpMethod = "GET"
+        
+        return URLSession.shared.rx.data(request: requset as URLRequest)
+            .map { data in
+                .success(data)
+            }
+            .catch { _ in
+                .just(.failure(.networkError))
+            }
+            .asSingle()
     }
     
     func riotChampion(champion : String) -> URLComponents {
@@ -48,8 +66,12 @@ struct ApiService {
         var components = URLComponents()
         components.scheme = ApiService.scheme
         components.host = ApiService.opGgHost
-        components.path = ApiService.opGgPath + "meta/champions?hl=ko_KR"
-            
+        components.path = ApiService.opGgPath + "meta/champions"
+        
+        components.queryItems = [
+            URLQueryItem(name: "hl", value: "ko_KR")
+        ]
+        
         return components
     }
     
@@ -64,13 +86,21 @@ struct ApiService {
     }
     
     func championComment(
+        champion : String,
         sort : ChampionComment,
         page : Int,
         listCount : Int) -> URLComponents {
-        var components = URLComponents()
+            var components = URLComponents()
         components.scheme = ApiService.scheme
         components.host = ApiService.opGgHost
-        components.path = ApiService.opGgPath + "champions/olaf/comments?sort=\(sort)&page=\(page)&limit=\(listCount)&is_latest_version=false"
+        components.path = ApiService.opGgPath + "champions/\(champion)/comments"
+            
+        components.queryItems = [
+            URLQueryItem(name: "sort", value: sort.rawValue),
+            URLQueryItem(name: "page", value: "\(page)"),
+            URLQueryItem(name: "limit", value: "\(listCount)"),
+            URLQueryItem(name: "is_latest_version", value: "\(false)"),
+        ]
         
         return components
     }
@@ -81,7 +111,12 @@ struct ApiService {
         var components = URLComponents()
         components.scheme = ApiService.scheme
         components.host = ApiService.opGgHost
-        components.path = ApiService.opGgPath + "rankings/champions/\(champion)?region=kr&limit=\(limit)"
+        components.path = ApiService.opGgPath + "rankings/champions/\(champion)"
+            
+        components.queryItems = [
+            URLQueryItem(name: "region", value: "kr"),
+            URLQueryItem(name: "limit", value: "\(limit)")
+        ]
         
         return components
     }
@@ -90,8 +125,12 @@ struct ApiService {
         var components = URLComponents()
         components.scheme = ApiService.scheme
         components.host = ApiService.yourGgHost
-        components.path = ApiService.youtGgPath + "named-summoners/ranking?lang=ko"
+        components.path = ApiService.youtGgPath + "named-summoners/ranking"
             
+        components.queryItems = [
+            URLQueryItem(name: "lang", value: "ko")
+        ]
+        
         return components
     }
     
@@ -99,7 +138,13 @@ struct ApiService {
         var components = URLComponents()
         components.scheme = ApiService.scheme
         components.host = ApiService.yourGgHost
-        components.path = ApiService.youtGgPath + "profile/\(playerName)?lang=ko&matchCategory=&listMatchCategory="
+        components.path = ApiService.youtGgPath + "profile/\(playerName)"
+        
+        components.queryItems = [
+            URLQueryItem(name: "lang", value: "ko"),
+            URLQueryItem(name: "matchCategory", value: ""),
+            URLQueryItem(name: "listMatchCategory", value: "")
+        ]
             
         return components
     }
@@ -108,8 +153,13 @@ struct ApiService {
         var components = URLComponents()
         components.scheme = ApiService.scheme
         components.host = ApiService.yourGgHost
-        components.path = ApiService.youtGgPath + "search/summoners?lang=ko&q=\(search)"
-            
+        components.path = ApiService.youtGgPath + "search/summoners"
+          
+        components.queryItems = [
+            URLQueryItem(name: "lang", value: "ko"),
+            URLQueryItem(name: "q", value: search)
+        ]
+        
         return components
     }
     
@@ -117,8 +167,12 @@ struct ApiService {
         var components = URLComponents()
         components.scheme = ApiService.scheme
         components.host = ApiService.yourGgHost
-        components.path = ApiService.youtGgPath + "match/\(identity)?lang=ko"
+        components.path = ApiService.youtGgPath + "match/\(identity)"
             
+        components.queryItems = [
+            URLQueryItem(name: "lang", value: "ko")
+        ]
+        
         return components
     }
     
@@ -139,7 +193,16 @@ struct ApiService {
         var components = URLComponents()
         components.scheme = ApiService.scheme
         components.host = ApiService.psHost
-        components.path = "/lol/get_lane_champion_tier_list/?tier=\(tier)&lane=\(lane)&order_by=\(orderby)&region=3&count=\(listCount)"
+        components.path = "/lol/get_lane_champion_tier_list"
+            
+        
+        components.queryItems = [
+            URLQueryItem(name: "tier", value: "\(tier.rawValue)"),
+            URLQueryItem(name: "lane", value: "\(lane.rawValue)"),
+            URLQueryItem(name: "order_by", value: orderby.rawValue),
+            URLQueryItem(name: "region", value: "3"),
+            URLQueryItem(name: "count", value: "\(listCount)")
+        ]
             
         return components
     }
@@ -161,8 +224,8 @@ enum PlayerLane : Int {
 
 
 enum ChampionComment : String {
-    case popular
-    case recent
+    case popular = "popular"
+    case recent = "recent"
 }
 enum RankTier : Int {
     case etc = 1 // 브, 실, 골
