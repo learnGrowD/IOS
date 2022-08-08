@@ -7,211 +7,334 @@
 
 import Foundation
 import RxSwift
+import Alamofire
+import RxAlamofire
 
 
 class ApiService {
-    
     static let instance = ApiService()
-    private init() {
-        
-    }
+    private init() {}
+    private static let scheme = "https://"
+    private static let riotHost = "ddragon.leagueoflegends.com"
+    private static let riotPath = "/cdn/12.14.1/data/ko_KR/"
     
-    static let scheme = "https"
-    static let riotHost = "ddragon.leagueoflegends.com"
-    static let riotPath = "/cdn/12.14.1/data/ko_KR/"
+    private static let opGgHost = "www.op.gg"
+    private static let opGgPath = "/api/"
     
-    static let opGgHost = "www.op.gg"
-    static let opGgPath = "/api/"
+    private static let yourGgHost = "api.your.gg"
+    private static let youtGgPath = "/kr/api/"
     
-    static let yourGgHost = "api.your.gg"
-    static let youtGgPath = "/kr/api/"
-    
-    static let psHost = "lol.ps"
+    private static let psHost = "lol.ps"
     
     
-    
-    func riotChampionList() -> Single<Result<Data, NetWorkError>> {
-        var components = URLComponents()
-        components.scheme = ApiService.scheme
-        components.host = ApiService.riotHost
-        components.path = ApiService.riotPath + "champion.json"
-        
-        guard let url = components.url else {
-            return .just(.failure(.invalidURL))
+    func championDetail(champion : String) -> Single<ChampionDetailApi> {
+        Observable.just(
+            ApiService.scheme
+            + ApiService.riotHost
+            + ApiService.riotPath
+            + "champion/\(champion).json"
+        )
+        .flatMap { url -> Observable<Data> in
+            AF.request(
+                url,
+                method: .get,
+                parameters: nil,
+                encoding: URLEncoding.default,
+                headers: ["Content-Type":"application/json"]
+            ).rx.data()
         }
-        
-        let requset = NSMutableURLRequest(url: url)
-        requset.httpMethod = "GET"
-        
-        return URLSession.shared.rx.data(request: requset as URLRequest)
-            .map { data in
-                .success(data)
-            }
-            .catch { _ in
-                .just(.failure(.networkError))
-            }
-            .asSingle()
+        .map { data -> String in
+            String(decoding: data, as: UTF8.self)
+        }
+        .map { oldJsondStr -> String in
+            oldJsondStr.replacingOccurrences(of: "\"\(champion)\":{", with: "\"champion\":{")
+        }
+        .map { newJsonStr -> Data? in
+            newJsonStr.data(using: .utf8)
+        }
+        .map { newData -> ChampionDetailApi in
+            try JSONDecoder().decode(ChampionDetailApi.self, from: newData ?? Data())
+        }
+        .asSingle()
     }
     
-    func riotChampion(champion : String) -> URLComponents {
-        var components = URLComponents()
-        components.scheme = ApiService.scheme
-        components.host = ApiService.riotHost
-        components.path = ApiService.riotPath + "champion/" + "\(champion).json"
-        
-        return components
+    func championList() -> Single<ChampionListApi> {
+        Observable.just(
+            ApiService.scheme
+            + ApiService.opGgHost
+            + ApiService.opGgPath
+            + "meta/champions"
+        )
+        .flatMap { url -> Observable<Data> in
+            let params = [
+                "hl" : "ko_KR"
+            ]
+            return AF.request(
+                url,
+                method: .get,
+                parameters: params,
+                encoding: URLEncoding.default,
+                headers: ["Content-Type":"application/json"]
+            ).rx.data()
+        }
+        .map { data in
+            try JSONDecoder().decode(ChampionListApi.self, from: data)
+        }
+        .asSingle()
     }
     
-    func championList() -> URLComponents {
-        var components = URLComponents()
-        components.scheme = ApiService.scheme
-        components.host = ApiService.opGgHost
-        components.path = ApiService.opGgPath + "meta/champions"
-        
-        components.queryItems = [
-            URLQueryItem(name: "hl", value: "ko_KR")
-        ]
-        
-        return components
-    }
     
-    
-    func championCmmentCount(champion : String) -> URLComponents {
-        var components = URLComponents()
-        components.scheme = ApiService.scheme
-        components.host = ApiService.opGgHost
-        components.path = ApiService.opGgPath + "champions/\(champion)/comments/count"
-            
-        return components
+    func championCommentCount(champion : String) -> Single<ChampionCommentCountApi> {
+        Observable.just(
+            ApiService.scheme
+            + ApiService.opGgHost
+            + ApiService.opGgPath
+            + "champions/\(champion)/comments/count"
+        )
+        .flatMap { url -> Observable<Data> in
+            AF.request(
+                url,
+                method: .get,
+                parameters: nil,
+                encoding: URLEncoding.default,
+                headers: ["Content-Type":"application/json"]
+            ).rx.data()
+        }
+        .map { data in
+            try JSONDecoder().decode(ChampionCommentCountApi.self, from: data)
+        }
+        .asSingle()
     }
     
     func championComment(
         champion : String,
-        sort : ChampionComment,
-        page : Int,
-        listCount : Int) -> URLComponents {
-            var components = URLComponents()
-        components.scheme = ApiService.scheme
-        components.host = ApiService.opGgHost
-        components.path = ApiService.opGgPath + "champions/\(champion)/comments"
-            
-        components.queryItems = [
-            URLQueryItem(name: "sort", value: sort.rawValue),
-            URLQueryItem(name: "page", value: "\(page)"),
-            URLQueryItem(name: "limit", value: "\(listCount)"),
-            URLQueryItem(name: "is_latest_version", value: "\(false)"),
-        ]
-        
-        return components
+        sort : ChampionComment = .popular,
+        page : Int = 1,
+        listCount : Int = 10) -> Single<ChampionCommentApi> {
+            Observable.just(
+                ApiService.scheme
+                + ApiService.opGgHost
+                + ApiService.opGgPath
+                + "champions/\(champion)/comments"
+            )
+            .flatMap { url -> Observable<Data> in
+                let params = [
+                    "sort" : sort.rawValue,
+                    "page" : "\(page)",
+                    "limit" : "\(listCount)",
+                    "is_latest_version" : "\(false)"
+                ]
+                return AF.request(
+                    url,
+                    method: .get,
+                    parameters: params,
+                    encoding: URLEncoding.default,
+                    headers: ["Content-Type":"application/json"]
+                ).rx.data()
+            }
+            .map { data in
+                try JSONDecoder().decode(ChampionCommentApi.self, from: data)
+            }
+            .asSingle()
     }
     
     func championGoodAtPlayerRank(
         champion : String,
-        limit : Int) -> URLComponents {
-        var components = URLComponents()
-        components.scheme = ApiService.scheme
-        components.host = ApiService.opGgHost
-        components.path = ApiService.opGgPath + "rankings/champions/\(champion)"
+        limit : Int = 5) -> Single<ChampionGoodAtPlayerApi> {
             
-        components.queryItems = [
-            URLQueryItem(name: "region", value: "kr"),
-            URLQueryItem(name: "limit", value: "\(limit)")
-        ]
-        
-        return components
-    }
-    
-    func mmrRank() -> URLComponents {
-        var components = URLComponents()
-        components.scheme = ApiService.scheme
-        components.host = ApiService.yourGgHost
-        components.path = ApiService.youtGgPath + "named-summoners/ranking"
-            
-        components.queryItems = [
-            URLQueryItem(name: "lang", value: "ko")
-        ]
-        
-        return components
-    }
-    
-    func playerDetail(playerName : String) -> URLComponents {
-        var components = URLComponents()
-        components.scheme = ApiService.scheme
-        components.host = ApiService.yourGgHost
-        components.path = ApiService.youtGgPath + "profile/\(playerName)"
-        
-        components.queryItems = [
-            URLQueryItem(name: "lang", value: "ko"),
-            URLQueryItem(name: "matchCategory", value: ""),
-            URLQueryItem(name: "listMatchCategory", value: "")
-        ]
-            
-        return components
-    }
-    
-    func searchPreview(search : String) -> URLComponents {
-        var components = URLComponents()
-        components.scheme = ApiService.scheme
-        components.host = ApiService.yourGgHost
-        components.path = ApiService.youtGgPath + "search/summoners"
-          
-        components.queryItems = [
-            URLQueryItem(name: "lang", value: "ko"),
-            URLQueryItem(name: "q", value: search)
-        ]
-        
-        return components
-    }
-    
-    func matchInfo(identity : Int) -> URLComponents {
-        var components = URLComponents()
-        components.scheme = ApiService.scheme
-        components.host = ApiService.yourGgHost
-        components.path = ApiService.youtGgPath + "match/\(identity)"
-            
-        components.queryItems = [
-            URLQueryItem(name: "lang", value: "ko")
-        ]
-        
-        return components
-    }
-    
-    func championRecommend(identity : Int) -> URLComponents {
-        var components = URLComponents()
-        components.scheme = ApiService.scheme
-        components.host = ApiService.psHost
-        components.path = "/index_champ/"
-            
-        return components
-    }
-    
-    func championTier(
-        tier : RankTier,
-        lane : PlayerLane,
-        orderby : ChampionTierOrderBy,
-        listCount : Int) -> URLComponents {
-        var components = URLComponents()
-        components.scheme = ApiService.scheme
-        components.host = ApiService.psHost
-        components.path = "/lol/get_lane_champion_tier_list"
-            
-        
-        components.queryItems = [
-            URLQueryItem(name: "tier", value: "\(tier.rawValue)"),
-            URLQueryItem(name: "lane", value: "\(lane.rawValue)"),
-            URLQueryItem(name: "order_by", value: orderby.rawValue),
-            URLQueryItem(name: "region", value: "3"),
-            URLQueryItem(name: "count", value: "\(listCount)")
-        ]
-            
-        return components
-    }
-    
-    func championDetail() {
-        
-    }
-    
+            Observable.just(
+                ApiService.scheme
+                + ApiService.opGgHost
+                + ApiService.opGgPath
+                + "rankings/champions/\(champion)"
+            )
+            .flatMap { url -> Observable<Data> in
+                let params = [
+                    "region" : "kr",
+                    "limit" : "\(limit)"
+                ]
+                return AF.request(
+                    url,
+                    method: .get,
+                    parameters: params,
+                    encoding: URLEncoding.default,
+                    headers: ["Content-Type":"application/json"]
+                ).rx.data()
+            }
+            .map { data in
+                try JSONDecoder().decode(ChampionGoodAtPlayerApi.self, from: data)
+            }
+            .asSingle()
 
+    }
+    
+    func selectedPlayerMmrRank() -> Single<PlayerMmrRankApi> {
+        
+        Observable.just(
+            ApiService.scheme
+            + ApiService.yourGgHost
+            + ApiService.youtGgPath
+            + "named-summoners/ranking"
+        )
+        .flatMap { url -> Observable<Data> in
+            let params = [
+                "lang" : "ko",
+            ]
+            return AF.request(
+                url,
+                method: .get,
+                parameters: params,
+                encoding: URLEncoding.default,
+                headers: ["Content-Type":"application/json"]
+            ).rx.data()
+        }
+        .map { data in
+            try JSONDecoder().decode(PlayerMmrRankApi.self, from: data)
+        }
+        .asSingle()
+    }
+    
+    func playerDetail(playerName : String) -> Single<PlayerDetailApi> {
+        Observable.just(
+            ApiService.scheme
+            + ApiService.yourGgHost
+            + ApiService.youtGgPath
+            + "profile/\(playerName)"
+        )
+        .flatMap { url -> Observable<Data> in
+            let params = [
+                "lang" : "ko",
+                "matchCategory" : "SoloRank",
+                "listMatchCategory" : ""
+            ]
+            return AF.request(
+                url,
+                method: .get,
+                parameters: params,
+                encoding: URLEncoding.default,
+                headers: ["Content-Type":"application/json"]
+            ).rx.data()
+        }
+        .map { data in
+            try JSONDecoder().decode(PlayerDetailApi.self, from: data)
+        }
+        .asSingle()
+    }
+    
+    func matchInfo(identity : Int) -> Single<MatchInfoApi> {
+        Observable.just(
+            ApiService.scheme
+            + ApiService.yourGgHost
+            + ApiService.youtGgPath
+            + "match/\(identity)"
+        )
+        .flatMap { url -> Observable<Data> in
+            let params = [
+                "lang" : "ko"
+            ]
+            return AF.request(
+                url,
+                method: .get,
+                parameters: params,
+                encoding: URLEncoding.default,
+                headers: ["Content-Type":"application/json"]
+            ).rx.data()
+        }
+        .map { data in
+            try JSONDecoder().decode(MatchInfoApi.self, from: data)
+        }
+        .asSingle()
+        
+    }
+    
+    func playerSearchPreview(search : String) -> Single<[SearchPreview]> {
+        Observable.just(
+            ApiService.scheme
+            + ApiService.yourGgHost
+            + ApiService.youtGgPath
+            + "search/summoners"
+        )
+        .flatMap { url -> Observable<Data> in
+            let params = [
+                "q" : search
+            ]
+            return AF.request(
+                url,
+                method: .get,
+                parameters: params,
+                encoding: URLEncoding.default,
+                headers: ["Content-Type":"application/json"]
+            ).rx.data()
+        }
+        .map { data in
+            try JSONDecoder().decode([SearchPreview].self, from: data)
+        }
+        .asSingle()
+    }
+    
+    func championRecommend(page : Int = 1) -> Single<ChampionRecommendApi> {
+        Observable.just(
+            ApiService.scheme
+            + ApiService.psHost
+            + "/index_champ"
+            
+        )
+        .flatMap { url -> Observable<Data> in
+            let params = [
+                "page" : "\(page)"
+            ]
+            return AF.request(
+                url,
+                method: .get,
+                parameters: params,
+                encoding: URLEncoding.default,
+                headers: ["Content-Type":"application/json"]
+            ).rx.data()
+        }
+        .map { data in
+            try JSONDecoder().decode(ChampionRecommendApi.self, from: data)
+        }
+        .asSingle()
+    }
+    
+    func championTierList(
+        tier : RankTier = .etc,
+        lane : PlayerLane = .top,
+        orderby : ChampionTierOrderBy = .topScore,
+        listCount : Int = 10) -> Single<ChampionTierListApi> {
+            Observable.just(
+                ApiService.scheme
+                + ApiService.psHost
+                + "/lol/get_lane_champion_tier_list"
+            )
+            .flatMap { url -> Observable<Data> in
+                let params = [
+                    "tier" : "\(tier.rawValue)",
+                    "lane" : "\(lane.rawValue)",
+                    "order_by" : orderby.rawValue,
+                    "region" : "3",
+                    "count" : "\(listCount)"
+                ]
+                return AF.request(
+                    url,
+                    method: .get,
+                    parameters: params,
+                    encoding: URLEncoding.default,
+                    headers: ["Content-Type":"application/json"]
+                ).rx.data()
+            }
+            .map { data in
+                try JSONDecoder().decode(ChampionTierListApi.self, from: data)
+            }
+            .asSingle()
+        }
+
+}
+
+enum NetWorkError : Error {
+    case invalidURL
+    case invalidJSON
+    case networkError
 }
 
 enum PlayerLane : Int {

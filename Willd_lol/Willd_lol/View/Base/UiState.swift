@@ -6,3 +6,10 @@
 //
 
 import Foundation
+
+enum UiState<T> {
+    case success(data : T)
+    case alert(alertMsg : String)
+    case loading
+    case empty
+}

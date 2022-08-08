@@ -17,11 +17,21 @@ struct ChampionCommentApi : Codable {
         let vote : Int?
         let version : String?
         let user : User
-        let created_at : String?
+        let createdAt : String?
         
         struct User : Codable {
-            let level_name : String?
+            let levelName : String?
             let username : String?
+            
+            enum Codingkeys : String, CodingKey {
+                case username
+                case levelName = "level_name"
+            }
+        }
+        
+        enum Codingkeys : String, CodingKey {
+            case id, content, vote, version, user
+            case createdAt = "created_at"
         }
         
     }

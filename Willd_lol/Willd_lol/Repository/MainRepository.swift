@@ -1,8 +1,12 @@
-//
-//  MainRepository.swift
-//  willd_lol
-//
-//  Created by 도학태 on 2022/08/07.
-//
 
 import Foundation
+import RxSwift
+
+class MainRepository : MainRepositoryProtocal {
+    static let instance = MainRepository()
+    private let apiService : ApiService
+    private init() {
+        apiService = ApiService.instance
+    }
+    
+}

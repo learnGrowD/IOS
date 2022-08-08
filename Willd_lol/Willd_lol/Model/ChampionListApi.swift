@@ -16,15 +16,21 @@ struct ChampionListApi : Codable {
         let id : Int?
         let key : String?
         let name : String?
-        let image_url : String?
+        let imageUrl : String?
         let passive : Passive
         let spells : [Spell]
         
         struct Passive : Codable {
             let name : String?
             let description : String?
-            let image_url : String?
-            let video_url : String?
+            let imageUrl : String?
+            let videoUrl : String?
+            
+            enum CodingKeys : String, CodingKey {
+                case name, description
+                case imageUrl = "image_url"
+                case videoUrl = "video_url"
+            }
         }
         
         struct Spell : Codable {
@@ -32,8 +38,19 @@ struct ChampionListApi : Codable {
             let name : String?
             let description : String?
             let tooltip : String?
-            let image_url : String?
-            let video_url : String?
+            let imageUrl : String?
+            let videoUrl : String?
+            
+            enum CodingKeys : String, CodingKey {
+                case key, name, description, tooltip
+                case imageUrl = "image_url"
+                case videoUrl = "video_url"
+            }
+        }
+        
+        enum CodingKeys : String, CodingKey {
+            case id, key, name, passive, spells
+            case imageUrl = "image_url"
         }
     }
 }

@@ -31,10 +31,20 @@ class MainViewController: UIViewController {
     private func bind() {
         
         let blogResult = searchBar.shouldLoadResult
-            .flatMapLatest { query in
+            .flatMap { query in
                 SearchBlogNetwork().searchBlog(query: query)
-            }
-            .share()
+            }.share()
+        
+        
+            
+        
+        
+//            .flatMapLatest { query in
+//                SearchBlogNetwork().searchBlog(query: query)
+//            }
+//            .share()
+        
+        
         
         let blogValue = blogResult
             .compactMap { data -> DKBlog? in

@@ -13,6 +13,7 @@
 		B8644CFD2893F01600D3EF76 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B8644CFB2893F01600D3EF76 /* LaunchScreen.storyboard */; };
 		B8644D062893F06600D3EF76 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = B8644D052893F06600D3EF76 /* Alamofire */; };
 		B8644D082893F0DC00D3EF76 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8644D072893F0DC00D3EF76 /* TestViewController.swift */; };
+		B8B17D4328A0EDE40093AFD1 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = B8B17D4228A0EDE40093AFD1 /* SnapKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B8644D062893F06600D3EF76 /* Alamofire in Frameworks */,
+				B8B17D4328A0EDE40093AFD1 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -84,6 +86,7 @@
 			name = Ex08Alamofire;
 			packageProductDependencies = (
 				B8644D052893F06600D3EF76 /* Alamofire */,
+				B8B17D4228A0EDE40093AFD1 /* SnapKit */,
 			);
 			productName = Ex08Alamofire;
 			productReference = B8644CED2893F01200D3EF76 /* Ex08Alamofire.app */;
@@ -115,6 +118,7 @@
 			mainGroup = B8644CE42893F01200D3EF76;
 			packageReferences = (
 				B8644D042893F06600D3EF76 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				B8B17D4128A0EDE40093AFD1 /* XCRemoteSwiftPackageReference "SnapKit" */,
 			);
 			productRefGroup = B8644CEE2893F01200D3EF76 /* Products */;
 			projectDirPath = "";
@@ -360,6 +364,14 @@
 				minimumVersion = 5.0.0;
 			};
 		};
+		B8B17D4128A0EDE40093AFD1 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit";
+			requirement = {
+				branch = develop;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -367,6 +379,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = B8644D042893F06600D3EF76 /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
+		};
+		B8B17D4228A0EDE40093AFD1 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B8B17D4128A0EDE40093AFD1 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

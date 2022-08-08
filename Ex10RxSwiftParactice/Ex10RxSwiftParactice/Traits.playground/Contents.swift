@@ -56,7 +56,7 @@ let json2 = """
 
 func decode(json : String) -> Single<SomeJson> {
     Single<SomeJson>.create { observer -> Disposable in
-        guard let data = json.data(using: .utf8),
+        guard let data = json.da
               let json = try? JSONDecoder().decode(SomeJson.self, from: data) else {
             observer(.failure(JSONError.decodingError))
             return Disposables.create()

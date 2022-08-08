@@ -1,27 +1,43 @@
 //
-//  RiotChampion.swift
+//  ChampionDetailApi.swift
 //  willd_lol
 //
-//  Created by 도학태 on 2022/08/07.
+//  Created by 도학태 on 2022/08/08.
 //
 
 import Foundation
 
-struct RiotChampionDetailApi : Codable {
-    
+
+struct ChampionDetailApi : Codable {
     let version : String?
-    let data : [Champion]
+    let data : Data
     
     
-    struct Champion : Codable {
-        let skins : [Skin]
-        let lore : String?
+    struct Data : Codable {
+        let champion : Champion
         
-        struct Skin : Codable {
+        struct Champion : Codable {
+            let skins : [Skin]
             let id : String?
-            let num : Int?
+            let key : String?
             let name : String?
-            let chromas : Bool?
+            let title : String?
+            let image : Image
+            
+            struct Skin : Codable {
+                let id : String?
+                let num : Int?
+                let name : String?
+                let chromas : Bool?
+            }
+            
+            struct Image : Codable {
+                let full : String?
+            }
         }
+        
     }
+
 }
+
+

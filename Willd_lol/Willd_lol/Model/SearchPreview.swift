@@ -8,6 +8,9 @@
 import Foundation
 
 
-struct SearchG {
-    
+struct SearchPreview : Codable {
+    let imageUrl : String?
+    let lp : Int?
+    let name : String?
+    let tier : String?
 }
