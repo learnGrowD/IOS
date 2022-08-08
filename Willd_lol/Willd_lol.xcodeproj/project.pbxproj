@@ -156,11 +156,11 @@
 				B88AE9FB289E2B6E000EAD22 /* Assets.xcassets */,
 				B88AE9FD289E2B6E000EAD22 /* LaunchScreen.storyboard */,
 				B88AEA00289E2B6E000EAD22 /* Info.plist */,
-				B86387CE289F696D00331324 /* Utils */,
-				B86387C0289F5CF500331324 /* Model */,
-				B86387BE289F5CDE00331324 /* View */,
 				B88AEA28289E2E5A000EAD22 /* Network */,
 				B86387BC289F55FE00331324 /* Repository */,
+				B86387C0289F5CF500331324 /* Model */,
+				B86387BE289F5CDE00331324 /* View */,
+				B86387CE289F696D00331324 /* Utils */,
 			);
 			path = willd_lol;
 			sourceTree = "<group>";
