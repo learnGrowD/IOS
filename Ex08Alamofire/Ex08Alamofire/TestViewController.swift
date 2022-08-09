@@ -13,15 +13,16 @@ class TestViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        let url = "https://ddragon.leagueoflegends.com/cdn/11.16.1/data/en_US/champion/Talon.json"
+        let url = "https://ddragon.leagueoflegends.com/cdn/11.16.1/data/en_US/champion/Talon.jso"
               AF.request(url,
                          method: .get,
                          parameters: nil,
                          encoding: URLEncoding.default,
                          headers: ["Content-Type":"application/json"])
-              .responseString { [weak self] a in
-                  self?.aas.text = a.value
+              .response {
+                  print($0)
               }
+              
         
         
         view.addSubview(aas)

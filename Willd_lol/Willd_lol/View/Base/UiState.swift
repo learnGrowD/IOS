@@ -8,8 +8,8 @@
 import Foundation
 
 enum UiState<T> {
-    case success(data : T)
-    case alert(alertMsg : String)
+    case success(_ data : T)
+    case invalid(_ msg : String)
     case loading
     case empty
 }

@@ -10,6 +10,10 @@ import RxSwift
 import Alamofire
 import RxAlamofire
 
+enum NetworkError : Error {
+    case networkError
+}
+
 
 class ApiService {
     static let instance = ApiService()
@@ -27,7 +31,7 @@ class ApiService {
     private static let psHost = "lol.ps"
     
     
-    func championDetail(champion : String) -> Single<ChampionDetailApi> {
+    func championDetail(champion : String) -> Single<Result<ChampionDetailApi, NetworkError>> {
         Observable.just(
             ApiService.scheme
             + ApiService.riotHost
@@ -41,7 +45,8 @@ class ApiService {
                 parameters: nil,
                 encoding: URLEncoding.default,
                 headers: ["Content-Type":"application/json"]
-            ).rx.data()
+            )
+            .rx.data()
         }
         .map { data -> String in
             String(decoding: data, as: UTF8.self)
@@ -52,13 +57,17 @@ class ApiService {
         .map { newJsonStr -> Data? in
             newJsonStr.data(using: .utf8)
         }
-        .map { newData -> ChampionDetailApi in
-            try JSONDecoder().decode(ChampionDetailApi.self, from: newData ?? Data())
+        .map { newData in
+            let api = try JSONDecoder().decode(ChampionDetailApi.self, from: newData ?? Data())
+            return .success(api)
+        }
+        .catch { _ in
+            .just(.failure(.networkError))
         }
         .asSingle()
     }
     
-    func championList() -> Single<ChampionListApi> {
+    func championList() -> Single<Result<ChampionListApi, NetworkError>> {
         Observable.just(
             ApiService.scheme
             + ApiService.opGgHost
@@ -75,16 +84,21 @@ class ApiService {
                 parameters: params,
                 encoding: URLEncoding.default,
                 headers: ["Content-Type":"application/json"]
-            ).rx.data()
+            )
+            .rx.data()
         }
         .map { data in
-            try JSONDecoder().decode(ChampionListApi.self, from: data)
+            let api = try JSONDecoder().decode(ChampionListApi.self, from: data)
+            return .success(api)
+        }
+        .catch { _ in
+            .just(.failure(.networkError))
         }
         .asSingle()
     }
     
     
-    func championCommentCount(champion : String) -> Single<ChampionCommentCountApi> {
+    func championCommentCount(champion : String) -> Single<Result<ChampionCommentCountApi, NetworkError>> {
         Observable.just(
             ApiService.scheme
             + ApiService.opGgHost
@@ -98,10 +112,15 @@ class ApiService {
                 parameters: nil,
                 encoding: URLEncoding.default,
                 headers: ["Content-Type":"application/json"]
-            ).rx.data()
+            )
+            .rx.data()
         }
         .map { data in
-            try JSONDecoder().decode(ChampionCommentCountApi.self, from: data)
+            let api = try JSONDecoder().decode(ChampionCommentCountApi.self, from: data)
+            return .success(api)
+        }
+        .catch { _ in
+            .just(.failure(.networkError))
         }
         .asSingle()
     }
@@ -110,7 +129,7 @@ class ApiService {
         champion : String,
         sort : ChampionComment = .popular,
         page : Int = 1,
-        listCount : Int = 10) -> Single<ChampionCommentApi> {
+        listCount : Int = 10) -> Single<Result<ChampionCommentApi, NetworkError>> {
             Observable.just(
                 ApiService.scheme
                 + ApiService.opGgHost
@@ -130,17 +149,22 @@ class ApiService {
                     parameters: params,
                     encoding: URLEncoding.default,
                     headers: ["Content-Type":"application/json"]
-                ).rx.data()
+                )
+                .rx.data()
             }
             .map { data in
-                try JSONDecoder().decode(ChampionCommentApi.self, from: data)
+                let api = try JSONDecoder().decode(ChampionCommentApi.self, from: data)
+                return .success(api)
+            }
+            .catch { _ in
+                .just(.failure(.networkError))
             }
             .asSingle()
     }
     
     func championGoodAtPlayerRank(
         champion : String,
-        limit : Int = 5) -> Single<ChampionGoodAtPlayerApi> {
+        limit : Int = 5) -> Single<Result<ChampionGoodAtPlayerApi, NetworkError>> {
             
             Observable.just(
                 ApiService.scheme
@@ -159,16 +183,21 @@ class ApiService {
                     parameters: params,
                     encoding: URLEncoding.default,
                     headers: ["Content-Type":"application/json"]
-                ).rx.data()
+                )
+                .rx.data()
             }
             .map { data in
-                try JSONDecoder().decode(ChampionGoodAtPlayerApi.self, from: data)
+                let api = try JSONDecoder().decode(ChampionGoodAtPlayerApi.self, from: data)
+                return .success(api)
+            }
+            .catch { _ in
+                return .just(.failure(.networkError))
             }
             .asSingle()
 
     }
     
-    func selectedPlayerMmrRank() -> Single<PlayerMmrRankApi> {
+    func selectedPlayerMmrRank() -> Single<Result<PlayerMmrRankApi, NetworkError>> {
         
         Observable.just(
             ApiService.scheme
@@ -186,15 +215,20 @@ class ApiService {
                 parameters: params,
                 encoding: URLEncoding.default,
                 headers: ["Content-Type":"application/json"]
-            ).rx.data()
+            )
+            .rx.data()
         }
         .map { data in
-            try JSONDecoder().decode(PlayerMmrRankApi.self, from: data)
+            let api = try JSONDecoder().decode(PlayerMmrRankApi.self, from: data)
+            return .success(api)
+        }
+        .catch { _ in
+            return .just(.failure(.networkError))
         }
         .asSingle()
     }
     
-    func playerDetail(playerName : String) -> Single<PlayerDetailApi> {
+    func playerDetail(playerName : String) -> Single<Result<PlayerDetailApi, NetworkError>> {
         Observable.just(
             ApiService.scheme
             + ApiService.yourGgHost
@@ -213,15 +247,20 @@ class ApiService {
                 parameters: params,
                 encoding: URLEncoding.default,
                 headers: ["Content-Type":"application/json"]
-            ).rx.data()
+            )
+            .rx.data()
         }
         .map { data in
-            try JSONDecoder().decode(PlayerDetailApi.self, from: data)
+            let api = try JSONDecoder().decode(PlayerDetailApi.self, from: data)
+            return .success(api)
+        }
+        .catch { _ in
+            return .just(.failure(.networkError))
         }
         .asSingle()
     }
     
-    func matchInfo(identity : Int) -> Single<MatchInfoApi> {
+    func matchInfo(identity : Int) -> Single<Result<MatchInfoApi, NetworkError>> {
         Observable.just(
             ApiService.scheme
             + ApiService.yourGgHost
@@ -238,16 +277,21 @@ class ApiService {
                 parameters: params,
                 encoding: URLEncoding.default,
                 headers: ["Content-Type":"application/json"]
-            ).rx.data()
+            )
+            .rx.data()
         }
         .map { data in
-            try JSONDecoder().decode(MatchInfoApi.self, from: data)
+            let api = try JSONDecoder().decode(MatchInfoApi.self, from: data)
+            return .success(api)
+        }
+        .catch { _ in
+            return .just(.failure(.networkError))
         }
         .asSingle()
         
     }
     
-    func playerSearchPreview(search : String) -> Single<[SearchPreview]> {
+    func playerSearchPreview(search : String) -> Single<Result<[SearchPreview], NetworkError>> {
         Observable.just(
             ApiService.scheme
             + ApiService.yourGgHost
@@ -264,15 +308,20 @@ class ApiService {
                 parameters: params,
                 encoding: URLEncoding.default,
                 headers: ["Content-Type":"application/json"]
-            ).rx.data()
+            )
+            .rx.data()
         }
         .map { data in
-            try JSONDecoder().decode([SearchPreview].self, from: data)
+            let api = try JSONDecoder().decode([SearchPreview].self, from: data)
+            return .success(api)
+        }
+        .catch { _ in
+            return .just(.failure(.networkError))
         }
         .asSingle()
     }
     
-    func championRecommend(page : Int = 1) -> Single<ChampionRecommendApi> {
+    func championRecommend(page : Int = 1) -> Single<Result<ChampionRecommendApi, NetworkError>> {
         Observable.just(
             ApiService.scheme
             + ApiService.psHost
@@ -289,10 +338,15 @@ class ApiService {
                 parameters: params,
                 encoding: URLEncoding.default,
                 headers: ["Content-Type":"application/json"]
-            ).rx.data()
+            )
+            .rx.data()
         }
         .map { data in
-            try JSONDecoder().decode(ChampionRecommendApi.self, from: data)
+            let api = try JSONDecoder().decode(ChampionRecommendApi.self, from: data)
+            return .success(api)
+        }
+        .catch { _ in
+            return .just(.failure(.networkError))
         }
         .asSingle()
     }
@@ -301,7 +355,7 @@ class ApiService {
         tier : RankTier = .etc,
         lane : PlayerLane = .top,
         orderby : ChampionTierOrderBy = .topScore,
-        listCount : Int = 10) -> Single<ChampionTierListApi> {
+        listCount : Int = 10) -> Single<Result<ChampionTierListApi, NetworkError>> {
             Observable.just(
                 ApiService.scheme
                 + ApiService.psHost
@@ -321,20 +375,19 @@ class ApiService {
                     parameters: params,
                     encoding: URLEncoding.default,
                     headers: ["Content-Type":"application/json"]
-                ).rx.data()
+                )
+                .rx.data()
             }
             .map { data in
-                try JSONDecoder().decode(ChampionTierListApi.self, from: data)
+                let api = try JSONDecoder().decode(ChampionTierListApi.self, from: data)
+                return .success(api)
+            }
+            .catch { _ in
+                return .just(.failure(.networkError))
             }
             .asSingle()
         }
 
-}
-
-enum NetWorkError : Error {
-    case invalidURL
-    case invalidJSON
-    case networkError
 }
 
 enum PlayerLane : Int {

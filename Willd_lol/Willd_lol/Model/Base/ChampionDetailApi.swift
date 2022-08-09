@@ -18,6 +18,8 @@ struct ChampionDetailApi : Codable {
         
         struct Champion : Codable {
             let skins : [Skin]
+            let lore : String?
+            let tags : [String]
             let id : String?
             let key : String?
             let name : String?
