@@ -31,7 +31,7 @@ class MainRepository : MainRepositoryProtocal {
                     if api.data.isEmpty {
                         subject.onNext(.empty)
                     } else {
-                        let sorListtData = api.data.sorted(by: {$0.id! < $1.id!})
+                        let sorListtData = api.data.sorted(by: {$0.id! > $1.id!})
                         let substantialData = ChampionListPageData(listData: sorListtData)
                         subject.onNext(.success(substantialData))
                     }

@@ -8,7 +8,7 @@
 import Foundation
 
 
-
+typealias Champion = ChampionListApi.Champion
 struct ChampionListPageData : Codable {
-    let listData : [ChampionListApi.Champion]
+    let listData : [Champion]
 }

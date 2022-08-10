@@ -29,13 +29,20 @@ import Then
 //8. deinit -> ViewController 객체가 메모리에서 해제되면 호출
 
 class MainTabBarController : UITabBarController {
+    
+    
     lazy var homeNc = generateNavController(
         vc: HomViewController(),
         title: "홈",
         image: UIImage(systemName: "house.fill")
     )
+    
+    lazy var championListVc = ChampionListViewController().then {
+        let viewmodel = ChampionListViewModel()
+        $0.bind(viewmodel)
+    }
     lazy var championListNc = generateNavController(
-        vc: ChampionListViewController(),
+        vc: championListVc,
         title: "챔피언",
         image: UIImage(systemName: "list.bullet")
     )
@@ -45,7 +52,10 @@ class MainTabBarController : UITabBarController {
         attribute()
     }
     
-    private func generateNavController(vc : UIViewController, title : String, image : UIImage?) -> UINavigationController {
+    private func generateNavController(
+        vc : UIViewController,
+        title : String,
+        image : UIImage?) -> UINavigationController {
         vc.navigationItem.title = title
         let navController = UINavigationController(rootViewController: vc)
         navController.title = title

@@ -14,7 +14,6 @@
 		B838E03128A24CFA00169486 /* ChampionDetailPageDeta.swift in Sources */ = {isa = PBXBuildFile; fileRef = B838E03028A24CFA00169486 /* ChampionDetailPageDeta.swift */; };
 		B838E03328A24D0F00169486 /* PlayerDetailPageData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B838E03228A24D0F00169486 /* PlayerDetailPageData.swift */; };
 		B838E03528A24D2800169486 /* RankDetailPageData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B838E03428A24D2800169486 /* RankDetailPageData.swift */; };
-		B838E03B28A2638B00169486 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B838E03A28A2638B00169486 /* MainViewModel.swift */; };
 		B838E04028A272DB00169486 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B838E03F28A272DB00169486 /* HomeViewController.swift */; };
 		B838E04228A2730A00169486 /* ChampionListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B838E04128A2730A00169486 /* ChampionListViewController.swift */; };
 		B838E04528A2941600169486 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B838E04428A2941600169486 /* UIColor.swift */; };
@@ -43,6 +42,8 @@
 		B8904A55289F9B8D0051D4E9 /* SearchPreview.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8904A54289F9B8D0051D4E9 /* SearchPreview.swift */; };
 		B8904A59289FCB850051D4E9 /* ChampionRecommendApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8904A58289FCB850051D4E9 /* ChampionRecommendApi.swift */; };
 		B8904A5D289FCFF90051D4E9 /* ChampionTierListApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8904A5C289FCFF90051D4E9 /* ChampionTierListApi.swift */; };
+		B8953E2528A39A3200AAC1E5 /* ChampionListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8953E2428A39A3200AAC1E5 /* ChampionListViewModel.swift */; };
+		B8953E2728A3C3D500AAC1E5 /* ChampionListViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8953E2628A3C3D500AAC1E5 /* ChampionListViewCell.swift */; };
 		B8B17D4528A0F1580093AFD1 /* ChampionDetailApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B17D4428A0F1580093AFD1 /* ChampionDetailApi.swift */; };
 		B8B17D4728A13F530093AFD1 /* ImageUrlConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B17D4628A13F530093AFD1 /* ImageUrlConverter.swift */; };
 /* End PBXBuildFile section */
@@ -55,7 +56,6 @@
 		B838E03028A24CFA00169486 /* ChampionDetailPageDeta.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChampionDetailPageDeta.swift; sourceTree = "<group>"; };
 		B838E03228A24D0F00169486 /* PlayerDetailPageData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerDetailPageData.swift; sourceTree = "<group>"; };
 		B838E03428A24D2800169486 /* RankDetailPageData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankDetailPageData.swift; sourceTree = "<group>"; };
-		B838E03A28A2638B00169486 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		B838E03F28A272DB00169486 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		B838E04128A2730A00169486 /* ChampionListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChampionListViewController.swift; sourceTree = "<group>"; };
 		B838E04428A2941600169486 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
@@ -78,6 +78,8 @@
 		B8904A54289F9B8D0051D4E9 /* SearchPreview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPreview.swift; sourceTree = "<group>"; };
 		B8904A58289FCB850051D4E9 /* ChampionRecommendApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChampionRecommendApi.swift; sourceTree = "<group>"; };
 		B8904A5C289FCFF90051D4E9 /* ChampionTierListApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChampionTierListApi.swift; sourceTree = "<group>"; };
+		B8953E2428A39A3200AAC1E5 /* ChampionListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChampionListViewModel.swift; sourceTree = "<group>"; };
+		B8953E2628A3C3D500AAC1E5 /* ChampionListViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChampionListViewCell.swift; sourceTree = "<group>"; };
 		B8B17D4428A0F1580093AFD1 /* ChampionDetailApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChampionDetailApi.swift; sourceTree = "<group>"; };
 		B8B17D4628A13F530093AFD1 /* ImageUrlConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUrlConverter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -134,7 +136,7 @@
 		B838E03728A2633700169486 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				B838E03A28A2638B00169486 /* MainViewModel.swift */,
+				B8953E2428A39A3200AAC1E5 /* ChampionListViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -142,6 +144,7 @@
 		B838E03928A2635900169486 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
+				B8953E2628A3C3D500AAC1E5 /* ChampionListViewCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -337,11 +340,11 @@
 				B88AEA07289E2B8F000EAD22 /* MainTabBarController.swift in Sources */,
 				B86387C3289F5D1A00331324 /* UiState.swift in Sources */,
 				B838E03328A24D0F00169486 /* PlayerDetailPageData.swift in Sources */,
-				B838E03B28A2638B00169486 /* MainViewModel.swift in Sources */,
 				B8B17D4728A13F530093AFD1 /* ImageUrlConverter.swift in Sources */,
 				B86387D4289F843D00331324 /* PlayerDetailApi.swift in Sources */,
 				B838E02928A24BAE00169486 /* ChampionListPageData.swift in Sources */,
 				B8904A5D289FCFF90051D4E9 /* ChampionTierListApi.swift in Sources */,
+				B8953E2728A3C3D500AAC1E5 /* ChampionListViewCell.swift in Sources */,
 				B86387CD289F679400331324 /* ChampionCommentApi.swift in Sources */,
 				B838E04228A2730A00169486 /* ChampionListViewController.swift in Sources */,
 				B838E04028A272DB00169486 /* HomeViewController.swift in Sources */,
@@ -357,6 +360,7 @@
 				B838E03128A24CFA00169486 /* ChampionDetailPageDeta.swift in Sources */,
 				B838E02D28A24C2400169486 /* DetailRepository.swift in Sources */,
 				B88AE9F5289E2B6B000EAD22 /* SceneDelegate.swift in Sources */,
+				B8953E2528A39A3200AAC1E5 /* ChampionListViewModel.swift in Sources */,
 				B86387CB289F670F00331324 /* ChampionCommentCountApi.swift in Sources */,
 				B838E02728A24B6C00169486 /* HomePageData.swift in Sources */,
 			);
