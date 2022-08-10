@@ -12,7 +12,7 @@ import SnapKit
 import Kingfisher
 
 
-class ChampionListViewCell : UITableViewCell {
+class ChampionListViewCell : UICollectionViewCell {
     
     let imagView = UIImageView().then {
         $0.contentMode = .scaleAspectFit

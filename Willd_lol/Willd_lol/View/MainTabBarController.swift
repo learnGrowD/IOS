@@ -30,26 +30,36 @@ import Then
 
 class MainTabBarController : UITabBarController {
     
-    
-    lazy var homeNc = generateNavController(
-        vc: HomViewController(),
-        title: "홈",
-        image: UIImage(systemName: "house.fill")
-    )
+    lazy var homeVc = HomeViewController().then {
+        let viewmodel = HomeViewModel()
+        $0.bind(viewmodel)
+    }
     
     lazy var championListVc = ChampionListViewController().then {
         let viewmodel = ChampionListViewModel()
         $0.bind(viewmodel)
     }
+    
+    lazy var homeNc = generateNavController(
+        vc: homeVc,
+        title: "홈",
+        image: UIImage(systemName: "house.fill")
+    )
+    
     lazy var championListNc = generateNavController(
         vc: championListVc,
         title: "챔피언",
         image: UIImage(systemName: "list.bullet")
     )
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super .init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         attribute()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     private func generateNavController(
@@ -57,6 +67,7 @@ class MainTabBarController : UITabBarController {
         title : String,
         image : UIImage?) -> UINavigationController {
         vc.navigationItem.title = title
+        vc.view.backgroundColor = .willdBlack
         let navController = UINavigationController(rootViewController: vc)
         navController.title = title
         navController.navigationBar.titleTextAttributes = [.foregroundColor : UIColor.willdWhite ?? .white]

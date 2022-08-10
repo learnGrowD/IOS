@@ -9,41 +9,29 @@ import Foundation
 import UIKit
 
 
-class HomViewController : UIViewController {
+class HomeViewController : UIViewController {
+    
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super .init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        attribute()
+        layout()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = .willdBlack
-//        title = "Home"
+    func bind(_ viewModel : HomeViewModel) {
         
-        print("Home -> ViewDidLoad")
+    }
+    
+    private func attribute() {
         
-    
     }
     
-    
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        print("Home -> viewWillAppear")
+    private func layout() {
+        
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        print("Home -> viewDidAppear")
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        print("Home -> viewWillDisappear")
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        print("Home -> viewDidDisappear")
-    }
-    
-    
     
 }

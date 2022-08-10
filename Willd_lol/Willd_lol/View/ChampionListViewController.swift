@@ -13,11 +13,10 @@ import RxSwift
 
 class ChampionListViewController : UIViewController {
     let disposeBag = DisposeBag()
-    let tableView = UITableView().then {
-        $0.backgroundColor = .willdBlack
-        $0.register(ChampionListViewCell.self, forCellReuseIdentifier: "ChampionListViewCell")
-        $0.rowHeight = 100
+    let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout()).then {
+        $0.register(ChampionListViewCell.self, forCellWithReuseIdentifier: "ChampionListViewCell")
     }
+    
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super .init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -30,10 +29,12 @@ class ChampionListViewController : UIViewController {
     }
     
     func bind(_ viewModel : ChampionListViewModel) {
-        viewModel.shouldPresedentChampionPageData
-            .drive(self.tableView.rx.items) { tv, row, data in
+        viewModel.shouldPresedentChampionList
+            .drive(self.collectionView.rx.items) { cv, row, data in
                 let index = IndexPath(row: row, section: 0)
-                let cell = tv.dequeueReusableCell(withIdentifier: "ChampionListViewCell", for: index) as! ChampionListViewCell
+                guard let cell = cv.dequeueReusableCell(withReuseIdentifier: "ChampionListViewCell", for: index) as? ChampionListViewCell else {
+                    return UICollectionViewCell()
+                }
                 cell.configure(data: data)
                 return cell
             }
@@ -46,51 +47,10 @@ class ChampionListViewController : UIViewController {
     
     
     private func layout() {
-        view.addSubview(tableView)
-        tableView.snp.makeConstraints {
+        view.addSubview(collectionView)
+        collectionView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
     }
-    
-    
-//    override func viewDidLoad() {
-//        super.viewDidLoad()
-//        view.backgroundColor = .willdBlack
-////        title = "챔피언"
-//
-//        print("ChampionList -> viewDidLoad")
-//    }
-//
-//    override func viewWillLayoutSubviews() {
-//        super.viewWillLayoutSubviews()
-//        print("ChampionList -> viewWillLayoutSubviews")
-//    }
-//
-//    override func viewDidLayoutSubviews() {
-//        super.viewDidLayoutSubviews()
-//        print("ChampionList -> viewDidLayoutSubviews")
-//    }
-//
-//
-//    override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(animated)
-//        print("ChampionList -> viewWillAppear")
-//    }
-//
-//    override func viewDidAppear(_ animated: Bool) {
-//        super.viewDidAppear(animated)
-//        print("ChampionList -> viewDidAppear")
-//    }
-//
-//
-//    override func viewWillDisappear(_ animated: Bool) {
-//        super.viewWillDisappear(animated)
-//        print("ChampionList -> viewWillDisappear")
-//    }
-//
-//    override func viewDidDisappear(_ animated: Bool) {
-//        super.viewDidDisappear(animated)
-//        print("ChampionList -> viewDidDisappear")
-//    }
     
 }

@@ -11,7 +11,7 @@ import RxSwift
 
 struct ChampionListViewModel {
     
-    let shouldPresedentChampionPageData : Driver<[Champion]>
+    let shouldPresedentChampionList : Driver<[Champion]>
     
     init(_ repository : MainRepository = MainRepository.instance) {
         let championListPageData = repository.championListPageData()
@@ -19,10 +19,10 @@ struct ChampionListViewModel {
                 guard case .success(let value) = uiState else {
                     return []
                 }
+                print("아니얌")
                 return value.listData
             }
-        
-        self.shouldPresedentChampionPageData = championListPageData
+        self.shouldPresedentChampionList = championListPageData
             .asDriver(onErrorJustReturn: [])
     }
     

@@ -237,6 +237,8 @@ extension HomeViewController {
     }
     
     
+    
+    
     //cell 선택
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let sectionName = contents[indexPath.section].sectionName
