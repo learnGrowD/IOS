@@ -9,14 +9,17 @@ import Foundation
 import UIKit
 import RxSwift
 import RxCocoa
+import Then
 
 extension Reactive where Base : UIViewController {
     var translateChampionDetailScreen : Binder<Champion> {
         return Binder(base) { base, data in
-            let rootViewController = ChampionDetailViewController()
-            rootViewController.champion = data
-            let navicationController = UINavigationController(rootViewController: rootViewController)
-            base.show(navicationController, sender: nil)
+            let detailVc = ChampionDetailViewController().then { cotroller in
+                cotroller.hidesBottomBarWhenPushed = true
+                cotroller.champion = data
+                cotroller.title = data.name
+            }
+            base.show(detailVc, sender: nil)
         }
     }
 }

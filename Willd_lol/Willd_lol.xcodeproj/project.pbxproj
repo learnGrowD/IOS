@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		B82F00A328A521BE0061E09E /* ChampionDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B82F00A228A521BD0061E09E /* ChampionDetailViewController.swift */; };
 		B82F00A728A5268F0061E09E /* RxExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B82F00A628A5268F0061E09E /* RxExtension.swift */; };
+		B82F00A928A5698D0061E09E /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B82F00A828A5698D0061E09E /* MainViewModel.swift */; };
 		B838E02728A24B6C00169486 /* HomePageData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B838E02628A24B6C00169486 /* HomePageData.swift */; };
 		B838E02928A24BAE00169486 /* ChampionListPageData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B838E02828A24BAE00169486 /* ChampionListPageData.swift */; };
 		B838E02D28A24C2400169486 /* DetailRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B838E02C28A24C2400169486 /* DetailRepository.swift */; };
@@ -18,7 +19,7 @@
 		B838E03528A24D2800169486 /* RankDetailPageData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B838E03428A24D2800169486 /* RankDetailPageData.swift */; };
 		B838E04028A272DB00169486 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B838E03F28A272DB00169486 /* HomeViewController.swift */; };
 		B838E04228A2730A00169486 /* ChampionListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B838E04128A2730A00169486 /* ChampionListViewController.swift */; };
-		B838E04528A2941600169486 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = B838E04428A2941600169486 /* UIColor.swift */; };
+		B838E04528A2941600169486 /* BaseExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B838E04428A2941600169486 /* BaseExtension.swift */; };
 		B8638779289F30D100331324 /* RxAlamofire in Frameworks */ = {isa = PBXBuildFile; productRef = B8638778289F30D100331324 /* RxAlamofire */; };
 		B86387BB289F55FA00331324 /* MainRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86387BA289F55FA00331324 /* MainRepository.swift */; };
 		B86387C3289F5D1A00331324 /* UiState.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86387C2289F5D1A00331324 /* UiState.swift */; };
@@ -54,6 +55,7 @@
 /* Begin PBXFileReference section */
 		B82F00A228A521BD0061E09E /* ChampionDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChampionDetailViewController.swift; sourceTree = "<group>"; };
 		B82F00A628A5268F0061E09E /* RxExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxExtension.swift; sourceTree = "<group>"; };
+		B82F00A828A5698D0061E09E /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		B838E02628A24B6C00169486 /* HomePageData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageData.swift; sourceTree = "<group>"; };
 		B838E02828A24BAE00169486 /* ChampionListPageData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChampionListPageData.swift; sourceTree = "<group>"; };
 		B838E02C28A24C2400169486 /* DetailRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailRepository.swift; sourceTree = "<group>"; };
@@ -63,7 +65,7 @@
 		B838E03428A24D2800169486 /* RankDetailPageData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankDetailPageData.swift; sourceTree = "<group>"; };
 		B838E03F28A272DB00169486 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		B838E04128A2730A00169486 /* ChampionListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChampionListViewController.swift; sourceTree = "<group>"; };
-		B838E04428A2941600169486 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
+		B838E04428A2941600169486 /* BaseExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseExtension.swift; sourceTree = "<group>"; };
 		B86387BA289F55FA00331324 /* MainRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainRepository.swift; sourceTree = "<group>"; };
 		B86387C2289F5D1A00331324 /* UiState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UiState.swift; sourceTree = "<group>"; };
 		B86387C6289F5FF800331324 /* ChampionListApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChampionListApi.swift; sourceTree = "<group>"; };
@@ -144,6 +146,7 @@
 			children = (
 				B8953E2428A39A3200AAC1E5 /* ChampionListViewModel.swift */,
 				B8953E2828A3E9EA00AAC1E5 /* HomeViewModel.swift */,
+				B82F00A828A5698D0061E09E /* MainViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -159,7 +162,7 @@
 		B838E04328A2940700169486 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
-				B838E04428A2941600169486 /* UIColor.swift */,
+				B838E04428A2941600169486 /* BaseExtension.swift */,
 				B82F00A628A5268F0061E09E /* RxExtension.swift */,
 			);
 			path = Extension;
@@ -344,7 +347,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B86387D0289F744700331324 /* ChampionGoodAtPlayerApi.swift in Sources */,
-				B838E04528A2941600169486 /* UIColor.swift in Sources */,
+				B838E04528A2941600169486 /* BaseExtension.swift in Sources */,
 				B82F00A328A521BE0061E09E /* ChampionDetailViewController.swift in Sources */,
 				B86387BB289F55FA00331324 /* MainRepository.swift in Sources */,
 				B88AEA07289E2B8F000EAD22 /* MainTabBarController.swift in Sources */,
@@ -375,6 +378,7 @@
 				B8953E2528A39A3200AAC1E5 /* ChampionListViewModel.swift in Sources */,
 				B86387CB289F670F00331324 /* ChampionCommentCountApi.swift in Sources */,
 				B838E02728A24B6C00169486 /* HomePageData.swift in Sources */,
+				B82F00A928A5698D0061E09E /* MainViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

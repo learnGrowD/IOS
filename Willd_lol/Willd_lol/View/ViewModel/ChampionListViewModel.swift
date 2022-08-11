@@ -27,7 +27,6 @@ import RxSwift
 struct ChampionListViewModel {
     
     let shouldPresedentChampionList : Driver<[Champion]>
-    let itemSelected = PublishRelay<Int>()
     
     init(_ repository : MainRepository = MainRepository.instance) {
         let championListPageData = repository.championListPageData()
@@ -35,7 +34,6 @@ struct ChampionListViewModel {
                 guard case .success(let value) = uiState else {
                     return []
                 }
-                print("아니얌")
                 return value.listData
             }
         self.shouldPresedentChampionList = championListPageData

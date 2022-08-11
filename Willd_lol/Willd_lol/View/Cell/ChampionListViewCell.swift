@@ -17,6 +17,10 @@ class ChampionListViewCell : UICollectionViewCell {
     let imagView = UIImageView().then {
         $0.contentMode = .scaleAspectFill
     }
+    let nameLabel = UILabel().then {
+        $0.font = .systemFont(ofSize: 20)
+        $0.textColor = .willdWhite
+    }
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -25,14 +29,24 @@ class ChampionListViewCell : UICollectionViewCell {
     
     func layout() {
         contentView.backgroundColor = .willdBlack
-        contentView.addSubview(imagView)
+        [imagView, nameLabel].forEach {
+            contentView.addSubview($0)
+        }
+        
         imagView.snp.makeConstraints {
             $0.edges.equalToSuperview()
+        
+        }
+        
+        nameLabel.snp.makeConstraints {
+            $0.leading.bottom.equalTo(imagView).inset(12)
         }
     }
     
     func configure(data : ChampionListApi.Champion) {
         imagView.kf.setImage(with: ImageUrlConverter.convertChampionImgUrl(type: .middle, championKey: data.key))
+        nameLabel.text = data.name
+        
     }
     
     

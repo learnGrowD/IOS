@@ -7,6 +7,8 @@
 
 import Foundation
 import UIKit
+import RxCocoa
+import RxSwift
 import Then
 
 //혼자서의 생명주기
@@ -29,15 +31,14 @@ import Then
 //8. deinit -> ViewController 객체가 메모리에서 해제되면 호출
 
 class MainTabBarController : UITabBarController {
-    
+    let disposeBag = DisposeBag()
+    lazy var viewModel = MainViewModel()
     lazy var homeVc = HomeViewController().then {
-        let viewmodel = HomeViewModel()
-        $0.bind(viewmodel)
+        $0.bind(viewModel.homeViewModel)
     }
-    
+
     lazy var championListVc = ChampionListViewController().then {
-        let viewmodel = ChampionListViewModel()
-        $0.bind(viewmodel)
+        $0.bind(viewModel.championListViewModel)
     }
     
     lazy var homeNc = generateNavController(
@@ -52,7 +53,6 @@ class MainTabBarController : UITabBarController {
         image: UIImage(systemName: "list.bullet")
     )
     
-    
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super .init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         attribute()
@@ -60,6 +60,10 @@ class MainTabBarController : UITabBarController {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func bind() {
+        
     }
     
     private func generateNavController(
@@ -77,6 +81,7 @@ class MainTabBarController : UITabBarController {
 
     private func attribute() {
         self.viewControllers = [homeNc, championListNc]
+        self.tabBarController?.tabBar.isHidden = true
         let _ = tabBar.then {
             UITabBar.clearShadow()
             $0.layer.applyShadow(color: .white, alpha: 1, x: 0, y: 0, blur: 1)
@@ -84,27 +89,5 @@ class MainTabBarController : UITabBarController {
             $0.unselectedItemTintColor = .willdWhite
             $0.backgroundColor = .willdBlack
         }
-    }
-}
-extension CALayer {
-    func applyShadow(
-        color: UIColor = .black,
-        alpha: Float = 0.5,
-        x: CGFloat = 0,
-        y: CGFloat = 2,
-        blur: CGFloat = 4
-    ) {
-        shadowColor = color.cgColor
-        shadowOpacity = alpha
-        shadowOffset = CGSize(width: x, height: y)
-        shadowRadius = blur / 2.0
-    }
-}
-
-extension UITabBar {
-    static func clearShadow() {
-        UITabBar.appearance().shadowImage = UIImage()
-        UITabBar.appearance().backgroundImage = UIImage()
-        UITabBar.appearance().backgroundColor = UIColor.white
     }
 }
