@@ -22,7 +22,7 @@ struct ImageUrlConverter {
     private static let passiveImgPath        = ImageUrlConverter.baseUrl + "12.14.1/img/passive/"
     private static let spellImgPath          = ImageUrlConverter.baseUrl + "12.14.1/img/spell/"
     
-    static func convertChampionFullImgUrl(
+    static func convertChampionImgUrl(
         type : ChampionImgType,
         championKey : String?,
         skinIdentity : Int? = nil) -> URL? { // 0은 Default임...

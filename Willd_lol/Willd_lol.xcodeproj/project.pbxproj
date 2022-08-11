@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B82F00A328A521BE0061E09E /* ChampionDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B82F00A228A521BD0061E09E /* ChampionDetailViewController.swift */; };
+		B82F00A728A5268F0061E09E /* RxExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B82F00A628A5268F0061E09E /* RxExtension.swift */; };
 		B838E02728A24B6C00169486 /* HomePageData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B838E02628A24B6C00169486 /* HomePageData.swift */; };
 		B838E02928A24BAE00169486 /* ChampionListPageData.swift in Sources */ = {isa = PBXBuildFile; fileRef = B838E02828A24BAE00169486 /* ChampionListPageData.swift */; };
 		B838E02D28A24C2400169486 /* DetailRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B838E02C28A24C2400169486 /* DetailRepository.swift */; };
@@ -50,6 +52,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B82F00A228A521BD0061E09E /* ChampionDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChampionDetailViewController.swift; sourceTree = "<group>"; };
+		B82F00A628A5268F0061E09E /* RxExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxExtension.swift; sourceTree = "<group>"; };
 		B838E02628A24B6C00169486 /* HomePageData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomePageData.swift; sourceTree = "<group>"; };
 		B838E02828A24BAE00169486 /* ChampionListPageData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChampionListPageData.swift; sourceTree = "<group>"; };
 		B838E02C28A24C2400169486 /* DetailRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailRepository.swift; sourceTree = "<group>"; };
@@ -156,6 +160,7 @@
 			isa = PBXGroup;
 			children = (
 				B838E04428A2941600169486 /* UIColor.swift */,
+				B82F00A628A5268F0061E09E /* RxExtension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -178,6 +183,7 @@
 				B88AEA06289E2B8F000EAD22 /* MainTabBarController.swift */,
 				B838E03F28A272DB00169486 /* HomeViewController.swift */,
 				B838E04128A2730A00169486 /* ChampionListViewController.swift */,
+				B82F00A228A521BD0061E09E /* ChampionDetailViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -339,6 +345,7 @@
 			files = (
 				B86387D0289F744700331324 /* ChampionGoodAtPlayerApi.swift in Sources */,
 				B838E04528A2941600169486 /* UIColor.swift in Sources */,
+				B82F00A328A521BE0061E09E /* ChampionDetailViewController.swift in Sources */,
 				B86387BB289F55FA00331324 /* MainRepository.swift in Sources */,
 				B88AEA07289E2B8F000EAD22 /* MainTabBarController.swift in Sources */,
 				B86387C3289F5D1A00331324 /* UiState.swift in Sources */,
@@ -355,6 +362,7 @@
 				B88AE9F3289E2B6B000EAD22 /* AppDelegate.swift in Sources */,
 				B838E03528A24D2800169486 /* RankDetailPageData.swift in Sources */,
 				B86387D2289F792C00331324 /* PlayerMmrRankApi.swift in Sources */,
+				B82F00A728A5268F0061E09E /* RxExtension.swift in Sources */,
 				B838E02F28A24CC300169486 /* SearchDetailPageData.swift in Sources */,
 				B8904A55289F9B8D0051D4E9 /* SearchPreview.swift in Sources */,
 				B8B17D4528A0F1580093AFD1 /* ChampionDetailApi.swift in Sources */,

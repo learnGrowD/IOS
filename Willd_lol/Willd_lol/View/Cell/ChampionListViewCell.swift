@@ -15,7 +15,7 @@ import Kingfisher
 class ChampionListViewCell : UICollectionViewCell {
     
     let imagView = UIImageView().then {
-        $0.contentMode = .scaleAspectFit
+        $0.contentMode = .scaleAspectFill
     }
     
     override func layoutSubviews() {
@@ -27,13 +27,12 @@ class ChampionListViewCell : UICollectionViewCell {
         contentView.backgroundColor = .willdBlack
         contentView.addSubview(imagView)
         imagView.snp.makeConstraints {
-            $0.width.height.equalTo(80)
-            $0.center.equalToSuperview()
+            $0.edges.equalToSuperview()
         }
     }
     
     func configure(data : ChampionListApi.Champion) {
-        imagView.kf.setImage(with: ImageUrlConverter.convertImgUrl(data.imageUrl))
+        imagView.kf.setImage(with: ImageUrlConverter.convertChampionImgUrl(type: .middle, championKey: data.key))
     }
     
     

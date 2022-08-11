@@ -14,6 +14,7 @@ import RxSwift
 class ChampionListViewController : UIViewController {
     let disposeBag = DisposeBag()
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout()).then {
+        $0.backgroundColor = .willdBlack
         $0.register(ChampionListViewCell.self, forCellWithReuseIdentifier: "ChampionListViewCell")
     }
     
@@ -39,10 +40,29 @@ class ChampionListViewController : UIViewController {
                 return cell
             }
             .disposed(by: disposeBag)
+        
+        collectionView.rx.modelSelected(Champion.self)
+            .bind(to: self.rx.translateChampionDetailScreen)
+            .disposed(by: disposeBag)
+    }
+    
+    private func generateLayout() -> UICollectionViewLayout {
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0), heightDimension: .fractionalHeight(1.0))
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        item.contentInsets = .init(top: 0, leading: 0, bottom: 0, trailing: 0)
+
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalWidth(0.9))
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: 2)
+        group.contentInsets = .init(top: 0, leading: 0, bottom: 0, trailing: 0)
+
+        let section = NSCollectionLayoutSection(group: group)
+        section.contentInsets = .init(top: 24, leading: 0, bottom: 0, trailing: 0)
+        let layout = UICollectionViewCompositionalLayout(section: section)
+        return layout
     }
     
     private func attribute() {
-        
+        collectionView.collectionViewLayout = generateLayout()
     }
     
     
