@@ -31,12 +31,12 @@ class ApiService {
     private static let psHost = "lol.ps"
     
     
-    func championDetail(champion : String) -> Single<Result<ChampionDetailApi, NetworkError>> {
+    func championDetail(champion : String?) -> Single<Result<ChampionDetailApi, NetworkError>> {
         Observable.just(
             ApiService.scheme
             + ApiService.riotHost
             + ApiService.riotPath
-            + "champion/\(champion).json"
+            + "champion/\(champion ?? "").json"
         )
         .flatMap { url -> Observable<Data> in
             AF.request(
@@ -52,7 +52,7 @@ class ApiService {
             String(decoding: data, as: UTF8.self)
         }
         .map { oldJsondStr -> String in
-            oldJsondStr.replacingOccurrences(of: "\"\(champion)\":{", with: "\"champion\":{")
+            oldJsondStr.replacingOccurrences(of: "\"\(champion ?? "")\":{", with: "\"champion\":{")
         }
         .map { newJsonStr -> Data? in
             newJsonStr.data(using: .utf8)
@@ -98,12 +98,12 @@ class ApiService {
     }
     
     
-    func championCommentCount(champion : String) -> Single<Result<ChampionCommentCountApi, NetworkError>> {
+    func championCommentCount(champion : String?) -> Single<Result<ChampionCommentCountApi, NetworkError>> {
         Observable.just(
             ApiService.scheme
             + ApiService.opGgHost
             + ApiService.opGgPath
-            + "champions/\(champion)/comments/count"
+            + "champions/\(champion ?? "")/comments/count"
         )
         .flatMap { url -> Observable<Data> in
             AF.request(
@@ -126,7 +126,7 @@ class ApiService {
     }
     
     func championComment(
-        champion : String,
+        champion : String?,
         sort : ChampionComment = .popular,
         page : Int = 1,
         listCount : Int = 10) -> Single<Result<ChampionCommentApi, NetworkError>> {
@@ -134,7 +134,7 @@ class ApiService {
                 ApiService.scheme
                 + ApiService.opGgHost
                 + ApiService.opGgPath
-                + "champions/\(champion)/comments"
+                + "champions/\(champion ?? "")/comments"
             )
             .flatMap { url -> Observable<Data> in
                 let params = [
@@ -163,14 +163,14 @@ class ApiService {
     }
     
     func championGoodAtPlayerRank(
-        champion : String,
+        champion : String?,
         limit : Int = 5) -> Single<Result<ChampionGoodAtPlayerApi, NetworkError>> {
             
             Observable.just(
                 ApiService.scheme
                 + ApiService.opGgHost
                 + ApiService.opGgPath
-                + "rankings/champions/\(champion)"
+                + "rankings/champions/\(champion ?? "")"
             )
             .flatMap { url -> Observable<Data> in
                 let params = [
@@ -228,12 +228,12 @@ class ApiService {
         .asSingle()
     }
     
-    func playerDetail(playerName : String) -> Single<Result<PlayerDetailApi, NetworkError>> {
+    func playerDetail(playerName : String?) -> Single<Result<PlayerDetailApi, NetworkError>> {
         Observable.just(
             ApiService.scheme
             + ApiService.yourGgHost
             + ApiService.youtGgPath
-            + "profile/\(playerName)"
+            + "profile/\(playerName ?? "")"
         )
         .flatMap { url -> Observable<Data> in
             let params = [

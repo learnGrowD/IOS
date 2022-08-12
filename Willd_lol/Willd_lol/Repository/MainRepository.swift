@@ -3,10 +3,11 @@ import Foundation
 import RxSwift
 
 
+typealias Champion = ChampionListApi.Champion
 protocol MainRepositoryProtocal {
     
 //    func homePageData() -> PublishSubject<UiState<HomePageData>>
-    func championListPageData() -> BehaviorSubject<UiState<ChampionListPageData>>
+    func championListPageData() -> BehaviorSubject<UiState<[Champion]>>
 }
 
 class MainRepository : MainRepositoryProtocal {
@@ -22,8 +23,8 @@ class MainRepository : MainRepositoryProtocal {
 //        <#code#>
 //    }
     
-    func championListPageData() -> BehaviorSubject<UiState<ChampionListPageData>> {
-        let subject = BehaviorSubject<UiState<ChampionListPageData>>(value: UiState.loading)
+    func championListPageData() -> BehaviorSubject<UiState<[Champion]>> {
+        let subject = BehaviorSubject<UiState<[Champion]>>(value: UiState.loading)
         apiService.championList()
             .subscribe(onSuccess : { result in
                 switch result {
@@ -32,8 +33,7 @@ class MainRepository : MainRepositoryProtocal {
                         subject.onNext(.empty)
                     } else {
                         let sorListtData = api.data.sorted(by: {$0.id! > $1.id!})
-                        let substantialData = ChampionListPageData(listData: sorListtData)
-                        subject.onNext(.success(substantialData))
+                        subject.onNext(.success(sorListtData))
                     }
                 case .failure(let error):
                     subject.onNext(.invalid(error.localizedDescription))

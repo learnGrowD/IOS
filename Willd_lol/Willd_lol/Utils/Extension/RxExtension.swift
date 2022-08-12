@@ -15,8 +15,10 @@ extension Reactive where Base : UIViewController {
     var translateChampionDetailScreen : Binder<Champion> {
         return Binder(base) { base, data in
             let detailVc = ChampionDetailViewController().then { cotroller in
+                let viewModel = ChampionDetailViewModel(champion: Observable.just(data))
                 cotroller.hidesBottomBarWhenPushed = true
-                cotroller.champion = data
+                cotroller.bind(viewModel)
+                cotroller.view.backgroundColor = .willdBlack
                 cotroller.title = data.name
             }
             base.show(detailVc, sender: nil)

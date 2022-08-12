@@ -15,17 +15,17 @@ enum ChampionImgType {
 }
 
 struct ImageUrlConverter {
-    private static let baseUrl = "https://ddragon.leagueoflegends.com/cdn/"
-    private static let championFullImgPath   = ImageUrlConverter.baseUrl + "img/champion/splash/"
-    private static let championMiddleImgPath = ImageUrlConverter.baseUrl + "img/champion/loading/"
-    private static let championSmallImgPath  = ImageUrlConverter.baseUrl + "12.14.1/img/champion/"
-    private static let passiveImgPath        = ImageUrlConverter.baseUrl + "12.14.1/img/passive/"
-    private static let spellImgPath          = ImageUrlConverter.baseUrl + "12.14.1/img/spell/"
+    private static let baseUrl = "https://ddragon.leagueoflegends.com"
+    private static let championFullImgPath   = ImageUrlConverter.baseUrl + "/cdn/img/champion/splash/"
+    private static let championMiddleImgPath = ImageUrlConverter.baseUrl + "/cdn/img/champion/loading/"
+    private static let championSmallImgPath  = ImageUrlConverter.baseUrl + "/cdn/12.14.1/img/champion/"
+    private static let passiveImgPath        = ImageUrlConverter.baseUrl + "/cdn/12.14.1/img/passive/"
+    private static let spellImgPath          = ImageUrlConverter.baseUrl + "/cdn/12.14.1/img/spell/"
     
     static func convertChampionImgUrl(
         type : ChampionImgType,
         championKey : String?,
-        skinIdentity : Int? = nil) -> URL? { // 0은 Default임...
+        skinIdentity : Int? = nil) -> URL? { // 0은 Default Champion Image...
             switch type {
             case .full:
                 return URL(string: championFullImgPath + "\(championKey ?? "")_\(skinIdentity ?? 0).jpg")

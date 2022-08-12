@@ -34,7 +34,7 @@ struct ChampionListViewModel {
                 guard case .success(let value) = uiState else {
                     return []
                 }
-                return value.listData
+                return value
             }
         self.shouldPresedentChampionList = championListPageData
             .asDriver(onErrorJustReturn: [])
