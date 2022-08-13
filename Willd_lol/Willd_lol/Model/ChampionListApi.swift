@@ -16,6 +16,7 @@ struct ChampionListApi : Codable {
         let id : Int?
         let key : String?
         let name : String?
+        let title : String?
         let imageUrl : String?
         let passive : Skill
         let spells : [Skill]
@@ -37,7 +38,7 @@ struct ChampionListApi : Codable {
         }
         
         enum CodingKeys : String, CodingKey {
-            case id, key, name, passive, spells
+            case id, key, name, passive, spells, title
             case imageUrl = "image_url"
         }
     }

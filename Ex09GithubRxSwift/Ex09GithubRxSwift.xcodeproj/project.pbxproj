@@ -19,6 +19,7 @@
 		B89B97922897AC5600A5CB1F /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = B89B97912897AC5600A5CB1F /* Then */; };
 		B89B97952897AC7500A5CB1F /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = B89B97942897AC7500A5CB1F /* Kingfisher */; };
 		B89B97972897B09B00A5CB1F /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89B97962897B09B00A5CB1F /* Repository.swift */; };
+		B8E572DD28A6AFC400B10120 /* MyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8E572DC28A6AFC400B10120 /* MyViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +32,7 @@
 		B89B97892897AB8700A5CB1F /* RepositoryListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryListViewController.swift; sourceTree = "<group>"; };
 		B89B978B2897ABFA00A5CB1F /* RepositoryListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryListCell.swift; sourceTree = "<group>"; };
 		B89B97962897B09B00A5CB1F /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
+		B8E572DC28A6AFC400B10120 /* MyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +78,7 @@
 				B89B97892897AB8700A5CB1F /* RepositoryListViewController.swift */,
 				B89B978B2897ABFA00A5CB1F /* RepositoryListCell.swift */,
 				B89B97962897B09B00A5CB1F /* Repository.swift */,
+				B8E572DC28A6AFC400B10120 /* MyViewController.swift */,
 			);
 			path = Ex09GithubRxSwift;
 			sourceTree = "<group>";
@@ -167,6 +170,7 @@
 				B8644D182893F4BB00D3EF76 /* SceneDelegate.swift in Sources */,
 				B89B97972897B09B00A5CB1F /* Repository.swift in Sources */,
 				B89B978A2897AB8700A5CB1F /* RepositoryListViewController.swift in Sources */,
+				B8E572DD28A6AFC400B10120 /* MyViewController.swift in Sources */,
 				B89B978C2897ABFA00A5CB1F /* RepositoryListCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

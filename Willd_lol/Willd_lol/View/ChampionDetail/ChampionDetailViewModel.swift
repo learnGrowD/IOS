@@ -14,21 +14,22 @@ import Then
 
 struct ChampionDetailViewModel {
     let disposeBag = DisposeBag()
-    let shouldPresentProgress : Driver<Bool>
-//    let shouldPresentDetailData : Driver<[ChampionDetailPageSectionType]>
+    let skinViewModel = SkinsViewModel()
+    let shouldPresentDetailData : Driver<[[ChampionSkinInfo]]>
     
     init(
         champion : Observable<Champion>,
         _ detailRepository : DetailRepository = DetailRepository.instance) {
             
-            self.shouldPresentProgress = detailRepository.championDetailData(champion: champion)
-                .map { uiState -> Bool in
-                    switch uiState {
-                    case .loading:
-                        return false
-                    default:
-                        return true
-                    }
+            let aaa = detailRepository.getSkins(champion: champion)
+            
+            aaa
+                .bind(to : skinViewModel.skinValue)
+                .disposed(by: disposeBag)
+            
+            shouldPresentDetailData =  aaa
+                .map {
+                    [$0]
                 }
                 .asDriver(onErrorDriveWith: .empty())
             

@@ -13,6 +13,7 @@ import RxSwift
 
 class ChampionListViewController : UIViewController {
     let disposeBag = DisposeBag()
+
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout()).then {
         $0.backgroundColor = .willdBlack
         $0.register(ChampionListViewCell.self, forCellWithReuseIdentifier: "ChampionListViewCell")
@@ -66,6 +67,7 @@ class ChampionListViewController : UIViewController {
     
     private func attribute() {
         collectionView.collectionViewLayout = generateLayout()
+        
     }
     
     

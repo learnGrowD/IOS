@@ -14,12 +14,12 @@ import RxCocoa
 
 class ChampionDetailViewController : UIViewController {
     let disposeBag = DisposeBag()
-    
-    
-    let progressBar = UIActivityIndicatorView(style: .medium).then {
-        $0.hidesWhenStopped = true
-        $0.startAnimating()
+    let tableView = UITableView().then {
+        $0.backgroundColor = .willdBlack
+        $0.rowHeight = 100
+        $0.register(SkinsTableViewHeader.self, forCellReuseIdentifier: "SkinCollectionViewCell")
     }
+    
 
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -32,21 +32,31 @@ class ChampionDetailViewController : UIViewController {
     }
     
     func bind(_ viewModel : ChampionDetailViewModel) {
-        viewModel.shouldPresentProgress
-            .drive(progressBar.rx.isHidden)
+        viewModel.shouldPresentDetailData
+            .drive(tableView.rx.items) { tv, row, data in
+                switch row {
+                case 0:
+                    let index = IndexPath(row: row, section: 0)
+                    let cell = tv.dequeueReusableCell(withIdentifier: "SkinCollectionViewCell", for: index) as! SkinsTableViewHeader
+                    cell.bind(viewModel.skinViewModel)
+                    return cell
+                default:
+                    return UITableViewCell()
+                }
+            }
             .disposed(by: disposeBag)
+        
     }
     
     func attribute() {
         
-        
     }
     
     func layout() {
-        [progressBar].forEach {
+        [tableView].forEach {
             view.addSubview($0)
         }
-        progressBar.snp.makeConstraints {
+        tableView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
     }

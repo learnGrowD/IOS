@@ -83,7 +83,6 @@ class RepositoryListViewController: UITableViewController {
                 }
             })
             .disposed(by: disposeBag)
-            
           
     }
 }
