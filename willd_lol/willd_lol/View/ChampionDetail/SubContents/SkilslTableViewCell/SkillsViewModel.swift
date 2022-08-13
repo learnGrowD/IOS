@@ -11,5 +11,10 @@ import RxSwift
 
 
 struct SkillsViewModel {
-    
+    let skills : Driver<[ChampionListApi.Champion.Skill]>
+    init(champion : Observable<Champion>,
+         _ detailRepository : DetailRepository = DetailRepository.instance) {
+        skills = detailRepository.getSkills(champion: champion)
+            .asDriver(onErrorDriveWith: .empty())
+    }
 }

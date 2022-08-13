@@ -11,6 +11,13 @@ import RxSwift
 
 
 struct LankViewModel {
+    let lank : Driver<[ChampionGoodAtPlayerApi.Player]>
     
+    init(champion : Observable<Champion>,
+         _ detailRepository : DetailRepository = DetailRepository.instance) {
+        lank = detailRepository.getPlayerLank(champion: champion)
+            .asDriver(onErrorDriveWith: .empty())
+        
+    }
 }
 

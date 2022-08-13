@@ -16,7 +16,7 @@ import Kingfisher
 
 class SkinCell : UICollectionViewCell {
     let imageView = UIImageView().then {
-        $0.contentMode = .scaleToFill
+        $0.contentMode = .scaleAspectFit
     }
     override init(frame: CGRect) {
         super.init(frame: frame)

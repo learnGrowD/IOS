@@ -28,7 +28,7 @@ class LankTableViewCell : UITableViewCell {
      }
      
      
-     func bind(_ viewModel : LoreViewModel) {
+     func bind(_ viewModel : LankViewModel) {
          
      }
      

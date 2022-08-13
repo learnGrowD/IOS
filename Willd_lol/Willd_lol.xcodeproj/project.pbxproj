@@ -10,7 +10,6 @@
 		B82F00A328A521BE0061E09E /* ChampionDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B82F00A228A521BD0061E09E /* ChampionDetailViewController.swift */; };
 		B82F00A728A5268F0061E09E /* RxExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B82F00A628A5268F0061E09E /* RxExtension.swift */; };
 		B82F00A928A5698D0061E09E /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B82F00A828A5698D0061E09E /* MainViewModel.swift */; };
-		B82F00AC28A577B20061E09E /* RxDataSources in Frameworks */ = {isa = PBXBuildFile; productRef = B82F00AB28A577B20061E09E /* RxDataSources */; };
 		B82F00B228A64D060061E09E /* ChampionDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B82F00B128A64D060061E09E /* ChampionDetailViewModel.swift */; };
 		B838E02D28A24C2400169486 /* DetailRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B838E02C28A24C2400169486 /* DetailRepository.swift */; };
 		B838E04028A272DB00169486 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B838E03F28A272DB00169486 /* HomeViewController.swift */; };
@@ -46,7 +45,7 @@
 		B8953E2928A3E9EA00AAC1E5 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8953E2828A3E9EA00AAC1E5 /* HomeViewModel.swift */; };
 		B8B17D4528A0F1580093AFD1 /* ChampionDetailApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B17D4428A0F1580093AFD1 /* ChampionDetailApi.swift */; };
 		B8B17D4728A13F530093AFD1 /* ImageUrlConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B17D4628A13F530093AFD1 /* ImageUrlConverter.swift */; };
-		B8D0674328A797660081E831 /* SkinsTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D0674228A797660081E831 /* SkinsTableViewHeader.swift */; };
+		B8D0674328A797660081E831 /* SkinsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D0674228A797660081E831 /* SkinsTableViewCell.swift */; };
 		B8D0674528A7977B0081E831 /* SkinsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D0674428A7977B0081E831 /* SkinsViewModel.swift */; };
 		B8D0674728A799410081E831 /* TagsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D0674628A799410081E831 /* TagsTableViewCell.swift */; };
 		B8D0674928A799880081E831 /* TagsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D0674828A799880081E831 /* TagsViewModel.swift */; };
@@ -94,7 +93,7 @@
 		B8953E2828A3E9EA00AAC1E5 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		B8B17D4428A0F1580093AFD1 /* ChampionDetailApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChampionDetailApi.swift; sourceTree = "<group>"; };
 		B8B17D4628A13F530093AFD1 /* ImageUrlConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUrlConverter.swift; sourceTree = "<group>"; };
-		B8D0674228A797660081E831 /* SkinsTableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkinsTableViewHeader.swift; sourceTree = "<group>"; };
+		B8D0674228A797660081E831 /* SkinsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkinsTableViewCell.swift; sourceTree = "<group>"; };
 		B8D0674428A7977B0081E831 /* SkinsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkinsViewModel.swift; sourceTree = "<group>"; };
 		B8D0674628A799410081E831 /* TagsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsTableViewCell.swift; sourceTree = "<group>"; };
 		B8D0674828A799880081E831 /* TagsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsViewModel.swift; sourceTree = "<group>"; };
@@ -120,7 +119,6 @@
 				B88AEA1C289E2C92000EAD22 /* Alamofire in Frameworks */,
 				B88AEA17289E2C6C000EAD22 /* RxRelay in Frameworks */,
 				B8638779289F30D100331324 /* RxAlamofire in Frameworks */,
-				B82F00AC28A577B20061E09E /* RxDataSources in Frameworks */,
 				B88AEA15289E2C6C000EAD22 /* RxCocoa in Frameworks */,
 				B88AEA1F289E2CB8000EAD22 /* SnapKit in Frameworks */,
 			);
@@ -275,7 +273,7 @@
 		B8D0673928A795500081E831 /* SubContents */ = {
 			isa = PBXGroup;
 			children = (
-				B8D0673C28A796B60081E831 /* SkinTableViewHeader */,
+				B8D0673C28A796B60081E831 /* SkinTableViewCell */,
 				B8D0673D28A796D80081E831 /* TagsTableViewCell */,
 				B8D0673E28A796F60081E831 /* SkilslTableViewCell */,
 				B8D0673F28A797010081E831 /* LoreTableViewCell */,
@@ -285,14 +283,14 @@
 			path = SubContents;
 			sourceTree = "<group>";
 		};
-		B8D0673C28A796B60081E831 /* SkinTableViewHeader */ = {
+		B8D0673C28A796B60081E831 /* SkinTableViewCell */ = {
 			isa = PBXGroup;
 			children = (
-				B8D0674228A797660081E831 /* SkinsTableViewHeader.swift */,
+				B8D0674228A797660081E831 /* SkinsTableViewCell.swift */,
 				B8D0674428A7977B0081E831 /* SkinsViewModel.swift */,
 				B8D0675A28A7A5520081E831 /* SkinCell.swift */,
 			);
-			path = SkinTableViewHeader;
+			path = SkinTableViewCell;
 			sourceTree = "<group>";
 		};
 		B8D0673D28A796D80081E831 /* TagsTableViewCell */ = {
@@ -365,7 +363,6 @@
 				B88AEA21289E2CDA000EAD22 /* Then */,
 				B88AEA24289E2CFE000EAD22 /* Kingfisher */,
 				B8638778289F30D100331324 /* RxAlamofire */,
-				B82F00AB28A577B20061E09E /* RxDataSources */,
 			);
 			productName = willd_lol;
 			productReference = B88AE9EF289E2B6B000EAD22 /* willd_lol.app */;
@@ -402,7 +399,6 @@
 				B88AEA20289E2CDA000EAD22 /* XCRemoteSwiftPackageReference "Then" */,
 				B88AEA23289E2CFE000EAD22 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				B8638777289F30D100331324 /* XCRemoteSwiftPackageReference "RxAlamofire" */,
-				B82F00AA28A577B20061E09E /* XCRemoteSwiftPackageReference "RxDataSources" */,
 			);
 			productRefGroup = B88AE9F0289E2B6B000EAD22 /* Products */;
 			projectDirPath = "";
@@ -440,7 +436,7 @@
 				B88AEA07289E2B8F000EAD22 /* MainTabBarController.swift in Sources */,
 				B8D0675928A79ACC0081E831 /* CommentViewModel.swift in Sources */,
 				B86387C3289F5D1A00331324 /* UiState.swift in Sources */,
-				B8D0674328A797660081E831 /* SkinsTableViewHeader.swift in Sources */,
+				B8D0674328A797660081E831 /* SkinsTableViewCell.swift in Sources */,
 				B82F00B228A64D060061E09E /* ChampionDetailViewModel.swift in Sources */,
 				B8D0674928A799880081E831 /* TagsViewModel.swift in Sources */,
 				B8B17D4728A13F530093AFD1 /* ImageUrlConverter.swift in Sources */,
@@ -678,14 +674,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		B82F00AA28A577B20061E09E /* XCRemoteSwiftPackageReference "RxDataSources" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/RxSwiftCommunity/RxDataSources";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.0.0;
-			};
-		};
 		B8638777289F30D100331324 /* XCRemoteSwiftPackageReference "RxAlamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/RxSwiftCommunity/RxAlamofire";
@@ -737,11 +725,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		B82F00AB28A577B20061E09E /* RxDataSources */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = B82F00AA28A577B20061E09E /* XCRemoteSwiftPackageReference "RxDataSources" */;
-			productName = RxDataSources;
-		};
 		B8638778289F30D100331324 /* RxAlamofire */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = B8638777289F30D100331324 /* XCRemoteSwiftPackageReference "RxAlamofire" */;

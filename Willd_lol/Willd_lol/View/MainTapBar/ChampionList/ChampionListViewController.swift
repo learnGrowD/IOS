@@ -45,9 +45,6 @@ class ChampionListViewController : UIViewController {
         collectionView.rx.modelSelected(Champion.self)
             .bind(to: self.rx.translateChampionDetailScreen)
             .disposed(by: disposeBag)
-        
-        
-        
     }
     
     private func generateLayout() -> UICollectionViewLayout {

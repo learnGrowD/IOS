@@ -11,5 +11,12 @@ import RxSwift
 
 
 struct LoreViewModel {
+    let lore : Driver<String>
     
+    init(champion : Observable<Champion>,
+         _ detailRepository : DetailRepository = DetailRepository.instance) {
+        
+        lore = detailRepository.getLore(champion: champion)
+            .asDriver(onErrorDriveWith: .empty())
+    }
 }

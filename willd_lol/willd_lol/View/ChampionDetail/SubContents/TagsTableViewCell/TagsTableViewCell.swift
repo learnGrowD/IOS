@@ -15,10 +15,13 @@ import SnapKit
 
 class TagsTableViewCell : UITableViewCell {
     let disposeBag = DisposeBag()
-     
+    let stackView = UIStackView().then {
+        $0.alignment = .leading
+        $0.axis = .horizontal
+        $0.spacing = 12
+    }
      override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
          super .init(style: style, reuseIdentifier: reuseIdentifier)
-         
          attribute()
          layout()
      }
@@ -29,14 +32,33 @@ class TagsTableViewCell : UITableViewCell {
      
      
      func bind(_ viewModel : TagsViewModel) {
-         
+         viewModel.tags
+             .drive(onNext : { [weak self] in
+                 let label = $0.map { tag in
+                     UILabel().then { label in
+                         label.text = tag
+                         label.textColor = .willdWhite
+                         label.font = .systemFont(ofSize: 12)
+                     }
+                 }
+                 label.forEach {
+                     self?.stackView.addArrangedSubview($0)
+                 }
+             })
+             .disposed(by: disposeBag)
      }
      
      private func attribute() {
-         
+         contentView.backgroundColor = .willdBlack
      }
      
      private func layout() {
-         
+         [stackView].forEach {
+             contentView.addSubview($0)
+         }
+         stackView.snp.makeConstraints {
+             $0.leading.top.equalToSuperview()
+            
+         }
      }
 }

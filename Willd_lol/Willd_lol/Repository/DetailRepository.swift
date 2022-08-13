@@ -16,13 +16,13 @@ struct ChampionSkinInfo : Codable {
 
 
 typealias ChampionUserComment = (comment : [ChampionCommentApi.Comment], commentCount : Int)
-enum ChampionDetailPageSectionType {
-    case skins(_ headerTitle : String, _ data : [ChampionSkinInfo])
-    case tags(_ headerTitle : String, _ data : [String])
-    case skills(_ headerTitle : String, _ data : [ChampionListApi.Champion.Skill])
-    case lore(_ headerTitle : String, _ data : String)
-    case playerLank(_ headerTitle : String, _ data : [ChampionGoodAtPlayerApi.Player])
-    case championComment(_ headerTitle : String, _ data : ChampionUserComment)
+enum ChampionDetailPageDataModel {
+    case skins(title : String, _ data : [ChampionSkinInfo])
+    case tags(title : String, _ data : [String])
+    case skills(title : String, _ data : [ChampionListApi.Champion.Skill])
+    case lore(title : String, _ data : String)
+    case playerLank(title : String, _ data : [ChampionGoodAtPlayerApi.Player])
+    case championComment(title : String, _ data : (commentCount : Int, comment : [ChampionCommentApi.Comment]))
 }
 
 protocol DetailRepositoryProtocal {
@@ -152,6 +152,21 @@ class DetailRepository {
                     return []
                 }
                 return api.data
+            }
+    }
+    
+    func getCommentCount(champion : Observable<Champion>) -> Observable<Int> {
+        let championCommentCountResult = champion
+            .flatMapLatest { [weak self] abc in
+                self?.apiService.championCommentCount(champion: abc.key) ?? .just(.failure(.networkError))
+            }
+            .share()
+        return championCommentCountResult
+            .map { result -> Int in
+                guard case .success(let api) = result else {
+                    return 0
+                }
+                return api.data.count ?? 0
             }
     }
     

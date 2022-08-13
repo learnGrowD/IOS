@@ -13,6 +13,21 @@ import RxSwift
 
 
 struct CommentViewModel {
+    let comment : Driver<(Int, [ChampionCommentApi.Comment])>
+    
+    init(champion : Observable<Champion>,
+         _ detailRepository : DetailRepository = DetailRepository.instance) {
+        let commentValue = detailRepository.getComment(champion: champion)
+            
+        let commentCount = detailRepository.getCommentCount(champion: champion)
+        comment = Observable
+            .combineLatest(
+                commentCount,
+                commentValue) { a, b in
+                    return (commentCount : a, comment : b)
+                }
+                .asDriver(onErrorDriveWith: .empty())
+    }
     
 }
 

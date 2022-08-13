@@ -1,24 +1,23 @@
 //
-//  TagsViewModel.swift
+//  SkinViewModel.swift
 //  willd_lol
 //
 //  Created by 도학태 on 2022/08/13.
 //
 
 import Foundation
-import RxCocoa
 import RxSwift
+import RxCocoa
 
 
-
-struct TagsViewModel {
-    
-    let tags : Driver<[String]>
-    
+struct SkinsViewModel {
+    let disPoseBag = DisposeBag()
+    let skins : Driver<[ChampionSkinInfo]>
     init(champion : Observable<Champion>,
          _ detailRepository : DetailRepository = DetailRepository.instance) {
-        tags = detailRepository.getTags(champion: champion)
+        
+        skins = detailRepository.getSkins(champion: champion)
             .asDriver(onErrorDriveWith: .empty())
     }
-    
 }
+
