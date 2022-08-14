@@ -17,12 +17,7 @@ import SwiftUI
 class ChampionDetailViewController : UIViewController {
     let disposeBag = DisposeBag()
     let tableView = UITableView().then {
-        $0.dataSource = nil
-        $0.delegate = nil
-        $0.tableHeaderView = UIView()
-        $0.tableFooterView = UIView()
         $0.backgroundColor = .willdBlack
-        $0.rowHeight = 300
         $0.register(SkinsTableViewCell.self, forCellReuseIdentifier: "SkinsTableViewCell")
         $0.register(TagsTableViewCell.self, forCellReuseIdentifier: "TagsTableViewCell")
         $0.register(SkillsTableViewCell.self, forCellReuseIdentifier: "SkillsTableViewCell")
@@ -90,5 +85,7 @@ class ChampionDetailViewController : UIViewController {
             $0.edges.equalToSuperview()
         }
     }
+    
+    
     
 }

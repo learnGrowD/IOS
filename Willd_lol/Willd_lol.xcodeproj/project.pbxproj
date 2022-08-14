@@ -43,6 +43,7 @@
 		B8953E2528A39A3200AAC1E5 /* ChampionListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8953E2428A39A3200AAC1E5 /* ChampionListViewModel.swift */; };
 		B8953E2728A3C3D500AAC1E5 /* ChampionListViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8953E2628A3C3D500AAC1E5 /* ChampionListViewCell.swift */; };
 		B8953E2928A3E9EA00AAC1E5 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8953E2828A3E9EA00AAC1E5 /* HomeViewModel.swift */; };
+		B89DCAB028A9789100F84E7C /* Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = B89DCAAF28A9789100F84E7C /* Header.swift */; };
 		B8B17D4528A0F1580093AFD1 /* ChampionDetailApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B17D4428A0F1580093AFD1 /* ChampionDetailApi.swift */; };
 		B8B17D4728A13F530093AFD1 /* ImageUrlConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B17D4628A13F530093AFD1 /* ImageUrlConverter.swift */; };
 		B8D0674328A797660081E831 /* SkinsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D0674228A797660081E831 /* SkinsTableViewCell.swift */; };
@@ -91,6 +92,7 @@
 		B8953E2428A39A3200AAC1E5 /* ChampionListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChampionListViewModel.swift; sourceTree = "<group>"; };
 		B8953E2628A3C3D500AAC1E5 /* ChampionListViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChampionListViewCell.swift; sourceTree = "<group>"; };
 		B8953E2828A3E9EA00AAC1E5 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		B89DCAAF28A9789100F84E7C /* Header.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Header.swift; sourceTree = "<group>"; };
 		B8B17D4428A0F1580093AFD1 /* ChampionDetailApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChampionDetailApi.swift; sourceTree = "<group>"; };
 		B8B17D4628A13F530093AFD1 /* ImageUrlConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUrlConverter.swift; sourceTree = "<group>"; };
 		B8D0674228A797660081E831 /* SkinsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkinsTableViewCell.swift; sourceTree = "<group>"; };
@@ -279,6 +281,7 @@
 				B8D0673F28A797010081E831 /* LoreTableViewCell */,
 				B8D0674028A797080081E831 /* LankTableViewCell */,
 				B8D0674128A7970F0081E831 /* CommentTableViewCell */,
+				B89DCAAF28A9789100F84E7C /* Header.swift */,
 			);
 			path = SubContents;
 			sourceTree = "<group>";
@@ -436,6 +439,7 @@
 				B88AEA07289E2B8F000EAD22 /* MainTabBarController.swift in Sources */,
 				B8D0675928A79ACC0081E831 /* CommentViewModel.swift in Sources */,
 				B86387C3289F5D1A00331324 /* UiState.swift in Sources */,
+				B89DCAB028A9789100F84E7C /* Header.swift in Sources */,
 				B8D0674328A797660081E831 /* SkinsTableViewCell.swift in Sources */,
 				B82F00B228A64D060061E09E /* ChampionDetailViewModel.swift in Sources */,
 				B8D0674928A799880081E831 /* TagsViewModel.swift in Sources */,

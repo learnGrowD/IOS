@@ -20,10 +20,10 @@ struct ChampionDetailApi : Codable {
             let skins : [Skin]
             let lore : String?
             let tags : [String]
+            let title : String?
             let id : String?
             let key : String?
             let name : String?
-            let title : String?
             let image : Image
             
             struct Skin : Codable {

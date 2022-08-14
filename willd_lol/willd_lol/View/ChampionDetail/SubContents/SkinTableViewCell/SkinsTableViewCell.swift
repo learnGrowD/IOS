@@ -16,31 +16,29 @@ import SnapKit
 class SkinsTableViewCell : UITableViewCell {
     let disposeBag = DisposeBag()
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout()).then {
-        $0.delegate = nil
-        $0.dataSource = nil
         $0.backgroundColor = .willdBlack
         $0.register(SkinCell.self, forCellWithReuseIdentifier: "SkinCell")
     }
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super .init(style: style, reuseIdentifier: reuseIdentifier)
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         attribute()
         layout()
     }
-
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
-
+    
     func bind(_ viewModel : SkinsViewModel) {
-        viewModel.skins
-            .drive(collectionView.rx.items) { cv, row, data in
-                let indenx = IndexPath(row: row, section: 0)
-                let cell = cv.dequeueReusableCell(withReuseIdentifier: "SkinCell", for: indenx) as! SkinCell
-                cell.configure(championSkinInfo: data)
-                return cell
-            }
-            .disposed(by: disposeBag)
+//        viewModel.skins
+//            .drive(collectionView.rx.items) { cv, row, data in
+//                let indenx = IndexPath(row: row, section: 0)
+//                let cell = cv.dequeueReusableCell(withReuseIdentifier: "SkinCell", for: indenx) as! SkinCell
+//                cell.configure(championSkinInfo: data)
+//                return cell
+//            }
+//            .disposed(by: disposeBag)
     }
 
     private func generateLayout() -> UICollectionViewLayout {
@@ -68,8 +66,7 @@ class SkinsTableViewCell : UITableViewCell {
             contentView.addSubview($0)
         }
         collectionView.snp.makeConstraints {
-            $0.leading.top.trailing.equalToSuperview()
-            $0.height.equalTo(300)
+            $0.edges.equalToSuperview()
         }
     }
     

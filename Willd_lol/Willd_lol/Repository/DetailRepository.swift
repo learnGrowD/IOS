@@ -82,21 +82,11 @@ class DetailRepository {
                 guard case .success(let api) = result else {
                     return []
                 }
-                let tags = api.data.champion.tags
+                var tags = api.data.champion.tags
+                tags.insert(api.data.champion.title ?? "", at: 0)
                 return tags
             }
-        
-        return Observable
-            .combineLatest(
-                champion,
-                tags) { a, b -> [String] in
-                    var result : [String] = []
-                    result.append(a.title ?? "")
-                    b.forEach {
-                        result.append($0)
-                    }
-                    return result
-                }
+        return tags
     }
     
     func getSkills(champion : Observable<Champion>) -> Observable<[ChampionListApi.Champion.Skill]> {
