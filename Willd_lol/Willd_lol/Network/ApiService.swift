@@ -129,7 +129,7 @@ class ApiService {
         champion : String?,
         sort : ChampionComment = .popular,
         page : Int = 1,
-        listCount : Int = 10) -> Single<Result<ChampionCommentApi, NetworkError>> {
+        listCount : Int = 5) -> Single<Result<ChampionCommentApi, NetworkError>> {
             Observable.just(
                 ApiService.scheme
                 + ApiService.opGgHost

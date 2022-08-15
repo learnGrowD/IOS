@@ -18,6 +18,8 @@ class ContentCollectionViewHeader: UICollectionReusableView {
         super.layoutSubviews()
         addSubview(sectionNameLabel)
         constraintView()
+        
+        
     }
     
     func constraintView() {

@@ -13,7 +13,7 @@ import RxSwift
 
 
 struct CommentViewModel {
-    let comment : Driver<(Int, [ChampionCommentApi.Comment])>
+    let comment : Driver<(commentCount : Int, comment : [ChampionCommentApi.Comment])>
     
     init(champion : Observable<Champion>,
          _ detailRepository : DetailRepository = DetailRepository.instance) {

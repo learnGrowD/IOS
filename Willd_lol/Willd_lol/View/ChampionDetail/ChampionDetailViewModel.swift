@@ -23,6 +23,8 @@ struct ChampionDetailViewModel {
     
     let detailPageData : Driver<[ChampionDetailPageDataModel]>
     
+    let aaa : Driver<String>
+    
     init(
         champion : Observable<Champion>,
         _ detailRepository : DetailRepository = DetailRepository.instance) {
@@ -43,15 +45,18 @@ struct ChampionDetailViewModel {
                     lankViewModel.lank.asObservable(),
                     commentViewModel.comment.asObservable()) { a, b, c, d, e, f -> [ChampionDetailPageDataModel] in
                         let result : [ChampionDetailPageDataModel] = [
-                            .skins(title: "스킨", a),
-                            .tags(title: "태그", b),
-                            .skills(title: "스킬", c),
-                            .lore(title: "스토리", d),
-                            .playerLank(title: "순위", e),
-                            .championComment(title: "댓글", f)
+                            .skins(nil, a),
+                            .tags(nil, b),
+                            .skills("Skills", c),
+                            .lore("Story", d),
+                            .playerLank("Rank", e),
+                            .championComment("Comment", f)
                         ]
                         return result
                     }
                     .asDriver(onErrorDriveWith: .empty())
+            
+            aaa = Observable.just("Hello IOS 제발")
+                .asDriver(onErrorDriveWith: .empty())
     }
 }

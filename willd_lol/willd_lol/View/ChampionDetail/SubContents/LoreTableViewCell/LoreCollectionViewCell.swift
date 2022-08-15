@@ -14,7 +14,7 @@ import SnapKit
 
 
 
-class LoreTableViewCell : UITableViewCell {
+class LoreCollectionViewCell : UICollectionViewCell {
     let disposeBag = DisposeBag()
     let loreLabel = UILabel().then {
         $0.textColor = .willdWhite
@@ -22,8 +22,8 @@ class LoreTableViewCell : UITableViewCell {
         $0.numberOfLines = 0
         $0.font = .systemFont(ofSize: 16)
     }
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         attribute()
         layout()
     }
@@ -42,22 +42,16 @@ class LoreTableViewCell : UITableViewCell {
     
     
      private func attribute() {
-         contentView.backgroundColor = .willdBlack
+         
      }
      
      private func layout() {
          [loreLabel].forEach {
              contentView.addSubview($0)
          }
-         
          loreLabel.snp.makeConstraints {
-             $0.leading.trailing.equalToSuperview().inset(18)
-             $0.height.equalTo(120)
-             $0.bottom.top.equalToSuperview()
+             $0.top.leading.trailing.equalToSuperview()
          }
-         
-         
-             
      }
     
     
