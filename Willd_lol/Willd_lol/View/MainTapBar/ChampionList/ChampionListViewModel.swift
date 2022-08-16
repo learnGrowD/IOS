@@ -29,7 +29,7 @@ struct ChampionListViewModel {
     let shouldPresedentChampionList : Driver<[Champion]>
     
     init(_ repository : MainRepository = MainRepository.instance) {
-        let championListPageData = repository.championListPageData()
+        let championListPageData = repository.getChampionListPageData()
             .map { uiState -> [Champion] in
                 guard case .success(let value) = uiState else {
                     return []

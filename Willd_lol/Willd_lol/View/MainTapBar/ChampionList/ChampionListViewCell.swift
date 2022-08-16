@@ -18,7 +18,7 @@ class ChampionListViewCell : UICollectionViewCell {
         $0.contentMode = .scaleAspectFill
     }
     let nameLabel = UILabel().then {
-        $0.font = .systemFont(ofSize: 20)
+        $0.font = .systemFont(ofSize: 18, weight : .bold)
         $0.textColor = .willdWhite
     }
     
@@ -39,7 +39,7 @@ class ChampionListViewCell : UICollectionViewCell {
         }
         
         nameLabel.snp.makeConstraints {
-            $0.leading.bottom.equalTo(imagView).inset(12)
+            $0.trailing.bottom.equalTo(imagView).inset(12)
         }
     }
     

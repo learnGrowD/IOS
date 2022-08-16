@@ -11,7 +11,7 @@ import Then
 
 class ContentCollectionViewCell: UICollectionViewCell {
     let img = UIImageView().then {
-        $0.contentMode = .scaleAspectFill
+        $0.contentMode = .scaleAspectFit
     }
     
     override func layoutSubviews() {

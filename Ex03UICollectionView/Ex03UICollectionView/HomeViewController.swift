@@ -104,7 +104,7 @@ class HomeViewController: UICollectionViewController {
         item.contentInsets = .init(top: 0, leading: 10, bottom: 0, trailing: 10)
         
         //group
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .estimated(200))
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .estimated(400))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: 3)
     
         //section

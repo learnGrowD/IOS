@@ -14,7 +14,7 @@ struct SkinsViewModel {
     let disPoseBag = DisposeBag()
     let skins : Driver<[ChampionSkinInfo]>
     init(champion : Observable<Champion>,
-         _ detailRepository : DetailRepository = DetailRepository.instance) {
+         _ detailRepository : ChampionDetailRepository = ChampionDetailRepository.instance) {
         
         skins = detailRepository.getSkins(champion: champion)
             .asDriver(onErrorDriveWith: .empty())

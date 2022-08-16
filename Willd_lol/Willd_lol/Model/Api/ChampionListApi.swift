@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 struct ChampionListApi : Codable {
  
     let data : [Champion]

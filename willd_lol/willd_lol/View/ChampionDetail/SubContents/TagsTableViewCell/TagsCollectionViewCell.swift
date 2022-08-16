@@ -16,7 +16,7 @@ import SnapKit
 class TagsCollectionViewCell : UICollectionViewCell {
     let disposeBag = DisposeBag()
     let tagLabel = UILabel().then {
-        $0.backgroundColor = .systemRed
+        $0.backgroundColor = .black
         $0.textColor = .willdWhite
         $0.textAlignment = .center
         $0.font = .systemFont(ofSize: 12)

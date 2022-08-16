@@ -101,7 +101,7 @@ class ChampionDetailViewController : UIViewController {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalWidth(3/4))
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalWidth(4/5))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: 1)
         
         let section = NSCollectionLayoutSection(group: group)
@@ -125,14 +125,12 @@ class ChampionDetailViewController : UIViewController {
         } else {
             group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: count)
         }
-        
-        
         let section = NSCollectionLayoutSection(group: group)
-        section.orthogonalScrollingBehavior = .none
+        section.orthogonalScrollingBehavior = .groupPaging
+        section.contentInsets = .init(top: 0, leading: 0, bottom: 64, trailing: 0)
         return section
         
     }
-    
     
     private func createSkillsLayout() -> NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
@@ -144,45 +142,52 @@ class ChampionDetailViewController : UIViewController {
         let section = NSCollectionLayoutSection(group: group)
         section.orthogonalScrollingBehavior = .none
         section.boundarySupplementaryItems = [self.createHeaderLayout()]
+        section.contentInsets = .init(top: 18, leading: 18, bottom: 64, trailing: 18)
         return section
+    }
+    
+    private func createLoreLayout() -> NSCollectionLayoutSection {
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(120))
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(120))
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: 1)
+        
+        let section = NSCollectionLayoutSection(group: group)
+        section.boundarySupplementaryItems = [self.createHeaderLayout()]
+        section.contentInsets = .init(top: 18, leading: 18, bottom: 64, trailing: 18)
+        return section
+        
     }
     
     private func createLanksLayout() -> NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.8), heightDimension: .estimated(160))
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.8), heightDimension: .estimated(150))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: 2)
         
         let section = NSCollectionLayoutSection(group: group)
         section.boundarySupplementaryItems = [self.createHeaderLayout()]
         section.orthogonalScrollingBehavior = .continuous
+        section.contentInsets = .init(top: 18, leading: 18, bottom: 64, trailing: 0)
 
         return section
-    }
-    
-    private func createLoreLayout() -> NSCollectionLayoutSection {
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
-        let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(160))
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: 1)
-        
-        let section = NSCollectionLayoutSection(group: group)
-        section.boundarySupplementaryItems = [self.createHeaderLayout()]
-        return section
-        
     }
     
     private func createCommentsLayout() -> NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(160))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        item.contentInsets.bottom = 18
         
         let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(160))
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: 1)
+        let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitem: item, count: 1)
+        
+        
         
         let section = NSCollectionLayoutSection(group: group)
         section.boundarySupplementaryItems = [self.createHeaderLayout()]
+        section.contentInsets = .init(top: 18, leading: 18, bottom: 64, trailing: 18)
         return section
         
     }
@@ -202,6 +207,7 @@ class ChampionDetailViewController : UIViewController {
 
     }
 }
+
 
 extension ChampionDetailViewController : UICollectionViewDataSource {
     
@@ -303,5 +309,5 @@ extension ChampionDetailViewController : UICollectionViewDataSource {
         }
     }
     
-    
+
 }

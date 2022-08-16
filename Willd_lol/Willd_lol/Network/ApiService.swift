@@ -31,12 +31,12 @@ class ApiService {
     private static let psHost = "lol.ps"
     
     
-    func championDetail(champion : String?) -> Single<Result<ChampionDetailApi, NetworkError>> {
+    func championDetail(championKey : String?) -> Single<Result<ChampionDetailApi, NetworkError>> {
         Observable.just(
             ApiService.scheme
             + ApiService.riotHost
             + ApiService.riotPath
-            + "champion/\(champion ?? "").json"
+            + "champion/\(championKey ?? "").json"
         )
         .flatMap { url -> Observable<Data> in
             AF.request(
@@ -52,7 +52,7 @@ class ApiService {
             String(decoding: data, as: UTF8.self)
         }
         .map { oldJsondStr -> String in
-            oldJsondStr.replacingOccurrences(of: "\"\(champion ?? "")\":{", with: "\"champion\":{")
+            oldJsondStr.replacingOccurrences(of: "\"\(championKey ?? "")\":{", with: "\"champion\":{")
         }
         .map { newJsonStr -> Data? in
             newJsonStr.data(using: .utf8)
@@ -98,12 +98,12 @@ class ApiService {
     }
     
     
-    func championCommentCount(champion : String?) -> Single<Result<ChampionCommentCountApi, NetworkError>> {
+    func championCommentCount(championKey : String?) -> Single<Result<ChampionCommentCountApi, NetworkError>> {
         Observable.just(
             ApiService.scheme
             + ApiService.opGgHost
             + ApiService.opGgPath
-            + "champions/\(champion ?? "")/comments/count"
+            + "champions/\(championKey ?? "")/comments/count"
         )
         .flatMap { url -> Observable<Data> in
             AF.request(
@@ -126,7 +126,7 @@ class ApiService {
     }
     
     func championComment(
-        champion : String?,
+        championKey : String?,
         sort : ChampionComment = .popular,
         page : Int = 1,
         listCount : Int = 5) -> Single<Result<ChampionCommentApi, NetworkError>> {
@@ -134,7 +134,7 @@ class ApiService {
                 ApiService.scheme
                 + ApiService.opGgHost
                 + ApiService.opGgPath
-                + "champions/\(champion ?? "")/comments"
+                + "champions/\(championKey ?? "")/comments"
             )
             .flatMap { url -> Observable<Data> in
                 let params = [
@@ -163,14 +163,14 @@ class ApiService {
     }
     
     func championGoodAtPlayerRank(
-        champion : String?,
+        championKey : String?,
         limit : Int = 5) -> Single<Result<ChampionGoodAtPlayerApi, NetworkError>> {
             
             Observable.just(
                 ApiService.scheme
                 + ApiService.opGgHost
                 + ApiService.opGgPath
-                + "rankings/champions/\(champion ?? "")"
+                + "rankings/champions/\(championKey ?? "")"
             )
             .flatMap { url -> Observable<Data> in
                 let params = [
@@ -260,12 +260,12 @@ class ApiService {
         .asSingle()
     }
     
-    func matchInfo(identity : Int) -> Single<Result<MatchInfoApi, NetworkError>> {
+    func matchInfo(matchIdentity : Int) -> Single<Result<MatchInfoApi, NetworkError>> {
         Observable.just(
             ApiService.scheme
             + ApiService.yourGgHost
             + ApiService.youtGgPath
-            + "match/\(identity)"
+            + "match/\(matchIdentity)"
         )
         .flatMap { url -> Observable<Data> in
             let params = [
@@ -291,7 +291,7 @@ class ApiService {
         
     }
     
-    func playerSearchPreview(search : String) -> Single<Result<[SearchPreview], NetworkError>> {
+    func playerSearchPreview(searchQuery : String) -> Single<Result<[SearchPreview], NetworkError>> {
         Observable.just(
             ApiService.scheme
             + ApiService.yourGgHost
@@ -300,7 +300,7 @@ class ApiService {
         )
         .flatMap { url -> Observable<Data> in
             let params = [
-                "q" : search
+                "q" : searchQuery
             ]
             return AF.request(
                 url,
@@ -398,11 +398,11 @@ enum PlayerLane : Int {
     case supporter = 4
 }
 
-
 enum ChampionComment : String {
     case popular = "popular"
     case recent = "recent"
 }
+
 enum RankTier : Int {
     case etc = 1 // 브, 실, 골
     case platinum = 2

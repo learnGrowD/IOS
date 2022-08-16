@@ -16,7 +16,7 @@ struct CommentViewModel {
     let comment : Driver<(commentCount : Int, comment : [ChampionCommentApi.Comment])>
     
     init(champion : Observable<Champion>,
-         _ detailRepository : DetailRepository = DetailRepository.instance) {
+         _ detailRepository : ChampionDetailRepository = ChampionDetailRepository.instance) {
         let commentValue = detailRepository.getComment(champion: champion)
             
         let commentCount = detailRepository.getCommentCount(champion: champion)

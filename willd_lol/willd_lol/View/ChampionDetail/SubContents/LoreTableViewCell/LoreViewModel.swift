@@ -14,7 +14,7 @@ struct LoreViewModel {
     let lore : Driver<String>
     
     init(champion : Observable<Champion>,
-         _ detailRepository : DetailRepository = DetailRepository.instance) {
+         _ detailRepository : ChampionDetailRepository = ChampionDetailRepository.instance) {
         
 
         lore = detailRepository.getLore(champion: champion)

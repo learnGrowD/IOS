@@ -27,7 +27,7 @@ struct ChampionDetailViewModel {
     
     init(
         champion : Observable<Champion>,
-        _ detailRepository : DetailRepository = DetailRepository.instance) {
+        _ detailRepository : ChampionDetailRepository = ChampionDetailRepository.instance) {
             skinViewModel = SkinsViewModel(champion: champion)
             tagsViewModel = TagsViewModel(champion: champion)
             skillsViewModel = SkillsViewModel(champion: champion)

@@ -40,7 +40,7 @@ class ChampionDetailCollectionHeader : UICollectionReusableView {
         
         sectionNameLabel.snp.makeConstraints {
             $0.bottom.equalToSuperview()
-            $0.leading.equalToSuperview().inset(18)
+            $0.leading.equalToSuperview()
         }
     }
 }

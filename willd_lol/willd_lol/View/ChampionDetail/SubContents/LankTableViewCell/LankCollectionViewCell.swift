@@ -108,19 +108,18 @@ class LankCollectionViewCell : UICollectionViewCell {
              $0.trailing.equalTo(tierboerderImagView.snp.leading).offset(-12)
          }
          
-         
-         tierboerderImagView.snp.makeConstraints {
-             $0.width.height.equalTo(80)
-             $0.top.equalToSuperview().inset(12)
-             $0.centerX.equalToSuperview()
-         }
-         
          profileImagView.snp.makeConstraints {
              $0.edges.equalTo(tierboerderImagView).inset(10)
          }
          
+         tierboerderImagView.snp.makeConstraints {
+             $0.width.height.equalTo(80)
+             $0.top.equalToSuperview()
+             $0.centerX.equalToSuperview()
+         }
+         
          nameLabel.snp.makeConstraints {
-             $0.top.equalTo(tierboerderImagView.snp.bottom).offset(12)
+             $0.top.equalTo(tierboerderImagView.snp.bottom).offset(8)
              $0.leading.equalTo(lankLabel.snp.leading).offset(16)
              $0.trailing.equalToSuperview().inset(12)
              

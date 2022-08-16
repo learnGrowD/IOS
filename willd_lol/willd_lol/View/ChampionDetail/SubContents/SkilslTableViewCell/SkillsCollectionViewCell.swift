@@ -83,16 +83,14 @@ class SkillsCollectionViewCell : UICollectionViewCell {
          skillKey.snp.makeConstraints {
              $0.top.leading.equalTo(skillImageView)
          }
-         
          skillImageView.snp.makeConstraints {
              $0.width.height.equalTo(80)
-             $0.leading.top.trailing.equalToSuperview()
+             $0.top.centerX.equalToSuperview()
          }
-         
          
          skillNameLabel.snp.makeConstraints {
              $0.top.equalTo(skillImageView.snp.bottom).offset(8)
-             $0.trailing.leading.equalToSuperview()
+             $0.centerX.equalToSuperview()
          }
          
          

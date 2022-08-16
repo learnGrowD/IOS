@@ -16,7 +16,7 @@ struct TagsViewModel {
     let tags : Driver<[String]>
     
     init(champion : Observable<Champion>,
-         _ detailRepository : DetailRepository = DetailRepository.instance) {
+         _ detailRepository : ChampionDetailRepository = ChampionDetailRepository.instance) {
         tags = detailRepository.getTags(champion: champion)
             .asDriver(onErrorDriveWith: .empty())
     }

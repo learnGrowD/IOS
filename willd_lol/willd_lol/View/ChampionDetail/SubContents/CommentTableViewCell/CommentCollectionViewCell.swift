@@ -20,6 +20,11 @@ class CommentCollectionViewCell : UICollectionViewCell {
         $0.textColor = .willdWhite
         $0.font = .systemFont(ofSize: 16, weight: .bold)
     }
+    
+    let backView = UIView().then {
+        $0.backgroundColor = .black
+        $0.layer.cornerRadius = 12
+    }
         
     let contentLabel = UILabel().then {
         $0.textColor = .willdWhite
@@ -28,8 +33,14 @@ class CommentCollectionViewCell : UICollectionViewCell {
     }
     let voteLabel = UILabel().then {
         $0.textColor = .willdWhite
+        $0.textAlignment = .center
         $0.font = .systemFont(ofSize: 18, weight: .bold)
-
+    }
+    
+    let voteImageView = UIImageView().then {
+        $0.contentMode = .scaleAspectFit
+        $0.tintColor = .darkGray
+        $0.image = UIImage(systemName: "hand.thumbsup.fill")
     }
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -64,32 +75,44 @@ class CommentCollectionViewCell : UICollectionViewCell {
      }
      
      private func attribute() {
-         
+        
      }
      
      private func layout() {
          [
+            backView,
+            voteLabel,
             nameLabel,
             contentLabel,
-            voteLabel
+            voteImageView
+            
          ].forEach {
              contentView.addSubview($0)
          }
          
-         nameLabel.snp.makeConstraints {
-             $0.top.equalToSuperview().inset(18)
-             $0.leading.equalToSuperview()
-         }
-         
-         contentLabel.snp.makeConstraints {
-             $0.top.equalTo(nameLabel.snp.bottom).offset(12)
-             $0.leading.equalTo(nameLabel.snp.leading)
-             $0.trailing.equalTo(voteLabel.snp.leading).offset(-24)
+         backView.snp.makeConstraints {
+             $0.edges.equalToSuperview()
          }
          
          voteLabel.snp.makeConstraints {
-             $0.trailing.equalToSuperview()
+             $0.trailing.equalToSuperview().offset(-24)
              $0.centerY.equalToSuperview()
+         }
+         
+         voteImageView.snp.makeConstraints {
+             $0.width.height.equalTo(24)
+             $0.bottom.equalTo(voteLabel.snp.top).offset(-4)
+             $0.trailing.equalToSuperview().offset(-24)
+         }
+         
+         nameLabel.snp.makeConstraints {
+             $0.leading.top.equalToSuperview().inset(18)
+         }
+         contentLabel.snp.makeConstraints {
+             $0.top.equalTo(nameLabel.snp.bottom).offset(8)
+             $0.leading.equalTo(nameLabel)
+             $0.trailing.equalTo(voteLabel.snp.leading).offset(-24)
+             $0.bottom.lessThanOrEqualToSuperview().inset(18)
          }
     
      }
