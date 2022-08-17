@@ -42,14 +42,11 @@ class CommentCollectionViewCell : UICollectionViewCell {
         $0.tintColor = .darkGray
         $0.image = UIImage(systemName: "hand.thumbsup.fill")
     }
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
         attribute()
         layout()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
      
      

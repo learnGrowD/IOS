@@ -13,7 +13,7 @@ struct ChampionTierListApi : Codable {
     
     struct Champion : Codable {
         let banRate : String?
-        let championDataId : String?
+        let championKey : String?
         let championDataKey : Int?
         let championName : String?
         let count : Int?
@@ -27,7 +27,7 @@ struct ChampionTierListApi : Codable {
         enum CodingKeys : String, CodingKey {
             case count
             case banRate = "ban_rate"
-            case championDataId = "champion__data_id"
+            case championKey = "champion__data_id"
             case championDataKey = "champion__data_key"
             case championName = "champion__name"
             case isOp = "is_op"

@@ -23,14 +23,10 @@ class SkinsCollectionViewCell : UICollectionViewCell {
         $0.contentMode = .scaleToFill
     }
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    override func layoutSubviews() {
+        super.layoutSubviews()
         attribute()
         layout()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
     
     func bind(index : IndexPath, _ viewModel : SkinsViewModel) {

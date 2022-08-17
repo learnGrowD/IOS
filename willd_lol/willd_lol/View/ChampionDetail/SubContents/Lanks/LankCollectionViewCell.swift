@@ -21,7 +21,7 @@ class LankCollectionViewCell : UICollectionViewCell {
         $0.textColor = .willdWhite
         $0.numberOfLines = 1
         $0.textAlignment = .center
-        $0.font = .systemFont(ofSize: 16, weight : .bold)
+        $0.font = .systemFont(ofSize: 18, weight : .bold)
     }
     let tierboerderImagView = UIImageView().then {
         $0.contentMode = .scaleToFill
@@ -29,13 +29,13 @@ class LankCollectionViewCell : UICollectionViewCell {
     let tierLabel = UILabel().then {
         $0.textColor = .willdWhite
         $0.numberOfLines = 1
-        $0.font = .systemFont(ofSize: 12)
+        $0.font = .systemFont(ofSize: 14)
     }
     
     let nameLabel = UILabel().then {
         $0.textColor = .willdWhite
         $0.numberOfLines = 1
-        $0.font = .systemFont(ofSize: 12)
+        $0.font = .systemFont(ofSize: 14)
     }
     let profileImagView = UIImageView().then {
         $0.contentMode = .scaleToFill
@@ -44,17 +44,13 @@ class LankCollectionViewCell : UICollectionViewCell {
     let winRate = UILabel().then {
         $0.textColor = .willdWhite
         $0.numberOfLines = 1
-        $0.font = .systemFont(ofSize: 12)
+        $0.font = .systemFont(ofSize: 14)
     }
      
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    override func layoutSubviews() {
+        super.layoutSubviews()
         attribute()
         layout()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
      
      

@@ -1,32 +1,23 @@
 //
-//  DetailDefaultCollectionHeader.swift
+//  DefaultCollectionViewHeader.swift
 //  willd_lol
 //
-//  Created by 도학태 on 2022/08/15.
+//  Created by 도학태 on 2022/08/17.
 //
 
 import Foundation
 import UIKit
-import SnapKit
-import RxSwift
-import RxCocoa
-import Then
 
 
-class ChampionDetailCollectionHeader : UICollectionReusableView {
+class DefaultCollectionViewHeader : UICollectionReusableView {
     let sectionNameLabel = UILabel().then {
         $0.textColor = .willdWhite
         $0.font = .systemFont(ofSize: 18, weight: .bold)
     }
     
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    override func layoutSubviews() {
+        super.layoutSubviews()
         layout()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
     
     func configure(title : String?) {
@@ -44,3 +35,7 @@ class ChampionDetailCollectionHeader : UICollectionReusableView {
         }
     }
 }
+
+
+
+

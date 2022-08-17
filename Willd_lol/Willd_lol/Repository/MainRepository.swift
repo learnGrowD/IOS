@@ -2,7 +2,25 @@
 import Foundation
 import RxSwift
 
+
 typealias Champion = ChampionListApi.Champion
+typealias ChampionRecommend = ChampionRecommendApi.Result
+typealias ChampionTier = ChampionTierListApi.Champion
+typealias PlayerLank = PlayerMmrRankApi.PlayerInfo
+
+enum HomePageData {
+    case championRecommend(_ title : String, _ data : [ChampionRecommend])
+    case championTier(_ title : String, _ data : [ChampionTier])
+    case championTags(_ title : String)
+    case playerLank(_ title : String, _ data : [PlayerLank])
+}
+
+enum PlayerCategory : Int {
+    case pro = 0
+    case popular = 1
+    case recommend = 2
+}
+
 protocol MainRepositoryProtocal {
     func getChampionListPageData() -> BehaviorSubject<UiState<[Champion]>>
 }
@@ -14,15 +32,14 @@ class MainRepository {
     private init() {
         apiService = ApiService.instance
     }
-    func getHomeRecommendChampionList(page : Observable<Int>) -> Observable<[ChampionRecommendApi.Result]> {
-        let recommendResult = page
-            .flatMapLatest { [weak self] page in
-                return self?.apiService.championRecommend(page: page) ?? .just(.failure(.networkError))
-            }
-            .share()
+    func getHomeRecommendChampionList() -> Observable<[ChampionRecommend]> {
+        let recommendResult =
+            self.apiService.championRecommend()
+            .asObservable()
+        
         
         return recommendResult
-            .map { result -> [ChampionRecommendApi.Result] in
+            .map { result -> [ChampionRecommend] in
                 guard case .success(let api) = result else {
                     return []
                 }
@@ -30,7 +47,7 @@ class MainRepository {
             }
     }
     
-    func getHomeChampionTierList(info : Observable<(tier : RankTier, lane : PlayerLane)>) -> Observable<[ChampionTierListApi.Champion]> {
+    func getHomeChampionTierList(info : Observable<(tier : RankTier, lane : PlayerLane)>) -> Observable<[ChampionTier]> {
         let tierListResult = info
             .flatMapLatest { [weak self] info in
                 self?.apiService.championTierList(
@@ -45,7 +62,7 @@ class MainRepository {
         
             
         return tierListResult
-            .map { result -> [ChampionTierListApi.Champion] in
+            .map { result -> [ChampionTier] in
                 guard case .success(let api) = result else {
                     return []
                 }
@@ -53,7 +70,7 @@ class MainRepository {
             }
     }
     
-    func getPlayerLankList(info : Observable<(category : PlayerCategory, listCount : Int)>) -> Observable<[PlayerMmrRankApi.PlayerInfo]> {
+    func getPlayerLankList(info : Observable<(category : PlayerCategory, listCount : Int)>) -> Observable<[PlayerLank]> {
         let playerLankResult =
             self.apiService.selectedPlayerMmrRank()
             .asObservable()
@@ -61,13 +78,13 @@ class MainRepository {
         return Observable
             .combineLatest(
                 info,
-                playerLankResult) { info, result -> [PlayerMmrRankApi.PlayerInfo] in
+                playerLankResult) { info, result -> [PlayerLank] in
                     guard case .success(let api) = result else {
                         return [] //failur....
                     }
                     switch info.category {
                     case .pro:
-                        var newValues : [PlayerMmrRankApi.PlayerInfo] = []
+                        var newValues : [PlayerLank] = []
                         api.pro
                             .enumerated()
                             .forEach { index, value in
@@ -77,7 +94,7 @@ class MainRepository {
                             }
                         return newValues
                     case .popular:
-                        var newValues : [PlayerMmrRankApi.PlayerInfo] = []
+                        var newValues : [PlayerLank] = []
                         api.named
                             .enumerated()
                             .forEach { index, value in
@@ -87,7 +104,7 @@ class MainRepository {
                             }
                         return newValues
                     case .recommend:
-                        var newValues : [PlayerMmrRankApi.PlayerInfo] = []
+                        var newValues : [PlayerLank] = []
                         api.all
                             .enumerated()
                             .forEach { index, value in
@@ -124,11 +141,4 @@ class MainRepository {
         return subject
     }
     
-}
-
-
-enum PlayerCategory : Int {
-    case pro = 0
-    case popular = 1
-    case recommend = 2
 }

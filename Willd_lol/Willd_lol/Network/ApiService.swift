@@ -321,7 +321,7 @@ class ApiService {
         .asSingle()
     }
     
-    func championRecommend(page : Int = 1) -> Single<Result<ChampionRecommendApi, NetworkError>> {
+    func championRecommend() -> Single<Result<ChampionRecommendApi, NetworkError>> {
         Observable.just(
             ApiService.scheme
             + ApiService.psHost
@@ -329,13 +329,10 @@ class ApiService {
             
         )
         .flatMap { url -> Observable<Data> in
-            let params = [
-                "page" : "\(page)"
-            ]
             return AF.request(
                 url,
                 method: .get,
-                parameters: params,
+                parameters: nil,
                 encoding: URLEncoding.default,
                 headers: ["Content-Type":"application/json"]
             )

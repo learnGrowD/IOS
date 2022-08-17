@@ -20,18 +20,8 @@ class LoreCollectionViewCell : UICollectionViewCell {
         $0.textColor = .willdWhite
         $0.textAlignment = .left
         $0.numberOfLines = 0
-        $0.font = .systemFont(ofSize: 16)
-    }
-//    override init(frame: CGRect) {
-//        super.init(frame: frame)
-//        attribute()
-//        layout()
-//    }
-//
-//    required init?(coder: NSCoder) {
-//        fatalError("init(coder:) has not been implemented")
-//    }
-    
+        $0.font = .systemFont(ofSize: 18)
+    }    
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -57,7 +47,7 @@ class LoreCollectionViewCell : UICollectionViewCell {
              contentView.addSubview($0)
          }
          loreLabel.snp.makeConstraints {
-             $0.edges.equalToSuperview()
+             $0.top.trailing.leading.equalToSuperview()
          }
      }
     

@@ -26,13 +26,13 @@ struct ChampionRecommendApi : Codable {
         let info : FetchInfo
         
         struct Champion : Codable {
-            let dataId : String?
+            let championKey : String?
             let dataKey : Int?
             let name : String?
             
             enum CodingKeys : String, CodingKey {
                 case name
-                case dataId = "data_id"
+                case championKey = "data_id"
                 case dataKey = "data_key"
             }
         }

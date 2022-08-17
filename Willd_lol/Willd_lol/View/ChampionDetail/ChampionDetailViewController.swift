@@ -21,13 +21,13 @@ class ChampionDetailViewController : UIViewController {
     
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout()).then {
         $0.backgroundColor = .willdBlack
+        $0.register(DefaultCollectionViewHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "DefaultCollectionViewHeader")
         $0.register(SkinsCollectionViewCell.self, forCellWithReuseIdentifier: "SkinsCollectionViewCell")
         $0.register(TagsCollectionViewCell.self, forCellWithReuseIdentifier: "TagsCollectionViewCell")
         $0.register(SkillsCollectionViewCell.self, forCellWithReuseIdentifier: "SkillsCollectionViewCell")
         $0.register(LoreCollectionViewCell.self, forCellWithReuseIdentifier: "LoreCollectionViewCell")
         $0.register(LankCollectionViewCell.self, forCellWithReuseIdentifier: "LankCollectionViewCell")
         $0.register(CommentCollectionViewCell.self, forCellWithReuseIdentifier: "CommentCollectionViewCell")
-        $0.register(ChampionDetailCollectionHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "ChampionDetailCollectionHeader")
     }
     
     
@@ -66,10 +66,27 @@ class ChampionDetailViewController : UIViewController {
                 }
             })
             .disposed(by: disposeBag)
-        
-        
     }
     
+    
+    func attribute() {
+        collectionView.collectionViewLayout = generateLayout()
+    }
+    
+    func layout() {
+        [collectionView].forEach {
+            view.addSubview($0)
+        }
+        collectionView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
+        
+
+    }
+}
+
+//generateLayout....
+extension ChampionDetailViewController {
     
     func generateLayout() -> UICollectionViewLayout {
         return UICollectionViewCompositionalLayout { [weak self] sectionNumber, environment -> NSCollectionLayoutSection? in
@@ -147,10 +164,10 @@ class ChampionDetailViewController : UIViewController {
     }
     
     private func createLoreLayout() -> NSCollectionLayoutSection {
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(120))
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(224))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(120))
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(224))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: 1)
         
         let section = NSCollectionLayoutSection(group: group)
@@ -191,26 +208,10 @@ class ChampionDetailViewController : UIViewController {
         return section
         
     }
-    
-    func attribute() {
-        collectionView.collectionViewLayout = generateLayout()
-    }
-    
-    func layout() {
-        [collectionView].forEach {
-            view.addSubview($0)
-        }
-        collectionView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
-        }
-        
-
-    }
 }
 
 
 extension ChampionDetailViewController : UICollectionViewDataSource {
-    
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return detailPageData.count
     }
@@ -288,7 +289,7 @@ extension ChampionDetailViewController : UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         if kind  == UICollectionView.elementKindSectionHeader {
-            let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "ChampionDetailCollectionHeader", for: indexPath) as! ChampionDetailCollectionHeader
+            let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "DefaultCollectionViewHeader", for: indexPath) as! DefaultCollectionViewHeader
                     switch detailPageData[indexPath.section] {
                     case.skins(let title, _):
                         header.configure(title: title)

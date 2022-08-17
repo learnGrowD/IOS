@@ -6,9 +6,42 @@
 //
 
 import Foundation
+import RxCocoa
+import RxSwift
 
 
 
 struct HomeViewModel {
+    let disposeBag = DisposeBag()
+    let recommendViewModel = RecommendViewModel()
+    let tierTagsViewModel = TierTagViewModel()
+    let tierListViewModel = TierListViewModel()
+    let playerLankViewModel = PlayerLankViewModel()
+    let homeData : Driver<[HomePageData]>
+
+    init(_ mainRepository : MainRepository = MainRepository.instance) {
+        
+        self.tierTagsViewModel.info
+            .asObservable()
+            .bind(to: tierListViewModel.info)
+            .disposed(by: disposeBag)
+            
+        
+        
+        self.homeData = Observable
+            .combineLatest(
+                recommendViewModel.championRecommendList.asObservable(),
+                tierListViewModel.tierList.asObservable(),
+                playerLankViewModel.playerRankList.asObservable()) { recommendList, tierList, playerLankList -> [HomePageData] in
+                    let result : [HomePageData] = [
+                        .championRecommend("Recommend", recommendList),
+                        .championTags("ChampionTier"),
+                        .championTier("ChampionTier", tierList),
+                        .playerLank("PalyerRank", playerLankList)
+                    ]
+                    return result
+                }
+                .asDriver(onErrorDriveWith: .empty())
+    }
     
 }

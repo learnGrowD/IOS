@@ -19,17 +19,13 @@ class TagsCollectionViewCell : UICollectionViewCell {
         $0.backgroundColor = .black
         $0.textColor = .willdWhite
         $0.textAlignment = .center
-        $0.font = .systemFont(ofSize: 12)
+        $0.font = .systemFont(ofSize: 14)
     }
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    override func layoutSubviews() {
+        super.layoutSubviews()
         attribute()
         layout()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
      
      
