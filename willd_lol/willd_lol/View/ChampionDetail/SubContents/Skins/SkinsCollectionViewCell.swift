@@ -32,7 +32,7 @@ class SkinsCollectionViewCell : UICollectionViewCell {
     func bind(index : IndexPath, _ viewModel : SkinsViewModel) {
         let row = Observable.just(index.row)
         let skin = row
-            .flatMapLatest { row -> Driver<ChampionSkinInfo> in
+            .flatMapLatest { row in
                 viewModel.skins
                     .map { skins in
                         skins[row]

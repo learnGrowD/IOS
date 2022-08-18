@@ -116,7 +116,7 @@ class RecommendCollectionViewCell : UICollectionViewCell {
     
     func bind(row : Observable<Int> ,_ viewModel : RecommendViewModel) {
         let recommend = row
-            .flatMapLatest { row -> Driver<ChampionRecommend> in
+            .flatMapLatest { row in
                 viewModel.championRecommendList.map { recommendList in
                     recommendList[row]
                 }

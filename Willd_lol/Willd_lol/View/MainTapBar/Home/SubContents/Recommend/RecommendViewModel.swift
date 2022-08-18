@@ -13,11 +13,12 @@ import RxSwift
 
 struct RecommendViewModel {
     let disposeBag = DisposeBag()
-    let championRecommendList : Driver<[ChampionRecommend]>
+    let championRecommendList = BehaviorRelay<[ChampionRecommend]>(value: [])
     
     init(_ mainRepository : MainRepository = MainRepository.instance) {
         
-        championRecommendList = mainRepository.getHomeRecommendChampionList()
-            .asDriver(onErrorDriveWith: .empty())
+        mainRepository.getHomeRecommendChampionList()
+            .bind(to: championRecommendList)
+            .disposed(by: disposeBag)
     }
 }

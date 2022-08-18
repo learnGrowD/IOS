@@ -23,11 +23,8 @@ struct ChampionDetailViewModel {
     
     let detailPageData : Driver<[ChampionDetailPageDataModel]>
     
-    let aaa : Driver<String>
-    
     init(
-        champion : Observable<Champion>,
-        _ detailRepository : ChampionDetailRepository = ChampionDetailRepository.instance) {
+        champion : Observable<Champion>) {
             skinViewModel = SkinsViewModel(champion: champion)
             tagsViewModel = TagsViewModel(champion: champion)
             skillsViewModel = SkillsViewModel(champion: champion)
@@ -55,8 +52,5 @@ struct ChampionDetailViewModel {
                         return result
                     }
                     .asDriver(onErrorDriveWith: .empty())
-            
-            aaa = Observable.just("Hello IOS 제발")
-                .asDriver(onErrorDriveWith: .empty())
     }
 }

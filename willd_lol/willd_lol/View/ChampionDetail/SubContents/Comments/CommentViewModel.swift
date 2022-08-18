@@ -13,20 +13,33 @@ import RxSwift
 
 
 struct CommentViewModel {
-    let comment : Driver<(commentCount : Int, comment : [ChampionCommentApi.Comment])>
+    let disposeBag = DisposeBag()
+    let commentCount = BehaviorRelay<Int>(value: 0)
+    let commentValue = BehaviorRelay<[ChampionCommentApi.Comment]>(value: [])
+    
+    let comment = BehaviorRelay<(commentCount : Int, comment : [ChampionCommentApi.Comment])>(value: (0, []))
     
     init(champion : Observable<Champion>,
          _ detailRepository : ChampionDetailRepository = ChampionDetailRepository.instance) {
-        let commentValue = detailRepository.getComment(champion: champion)
-            
-        let commentCount = detailRepository.getCommentCount(champion: champion)
-        comment = Observable
+        
+        detailRepository.getCommentCount(champion: champion)
+            .bind(to: commentCount)
+            .disposed(by: disposeBag)
+        
+        detailRepository.getComment(champion: champion)
+            .bind(to: commentValue)
+            .disposed(by: disposeBag)
+        
+        
+        Observable
             .combineLatest(
-                commentCount,
-                commentValue) { a, b in
-                    return (commentCount : a, comment : b)
+                commentCount.asObservable(),
+                commentValue.asObservable()) {
+                    (commentCount : $0, comment : $1)
                 }
-                .asDriver(onErrorDriveWith: .empty())
+                .bind(to: comment)
+                .disposed(by: disposeBag)
+
     }
     
 }

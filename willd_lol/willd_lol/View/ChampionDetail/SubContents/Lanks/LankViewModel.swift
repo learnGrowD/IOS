@@ -11,13 +11,15 @@ import RxSwift
 
 
 struct LankViewModel {
-    let lank : Driver<[ChampionGoodAtPlayerApi.Player]>
+    let disposeBag = DisposeBag()
+    let lank = BehaviorRelay<[ChampionGoodAtPlayerApi.Player]>(value: [])
     
     init(champion : Observable<Champion>,
          _ detailRepository : ChampionDetailRepository = ChampionDetailRepository.instance) {
-        lank = detailRepository.getPlayerLank(champion: champion)
-            .asDriver(onErrorDriveWith: .empty())
         
+        detailRepository.getPlayerLank(champion: champion)
+            .bind(to: lank)
+            .disposed(by: disposeBag)
     }
 }
 

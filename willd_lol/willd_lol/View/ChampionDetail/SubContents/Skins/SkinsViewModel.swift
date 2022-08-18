@@ -12,12 +12,13 @@ import RxCocoa
 
 struct SkinsViewModel {
     let disPoseBag = DisposeBag()
-    let skins : Driver<[ChampionSkinInfo]>
+    let skins = BehaviorRelay<[ChampionSkinInfo]>(value: [])
     init(champion : Observable<Champion>,
          _ detailRepository : ChampionDetailRepository = ChampionDetailRepository.instance) {
         
-        skins = detailRepository.getSkins(champion: champion)
-            .asDriver(onErrorDriveWith: .empty())
+        detailRepository.getSkins(champion: champion)
+            .bind(to: skins)
+            .disposed(by: disPoseBag)
     }
 }
 

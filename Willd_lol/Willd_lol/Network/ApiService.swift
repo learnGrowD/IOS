@@ -49,7 +49,8 @@ class ApiService {
             .rx.data()
         }
         .map { data -> String in
-            String(decoding: data, as: UTF8.self)
+
+            return String(decoding: data, as: UTF8.self)
         }
         .map { oldJsondStr -> String in
             oldJsondStr.replacingOccurrences(of: "\"\(championKey ?? "")\":{", with: "\"champion\":{")
@@ -88,6 +89,7 @@ class ApiService {
             .rx.data()
         }
         .map { data in
+            
             let api = try JSONDecoder().decode(ChampionListApi.self, from: data)
             return .success(api)
         }

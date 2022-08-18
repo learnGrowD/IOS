@@ -376,8 +376,8 @@
 			isa = PBXGroup;
 			children = (
 				B8EBEE2028ACDF5F002D170E /* Recommend */,
-				B8EBEE2228ACDFB2002D170E /* TierList */,
 				B847DAB128AD618A00C257F8 /* TierTag */,
+				B8EBEE2228ACDFB2002D170E /* TierList */,
 				B8EBEE2128ACDFA4002D170E /* PalyerRank */,
 			);
 			path = SubContents;

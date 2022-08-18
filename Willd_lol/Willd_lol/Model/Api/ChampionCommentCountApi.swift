@@ -13,6 +13,8 @@ struct ChampionCommentCountApi : Codable {
     
     struct Data : Codable {
         let count : Int?
+        
     }
+
     
 }

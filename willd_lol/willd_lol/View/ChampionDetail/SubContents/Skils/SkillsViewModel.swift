@@ -11,10 +11,13 @@ import RxSwift
 
 
 struct SkillsViewModel {
-    let skills : Driver<[ChampionListApi.Champion.Skill]>
+    let disposeBag = DisposeBag()
+    let skills = BehaviorRelay<[ChampionListApi.Champion.Skill]>(value: [])
     init(champion : Observable<Champion>,
          _ detailRepository : ChampionDetailRepository = ChampionDetailRepository.instance) {
-        skills = detailRepository.getSkills(champion: champion)
-            .asDriver(onErrorDriveWith: .empty())
+        
+        detailRepository.getSkills(champion: champion)
+            .bind(to: skills)
+            .disposed(by: disposeBag)
     }
 }

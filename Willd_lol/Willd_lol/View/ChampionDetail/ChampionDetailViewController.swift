@@ -94,16 +94,16 @@ extension ChampionDetailViewController {
             switch self.detailPageData[sectionNumber] {
             case .skins( _,  _):
                 return self.createSkinsLayout()
-            case.tags( _,  let data):
+            case.tags( _, let data):
                 return self.createTagsLayout(count: data.count)
             case.skills( _, _):
                 return self.createSkillsLayout()
+            case .lore(_, _):
+                return self.createLoreLayout()
             case.playerLank( _,  _):
                 return self.createLanksLayout()
             case.championComment( _, _):
                 return self.createCommentsLayout()
-            case .lore(_, _):
-                return self.createLoreLayout()
             }
         }
     }
@@ -140,7 +140,7 @@ extension ChampionDetailViewController {
         } else if count == 3 {
             group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: count + 2)
         } else {
-            group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: count)
+            group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: 1)
         }
         let section = NSCollectionLayoutSection(group: group)
         section.orthogonalScrollingBehavior = .groupPaging

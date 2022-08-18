@@ -32,7 +32,7 @@ class LoreCollectionViewCell : UICollectionViewCell {
      
      func bind(_ viewModel : LoreViewModel) {
          viewModel.lore
-             .drive(loreLabel.rx.text)
+             .bind(to : loreLabel.rx.text)
              .disposed(by: disposeBag)
 
      }

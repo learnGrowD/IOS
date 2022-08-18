@@ -102,7 +102,7 @@ class TierCollectionViewCell : UICollectionViewCell {
         
         
         let tierInfo = row
-            .flatMapLatest { row -> Driver<ChampionTier> in
+            .flatMapLatest { row in
                 viewModel.tierList
                     .map { tierList in
                         tierList[row]

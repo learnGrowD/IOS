@@ -32,7 +32,7 @@ class TagsCollectionViewCell : UICollectionViewCell {
     func bind(index : IndexPath, _ viewModel : TagsViewModel) {
         let row = Observable.just(index.row)
         let tag = row
-            .flatMapLatest { row -> Driver<String> in
+            .flatMapLatest { row in
                 viewModel.tags
                     .map { tags in
                         tags[row]

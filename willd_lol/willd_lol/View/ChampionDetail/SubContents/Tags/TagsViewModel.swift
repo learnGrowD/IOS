@@ -12,13 +12,15 @@ import RxSwift
 
 
 struct TagsViewModel {
-    
-    let tags : Driver<[String]>
+    let disposeBag = DisposeBag()
+    let tags = BehaviorRelay<[String]>(value: [])
     
     init(champion : Observable<Champion>,
          _ detailRepository : ChampionDetailRepository = ChampionDetailRepository.instance) {
-        tags = detailRepository.getTags(champion: champion)
-            .asDriver(onErrorDriveWith: .empty())
+        
+        detailRepository.getTags(champion: champion)
+            .bind(to: tags)
+            .disposed(by: disposeBag)
     }
     
 }

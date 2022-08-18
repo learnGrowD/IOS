@@ -71,15 +71,17 @@ extension HomeViewController {
     
     func generateLayout() -> UICollectionViewLayout {
         return UICollectionViewCompositionalLayout { [weak self] sectionNumber, environment -> NSCollectionLayoutSection? in
-            switch self?.homeData[sectionNumber] {
+            guard let self = self else { return nil }
+            switch self.homeData[sectionNumber] {
             case .championRecommend( _, _):
-                return self?.createChampionRecommendLayout()
+                return self.createChampionRecommendLayout()
             case .championTier( _, _):
-                return self?.createTierListLayout()
+                return self.createTierListLayout()
             case .championTags( _):
-                return self?.createTierTagsLayout()
-            default:
-                return self?.createChampionRecommendLayout()
+                return self.createTierTagsLayout()
+            case .playerLank( _, _):
+                return self.createPlayerRankLayout()
+            
             }
         }
     }
@@ -125,13 +127,29 @@ extension HomeViewController {
     func createTierListLayout() -> NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        item.contentInsets.bottom = 18
+//        item.contentInsets.bottom = 18
         
         let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(120))
         let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitem: item, count: 1)
         
         let section = NSCollectionLayoutSection(group: group)
-        section.contentInsets = .init(top: 0, leading: 18, bottom: 0, trailing: 18)
+        section.contentInsets = .init(top: 0, leading: 18, bottom: 80, trailing: 18)
+        section.interGroupSpacing = 32
+        return section
+    }
+    
+    func createPlayerRankLayout() -> NSCollectionLayoutSection {
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(160))
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        item.contentInsets = .init(top: 0, leading: 8, bottom: 0, trailing: 8)
+        
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(160))
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: 2)
+        
+        let section = NSCollectionLayoutSection(group: group)
+        section.boundarySupplementaryItems = [self.createHeaderLayout()]
+        section.contentInsets = .init(top: 18, leading: 10, bottom: 80, trailing: 10)
+        section.interGroupSpacing = 32
         return section
     }
     

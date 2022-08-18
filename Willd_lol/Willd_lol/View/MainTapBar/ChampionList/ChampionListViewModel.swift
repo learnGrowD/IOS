@@ -25,19 +25,19 @@ import RxSwift
 //Error event 방출은 하지만! 로그로만 출력...
 
 struct ChampionListViewModel {
-    
-    let shouldPresedentChampionList : Driver<[Champion]>
+    let disposeBag = DisposeBag()
+    let shouldPresedentChampionList = BehaviorRelay<[Champion]>(value: [])
     
     init(_ repository : MainRepository = MainRepository.instance) {
-        let championListPageData = repository.getChampionListPageData()
+        repository.getChampionListPageData()
             .map { uiState -> [Champion] in
                 guard case .success(let value) = uiState else {
                     return []
                 }
                 return value
             }
-        self.shouldPresedentChampionList = championListPageData
-            .asDriver(onErrorJustReturn: [])
+            .bind(to: shouldPresedentChampionList)
+            .disposed(by: disposeBag)
     }
     
 }

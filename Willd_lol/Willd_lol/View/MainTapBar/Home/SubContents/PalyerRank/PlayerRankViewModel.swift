@@ -14,10 +14,10 @@ import RxSwift
 
 struct PlayerLankViewModel {
     let disposeBag = DisposeBag()
-    let playerRankList : Driver<[PlayerLank]>
+    let playerRankList = BehaviorRelay<[PlayerLank]>(value: [])
     
     init(_ mainRepository : MainRepository = MainRepository.instance) {
-        let category = Observable<PlayerCategory>.just(.pro)
+        let category = Observable<PlayerCategory>.just(.recommend)
         let listCount = Observable.just(5)
         let info = Observable
             .combineLatest(
@@ -25,7 +25,9 @@ struct PlayerLankViewModel {
                 listCount) {
                     (category : $0, listCount : $1)
                 }
-        self.playerRankList = mainRepository.getPlayerLankList(info: info)
-            .asDriver(onErrorDriveWith: .empty())
+        
+        mainRepository.getPlayerLankList(info: info)
+            .bind(to: playerRankList)
+            .disposed(by: disposeBag)
     }
 }

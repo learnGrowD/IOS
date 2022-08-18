@@ -11,14 +11,15 @@ import RxSwift
 
 
 struct LoreViewModel {
-    let lore : Driver<String>
+    let disposeBag = DisposeBag()
+    let lore = BehaviorRelay<String>(value: "")
     
     init(champion : Observable<Champion>,
          _ detailRepository : ChampionDetailRepository = ChampionDetailRepository.instance) {
+       
         
-
-        lore = detailRepository.getLore(champion: champion)
-            .asDriver(onErrorDriveWith: .empty())
-    
+        detailRepository.getLore(champion: champion)
+            .bind(to: lore)
+            .disposed(by: disposeBag)
     }
 }
