@@ -15,7 +15,7 @@ struct LoreViewModel {
     let lore = BehaviorRelay<String>(value: "")
     
     init(champion : Observable<Champion>,
-         _ detailRepository : ChampionDetailRepository = ChampionDetailRepository.instance) {
+         _ detailRepository : DetailRepository = DetailRepository()) {
        
         
         detailRepository.getLore(champion: champion)

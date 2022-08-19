@@ -13,8 +13,8 @@ import RxSwift
 struct SkillsViewModel {
     let disposeBag = DisposeBag()
     let skills = BehaviorRelay<[ChampionListApi.Champion.Skill]>(value: [])
-    init(champion : Observable<Champion>,
-         _ detailRepository : ChampionDetailRepository = ChampionDetailRepository.instance) {
+    init(champion : Champion) {
+        let detailRepository = DetailRepository(champion: champion)
         
         detailRepository.getSkills(champion: champion)
             .bind(to: skills)

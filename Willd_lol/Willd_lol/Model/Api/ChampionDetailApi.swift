@@ -36,6 +36,7 @@ struct ChampionDetailApi : Codable {
             struct Image : Codable {
                 let full : String?
             }
+            
         }
         
     }

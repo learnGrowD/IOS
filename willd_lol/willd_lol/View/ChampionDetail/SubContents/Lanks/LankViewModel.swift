@@ -15,7 +15,7 @@ struct LankViewModel {
     let lank = BehaviorRelay<[ChampionGoodAtPlayerApi.Player]>(value: [])
     
     init(champion : Observable<Champion>,
-         _ detailRepository : ChampionDetailRepository = ChampionDetailRepository.instance) {
+         _ detailRepository : DetailRepository = DetailRepository()) {
         
         detailRepository.getPlayerLank(champion: champion)
             .bind(to: lank)

@@ -20,7 +20,7 @@ struct CommentViewModel {
     let comment = BehaviorRelay<(commentCount : Int, comment : [ChampionCommentApi.Comment])>(value: (0, []))
     
     init(champion : Observable<Champion>,
-         _ detailRepository : ChampionDetailRepository = ChampionDetailRepository.instance) {
+         _ detailRepository : DetailRepository = DetailRepository()) {
         
         detailRepository.getCommentCount(champion: champion)
             .bind(to: commentCount)

@@ -129,12 +129,12 @@ extension HomeViewController {
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
 //        item.contentInsets.bottom = 18
         
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(120))
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(80))
         let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitem: item, count: 1)
         
         let section = NSCollectionLayoutSection(group: group)
         section.contentInsets = .init(top: 0, leading: 18, bottom: 80, trailing: 18)
-        section.interGroupSpacing = 32
+        section.interGroupSpacing = 24
         return section
     }
     

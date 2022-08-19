@@ -25,18 +25,16 @@ enum ChampionDetailPageDataModel {
     case championComment(_ title : String?, _ data : (commentCount : Int, comment : [ChampionCommentApi.Comment]))
 }
 
-protocol ChampionDetailRepositoryProtocal {
-    func getSkins(champion : Observable<Champion>) -> Observable<[ChampionSkinInfo]>
-    func getSkins(championInfo : Observable<(championKey : String, championName : String)>) -> Observable<[ChampionSkinInfo]>
+protocol DetailRepositoryProtocal {
+    func getSkins(champion : Champion) -> Observable<[ChampionSkinInfo]>
+    func getSkins(championKey : String, championName : String) -> Observable<[ChampionSkinInfo]>
     
-    func getTags(champion : Observable<Champion>) -> Observable<[String]>
-    func getTags(championKey : Observable<String>) -> Observable<[String]>
+    func getTags() -> Observable<[String]>
 
     func getSkills(champion : Observable<Champion>) -> Observable<[ChampionListApi.Champion.Skill]>
     func getSkills(championInfo : Observable<(spells : [ChampionListApi.Champion.Skill], passive : ChampionListApi.Champion.Skill)>) -> Observable<[ChampionListApi.Champion.Skill]>
     
-    func getLore(champion : Observable<Champion>) -> Observable<String>
-    func getLore(championKey : Observable<String>) -> Observable<String>
+    func getLore() -> Observable<String>
     
     func getPlayerLank(champion : Observable<Champion>) -> Observable<[ChampionGoodAtPlayerApi.Player]>
     func getPlayerLank(championKey : Observable<String>) -> Observable<[ChampionGoodAtPlayerApi.Player]>
@@ -48,25 +46,39 @@ protocol ChampionDetailRepositoryProtocal {
     func getCommentCount(championKey : Observable<String>) -> Observable<Int>
 }
 
-class ChampionDetailRepository : ChampionDetailRepositoryProtocal {
-    static let instance = ChampionDetailRepository()
-    private let apiService : ApiService
+class DetailRepository : DetailRepositoryProtocal {
+    
+//    static let instance = DetailRepository()
+    private let apiService : ApiService = ApiService.instance
     private let disposeBag = DisposeBag()
-    private init() {
-        apiService = ApiService.instance
+    private let championDetailResult : Observable<ChampionDetailApi?>
+    
+    init(champion : Champion) {
+        championDetailResult = apiService.championDetail(championKey: champion.key)
+            .map { result -> ChampionDetailApi? in
+                guard case .success(let api) = result else {
+                    return nil
+                }
+                return api
+            }
+            .asObservable()
     }
     
-    func getSkins(champion : Observable<Champion>) -> Observable<[ChampionSkinInfo]> {
-        let championDetailResult = champion
-            .flatMapLatest { [weak self] champion in
-                self?.apiService.championDetail(championKey: champion.key) ?? .just(.failure(.networkError))
-            }
-            .share()
-        
-            
-        let skins = championDetailResult
-            .map { result -> [ChampionDetailApi.Data.Champion.Skin] in
+    init(championKey : String) {
+        championDetailResult = apiService.championDetail(championKey: championKey)
+            .map { result -> ChampionDetailApi? in
                 guard case .success(let api) = result else {
+                    return nil
+                }
+                return api
+            }
+            .asObservable()
+    }
+    
+    func getSkins(champion : Champion) -> Observable<[ChampionSkinInfo]> {
+        let skins = self.championDetailResult
+            .map { api -> [ChampionDetailApi.Data.Champion.Skin] in
+                guard let api = api else {
                     return []
                 }
                 return api.data.champion.skins.sorted {
@@ -75,7 +87,7 @@ class ChampionDetailRepository : ChampionDetailRepositoryProtocal {
             }
         return Observable
             .combineLatest(
-                champion,
+                Observable.just(champion),
                 skins) { champion, skins in
                     skins.map { skin in
                         if skin.name == "default" {
@@ -87,74 +99,48 @@ class ChampionDetailRepository : ChampionDetailRepositoryProtocal {
                 }
     }
     
-    func getSkins(championInfo : Observable<(championKey : String, championName : String)>) -> Observable<[ChampionSkinInfo]> {
-        let championDetailResult = championInfo
-            .flatMapLatest { [weak self] championInfo in
-                self?.apiService.championDetail(championKey: championInfo.championKey) ?? .just(.failure(.networkError))
-            }
-            .share()
-        let skins = championDetailResult
-            .map { result -> [ChampionDetailApi.Data.Champion.Skin] in
-                guard case .success(let api) = result else {
+    func getSkins(championKey : String, championName : String) -> Observable<[ChampionSkinInfo]> {
+        let skins = self.championDetailResult
+            .map { api -> [ChampionDetailApi.Data.Champion.Skin] in
+                guard let api = api else {
                     return []
                 }
                 return api.data.champion.skins.sorted {
                     $0.num ?? 0 > $1.num ?? 0
                 }
             }
+        
         return Observable
             .combineLatest(
-                championInfo,
-                skins) { championInfo, skins in
-                    skins.map { skin in
+                Observable.just(championKey),
+                Observable.just(championName),
+                skins) { key, name, skins in
+                    skins.map { skin -> ChampionSkinInfo in
                         if skin.name == "default" {
-                            return ChampionSkinInfo(championIdentity : championInfo.championKey, skinName : championInfo.championName, skinIdentity : skin.num ?? 0)
+                            return ChampionSkinInfo(championIdentity : key, skinName : name, skinIdentity : skin.num ?? 0)
                         }else {
-                            return ChampionSkinInfo(championIdentity : championInfo.championKey, skinName : skin.name, skinIdentity : skin.num ?? 0)
+                            return ChampionSkinInfo(championIdentity : key, skinName : skin.name, skinIdentity : skin.num ?? 0)
                         }
                     }
                 }
     }
     
-    func getTags(champion : Observable<Champion>) -> Observable<[String]>{
-        let championDetailResult = champion
-            .flatMapLatest { [weak self] champion in
-                self?.apiService.championDetail(championKey: champion.key) ?? .just(.failure(.networkError))
-            }
-            .share()
-        
-        let tags = championDetailResult
-            .map { result -> [String] in
-                guard case .success(let api) = result else {
+    func getTags() -> Observable<[String]>{
+        let tags = self.championDetailResult
+            .map { api -> [String] in
+                guard let api = api else {
                     return []
                 }
                 var tags = api.data.champion.tags
                 tags.insert(api.data.champion.title ?? "", at: 0)
                 return tags
             }
-        return tags
-    }
-    
-    func getTags(championKey : Observable<String>) -> Observable<[String]> {
-        let championDetailResult = championKey
-            .flatMapLatest { [weak self] championKey in
-                self?.apiService.championDetail(championKey: championKey) ?? .just(.failure(.networkError))
-            }
-            .share()
         
-        let tags = championDetailResult
-            .map { result -> [String] in
-                guard case .success(let api) = result else {
-                    return []
-                }
-                var tags = api.data.champion.tags
-                tags.insert(api.data.champion.title ?? "", at: 0)
-                return tags
-            }
         return tags
     }
     
-    func getSkills(champion : Observable<Champion>) -> Observable<[ChampionListApi.Champion.Skill]> {
+    
+    func getSkills(champion : Champion) -> Observable<[ChampionListApi.Champion.Skill]> {
         return champion
             .map { result -> [ChampionListApi.Champion.Skill] in
                 var spells = result.spells
@@ -163,7 +149,7 @@ class ChampionDetailRepository : ChampionDetailRepositoryProtocal {
             }
     }
     
-    func getSkills(championInfo : Observable<(spells : [ChampionListApi.Champion.Skill], passive : ChampionListApi.Champion.Skill)>) -> Observable<[ChampionListApi.Champion.Skill]> {
+    func getSkills() -> Observable<[ChampionListApi.Champion.Skill]> {
         return championInfo
             .map { result -> [ChampionListApi.Champion.Skill] in
                 var spells = result.spells
@@ -172,32 +158,10 @@ class ChampionDetailRepository : ChampionDetailRepositoryProtocal {
             }
     }
     
-    func getLore(champion : Observable<Champion>) -> Observable<String> {
-        let championDetailResult = champion
-            .flatMapLatest { [weak self] champion in
-                self?.apiService.championDetail(championKey: champion.key) ?? .just(.failure(.networkError))
-            }
-            .share()
-        
-        return championDetailResult
-            .map { result -> String in
-                guard case .success(let api) = result else {
-                    return ""
-                }
-                return api.data.champion.lore ?? ""
-            }
-    }
-    
-    func getLore(championKey : Observable<String>) -> Observable<String> {
-        let championDetailResult = championKey
-            .flatMapLatest { [weak self] championKey in
-                self?.apiService.championDetail(championKey: championKey) ?? .just(.failure(.networkError))
-            }
-            .share()
-        
-        return championDetailResult
-            .map { result -> String in
-                guard case .success(let api) = result else {
+    func getLore() -> Observable<String> {
+        return self.championDetailResult
+            .map { api -> String in
+                guard let api = api else {
                     return ""
                 }
                 return api.data.champion.lore ?? ""

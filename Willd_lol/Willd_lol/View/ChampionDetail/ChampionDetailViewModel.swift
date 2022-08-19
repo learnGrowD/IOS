@@ -24,7 +24,7 @@ struct ChampionDetailViewModel {
     let detailPageData : Driver<[ChampionDetailPageDataModel]>
     
     init(
-        champion : Observable<Champion>) {
+        champion : Champion) {
             skinViewModel = SkinsViewModel(champion: champion)
             tagsViewModel = TagsViewModel(champion: champion)
             skillsViewModel = SkillsViewModel(champion: champion)
