@@ -49,7 +49,6 @@ class ApiService {
             .rx.data()
         }
         .map { data -> String in
-
             return String(decoding: data, as: UTF8.self)
         }
         .map { oldJsondStr -> String in

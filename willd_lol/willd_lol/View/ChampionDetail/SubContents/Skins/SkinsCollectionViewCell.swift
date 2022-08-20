@@ -34,6 +34,7 @@ class SkinsCollectionViewCell : UICollectionViewCell {
         let skin = row
             .flatMapLatest { row in
                 viewModel.skins
+                    .filter { $0.count != 0 }
                     .map { skins in
                         skins[row]
                     }
@@ -41,7 +42,7 @@ class SkinsCollectionViewCell : UICollectionViewCell {
         
         skin
             .bind(onNext : { [weak self] in
-                self?.imageView.kf.setImage(with: ImageUrlConverter.convertChampionImgUrl(
+                self?.imageView.kf.setImage(with: UrlConverter.convertChampionImgUrl(
                     type: .full,
                     championKey: $0.championIdentity,
                     skinIdentity: $0.skinIdentity)

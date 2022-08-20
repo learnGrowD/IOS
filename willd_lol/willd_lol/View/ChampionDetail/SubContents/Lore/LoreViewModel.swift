@@ -14,12 +14,5 @@ struct LoreViewModel {
     let disposeBag = DisposeBag()
     let lore = BehaviorRelay<String>(value: "")
     
-    init(champion : Observable<Champion>,
-         _ detailRepository : DetailRepository = DetailRepository()) {
-       
-        
-        detailRepository.getLore(champion: champion)
-            .bind(to: lore)
-            .disposed(by: disposeBag)
-    }
+
 }

@@ -34,6 +34,7 @@ class TagsCollectionViewCell : UICollectionViewCell {
         let tag = row
             .flatMapLatest { row in
                 viewModel.tags
+                    .filter { $0.count != 0 }
                     .map { tags in
                         tags[row]
                     }

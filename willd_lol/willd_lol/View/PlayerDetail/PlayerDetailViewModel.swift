@@ -10,8 +10,8 @@ import Foundation
 
 struct PlayerDetailViewModel {
     
-    init(_detailRepository : DetailRepository = DetailRepository.instance) {
-        
-    }
+//    init(_detailRepository : ChampionDetailRepository = DetailRepository.instance) {
+//        
+//    }
     
 }

@@ -56,8 +56,9 @@ class CommentCollectionViewCell : UICollectionViewCell {
         let comment = row
             .flatMapLatest { row in
                 viewModel.comment
+                    .filter { $0.count != 0 }
                     .map {
-                        $0.comment[row]
+                        $0[row]
                     }
             }
         comment

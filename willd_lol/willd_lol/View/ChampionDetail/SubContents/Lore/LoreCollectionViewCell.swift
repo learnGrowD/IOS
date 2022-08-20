@@ -32,6 +32,7 @@ class LoreCollectionViewCell : UICollectionViewCell {
      
      func bind(_ viewModel : LoreViewModel) {
          viewModel.lore
+             .filter { $0 != "" }
              .bind(to : loreLabel.rx.text)
              .disposed(by: disposeBag)
 

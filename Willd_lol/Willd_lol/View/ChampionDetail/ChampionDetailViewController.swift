@@ -57,12 +57,18 @@ class ChampionDetailViewController : UIViewController {
             .disposed(by: disposeBag)
         
         collectionView.rx.itemSelected
-            .bind(onNext : { [weak self] in
-                switch self?.detailPageData[$0.section] {
-                case.skins(let title, _):
-                    print(title)
+            .bind(onNext : { [weak self] index in
+                switch self?.detailPageData[index.section] {
+                case.skills(_, let data):
+                    let vc = SkillDetailViewController().then { vc in
+                        let viewModel = SkillDetailViewModel(skill: data[index.row])
+                        vc.view.backgroundColor = .willdBlack
+                        vc.bind(viewModel)
+                    }
+                    let navVc = UINavigationController(rootViewController: vc)
+                    self?.show(navVc, sender: nil)
                 default:
-                    print("Hello")
+                    return
                 }
             })
             .disposed(by: disposeBag)
@@ -223,13 +229,13 @@ extension ChampionDetailViewController : UICollectionViewDataSource {
         case .tags( _, let data):
             return data.count
         case .skills( _, let data):
-            return data.count
+            return 5
         case .lore( _, _):
             return 1
         case .playerLank( _, let data):
             return data.count
         case .championComment( _, let data):
-            return data.comment.count
+            return data.count
         }
     }
     

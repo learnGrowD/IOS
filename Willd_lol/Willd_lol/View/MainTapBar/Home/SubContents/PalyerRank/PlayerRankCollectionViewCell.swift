@@ -78,7 +78,7 @@ class PlayerRankCollectionViewCell : UICollectionViewCell {
         playerLank
             .bind(onNext : { [weak self] in
                 guard let self = self else { return }
-                self.profileImageUrl.kf.setImage(with: ImageUrlConverter.convertImgUrl($0.imageUrl ?? ""))
+                self.profileImageUrl.kf.setImage(with: UrlConverter.convertImgUrl($0.imageUrl ?? ""))
                 self.nameLabel.text = $0.displayName ?? ""
                 
                 let tier = $0.tier ?? ""

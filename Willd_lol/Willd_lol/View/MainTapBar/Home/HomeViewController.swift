@@ -48,6 +48,34 @@ class HomeViewController : UIViewController {
                 self?.collectionView.reloadData()
             })
             .disposed(by: disposeBag)
+        
+        self.collectionView.rx.itemSelected
+            .bind(onNext : { [weak self] index in
+                guard let self = self else { return }
+                switch self.homeData[index.section] {
+                case.championRecommend( _, let data):
+                    let championDetailVc = ChampionDetailViewController().then { vc in
+                        let viewModel = ChampionDetailViewModel(championKey: data[index.row].champion.championKey ?? "", championName: data[index.row].champion.name ?? "")
+                        vc.hidesBottomBarWhenPushed = true
+                        vc.bind(viewModel)
+                        vc.view.backgroundColor = .willdBlack
+                        vc.title = data[index.row].champion.name
+                    }
+                    self.show(championDetailVc, sender: nil)
+                case.championTier( _, let data):
+                    let championDetailVc = ChampionDetailViewController().then { vc in
+                        let viewModel = ChampionDetailViewModel(championKey: data[index.row].championKey ?? "", championName: data[index.row].championName ?? "")
+                        vc.hidesBottomBarWhenPushed = true
+                        vc.bind(viewModel)
+                        vc.view.backgroundColor = .willdBlack
+                        vc.title = data[index.row].championName
+                    }
+                    self.show(championDetailVc, sender: nil)
+                default:
+                    return
+                }
+            })
+            .disposed(by: disposeBag)
     }
     
     private func attribute() {

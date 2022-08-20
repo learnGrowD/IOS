@@ -46,23 +46,22 @@ class SkillsCollectionViewCell : UICollectionViewCell {
         let skill = row
             .flatMapLatest { row in
                 viewModel.skills
-                    .map { skill in
-                        skill[row]
+                    .filter { $0.count != 0 }
+                    .map {
+                        $0[row]
                     }
             }
-        
         skill
             .bind(onNext : { [weak self] in
-                self?.skillKey.text = $0.key ?? "P"
-                self?.skillImageView.kf.setImage(with: ImageUrlConverter.convertImgUrl($0.imageUrl))
+                self?.skillKey.text = $0.key ?? ""
+                if $0.key == "P" {
+                    self?.skillImageView.kf.setImage(with: UrlConverter.convertPassiveImgUrl(passiveIdentity: $0.image ?? ""))
+                } else {
+                    self?.skillImageView.kf.setImage(with: UrlConverter.convertSpellImgUrl(spellIdentity: $0.image ?? ""))
+                }
                 self?.skillNameLabel.text = $0.name
-                
             })
             .disposed(by: disposeBag)
-            
-        
-
-             
      }
      
      private func attribute() {

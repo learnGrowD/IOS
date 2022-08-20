@@ -11,7 +11,7 @@
 		B82F00A728A5268F0061E09E /* RxExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B82F00A628A5268F0061E09E /* RxExtension.swift */; };
 		B82F00A928A5698D0061E09E /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B82F00A828A5698D0061E09E /* MainViewModel.swift */; };
 		B82F00B228A64D060061E09E /* ChampionDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B82F00B128A64D060061E09E /* ChampionDetailViewModel.swift */; };
-		B838E02D28A24C2400169486 /* DetailRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B838E02C28A24C2400169486 /* DetailRepository.swift */; };
+		B838E02D28A24C2400169486 /* ChampionDetailRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B838E02C28A24C2400169486 /* ChampionDetailRepository.swift */; };
 		B838E04028A272DB00169486 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B838E03F28A272DB00169486 /* HomeViewController.swift */; };
 		B838E04228A2730A00169486 /* ChampionListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B838E04128A2730A00169486 /* ChampionListViewController.swift */; };
 		B838E04528A2941600169486 /* BaseExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B838E04428A2941600169486 /* BaseExtension.swift */; };
@@ -45,8 +45,10 @@
 		B8953E2528A39A3200AAC1E5 /* ChampionListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8953E2428A39A3200AAC1E5 /* ChampionListViewModel.swift */; };
 		B8953E2728A3C3D500AAC1E5 /* ChampionListViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8953E2628A3C3D500AAC1E5 /* ChampionListViewCell.swift */; };
 		B8953E2928A3E9EA00AAC1E5 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8953E2828A3E9EA00AAC1E5 /* HomeViewModel.swift */; };
+		B8B0BE1128B1589E00546094 /* SkillDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B0BE1028B1589E00546094 /* SkillDetailViewModel.swift */; };
+		B8B0BE1328B158CC00546094 /* SkillDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B0BE1228B158CC00546094 /* SkillDetailViewController.swift */; };
 		B8B17D4528A0F1580093AFD1 /* ChampionDetailApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B17D4428A0F1580093AFD1 /* ChampionDetailApi.swift */; };
-		B8B17D4728A13F530093AFD1 /* ImageUrlConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B17D4628A13F530093AFD1 /* ImageUrlConverter.swift */; };
+		B8B17D4728A13F530093AFD1 /* UrlConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8B17D4628A13F530093AFD1 /* UrlConverter.swift */; };
 		B8D0674328A797660081E831 /* SkinsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D0674228A797660081E831 /* SkinsCollectionViewCell.swift */; };
 		B8D0674528A7977B0081E831 /* SkinsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D0674428A7977B0081E831 /* SkinsViewModel.swift */; };
 		B8D0674728A799410081E831 /* TagsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8D0674628A799410081E831 /* TagsCollectionViewCell.swift */; };
@@ -83,7 +85,7 @@
 		B82F00A628A5268F0061E09E /* RxExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RxExtension.swift; sourceTree = "<group>"; };
 		B82F00A828A5698D0061E09E /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
 		B82F00B128A64D060061E09E /* ChampionDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChampionDetailViewModel.swift; sourceTree = "<group>"; };
-		B838E02C28A24C2400169486 /* DetailRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailRepository.swift; sourceTree = "<group>"; };
+		B838E02C28A24C2400169486 /* ChampionDetailRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChampionDetailRepository.swift; sourceTree = "<group>"; };
 		B838E03F28A272DB00169486 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		B838E04128A2730A00169486 /* ChampionListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChampionListViewController.swift; sourceTree = "<group>"; };
 		B838E04428A2941600169486 /* BaseExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseExtension.swift; sourceTree = "<group>"; };
@@ -111,8 +113,10 @@
 		B8953E2428A39A3200AAC1E5 /* ChampionListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChampionListViewModel.swift; sourceTree = "<group>"; };
 		B8953E2628A3C3D500AAC1E5 /* ChampionListViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChampionListViewCell.swift; sourceTree = "<group>"; };
 		B8953E2828A3E9EA00AAC1E5 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		B8B0BE1028B1589E00546094 /* SkillDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillDetailViewModel.swift; sourceTree = "<group>"; };
+		B8B0BE1228B158CC00546094 /* SkillDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkillDetailViewController.swift; sourceTree = "<group>"; };
 		B8B17D4428A0F1580093AFD1 /* ChampionDetailApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChampionDetailApi.swift; sourceTree = "<group>"; };
-		B8B17D4628A13F530093AFD1 /* ImageUrlConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUrlConverter.swift; sourceTree = "<group>"; };
+		B8B17D4628A13F530093AFD1 /* UrlConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlConverter.swift; sourceTree = "<group>"; };
 		B8D0674228A797660081E831 /* SkinsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkinsCollectionViewCell.swift; sourceTree = "<group>"; };
 		B8D0674428A7977B0081E831 /* SkinsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkinsViewModel.swift; sourceTree = "<group>"; };
 		B8D0674628A799410081E831 /* TagsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -243,7 +247,7 @@
 			isa = PBXGroup;
 			children = (
 				B86387BA289F55FA00331324 /* MainRepository.swift */,
-				B838E02C28A24C2400169486 /* DetailRepository.swift */,
+				B838E02C28A24C2400169486 /* ChampionDetailRepository.swift */,
 			);
 			path = Repository;
 			sourceTree = "<group>";
@@ -280,7 +284,7 @@
 			isa = PBXGroup;
 			children = (
 				B838E04328A2940700169486 /* Extension */,
-				B8B17D4628A13F530093AFD1 /* ImageUrlConverter.swift */,
+				B8B17D4628A13F530093AFD1 /* UrlConverter.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -326,6 +330,15 @@
 			path = Network;
 			sourceTree = "<group>";
 		};
+		B8B0BE0F28B1586E00546094 /* SkillDetail */ = {
+			isa = PBXGroup;
+			children = (
+				B8B0BE1228B158CC00546094 /* SkillDetailViewController.swift */,
+				B8B0BE1028B1589E00546094 /* SkillDetailViewModel.swift */,
+			);
+			path = SkillDetail;
+			sourceTree = "<group>";
+		};
 		B8D0673928A795500081E831 /* SubContents */ = {
 			isa = PBXGroup;
 			children = (
@@ -362,6 +375,7 @@
 			children = (
 				B8D0674A28A799B80081E831 /* SkillsCollectionViewCell.swift */,
 				B8D0674C28A799E60081E831 /* SkillsViewModel.swift */,
+				B8B0BE0F28B1586E00546094 /* SkillDetail */,
 			);
 			path = Skils;
 			sourceTree = "<group>";
@@ -490,8 +504,8 @@
 		B8FFBA8428AFF1FC007867F5 /* Match */ = {
 			isa = PBXGroup;
 			children = (
-				B8FFBA8D28AFF2E0007867F5 /* MatchViewModel.swift */,
 				B8FFBA9328AFF389007867F5 /* MatchCollectionViewCell.swift */,
+				B8FFBA8D28AFF2E0007867F5 /* MatchViewModel.swift */,
 			);
 			path = Match;
 			sourceTree = "<group>";
@@ -599,11 +613,12 @@
 				B8FFBA9028AFF344007867F5 /* StatsCollectionViewCell.swift in Sources */,
 				B86387C3289F5D1A00331324 /* UiState.swift in Sources */,
 				B847DAB328AD61A200C257F8 /* TierTagViewModel.swift in Sources */,
+				B8B0BE1328B158CC00546094 /* SkillDetailViewController.swift in Sources */,
 				B8D0674328A797660081E831 /* SkinsCollectionViewCell.swift in Sources */,
 				B82F00B228A64D060061E09E /* ChampionDetailViewModel.swift in Sources */,
 				B8FFBA8E28AFF2E0007867F5 /* MatchViewModel.swift in Sources */,
 				B8D0674928A799880081E831 /* TagsViewModel.swift in Sources */,
-				B8B17D4728A13F530093AFD1 /* ImageUrlConverter.swift in Sources */,
+				B8B17D4728A13F530093AFD1 /* UrlConverter.swift in Sources */,
 				B8FFBA7B28AFEFFA007867F5 /* PlayerDetailViewController.swift in Sources */,
 				B86387D4289F843D00331324 /* PlayerDetailApi.swift in Sources */,
 				B8FFBA8628AFF223007867F5 /* SummonerCollectionViewCell.swift in Sources */,
@@ -627,6 +642,7 @@
 				B8D0674528A7977B0081E831 /* SkinsViewModel.swift in Sources */,
 				B8904A59289FCB850051D4E9 /* ChampionRecommendApi.swift in Sources */,
 				B8D0675528A79A990081E831 /* LankViewModel.swift in Sources */,
+				B8B0BE1128B1589E00546094 /* SkillDetailViewModel.swift in Sources */,
 				B8FFBA9428AFF389007867F5 /* MatchCollectionViewCell.swift in Sources */,
 				B8FFBA8A28AFF287007867F5 /* StatsViewModel.swift in Sources */,
 				B8EBEE3128ACE362002D170E /* DefaultCollectionViewHeader.swift in Sources */,
@@ -634,7 +650,7 @@
 				B88AEA27289E2E4D000EAD22 /* ApiService.swift in Sources */,
 				B8FFBA8C28AFF2CA007867F5 /* MostChampionViewModel.swift in Sources */,
 				B8D0674B28A799B80081E831 /* SkillsCollectionViewCell.swift in Sources */,
-				B838E02D28A24C2400169486 /* DetailRepository.swift in Sources */,
+				B838E02D28A24C2400169486 /* ChampionDetailRepository.swift in Sources */,
 				B88AE9F5289E2B6B000EAD22 /* SceneDelegate.swift in Sources */,
 				B8D0674D28A799E60081E831 /* SkillsViewModel.swift in Sources */,
 				B847DAB528AD630B00C257F8 /* TierTagsCollectionViewCell.swift in Sources */,

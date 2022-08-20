@@ -15,11 +15,4 @@ struct TagsViewModel {
     let disposeBag = DisposeBag()
     let tags = BehaviorRelay<[String]>(value: [])
     
-    init(champion : Champion) {
-        let detailRepository = DetailRepository(champion: champion)
-        detailRepository.getTags()
-            .bind(to: tags)
-            .disposed(by: disposeBag)
-    }
-    
 }

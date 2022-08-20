@@ -60,6 +60,7 @@ class LankCollectionViewCell : UICollectionViewCell {
         let rank = row
             .flatMapLatest { row in
                 viewModel.lank
+                    .filter { $0.count != 0 }
                     .map {
                         $0[row]
                     }
@@ -68,10 +69,10 @@ class LankCollectionViewCell : UICollectionViewCell {
             .bind(onNext : { [weak self] in
                 guard let self = self else { return }
                 self.lankLabel.text =  String(describing: $0.rank ?? 0)
-                self.tierboerderImagView.kf.setImage(with: ImageUrlConverter.convertImgUrl($0.summoner.leagueStats[0].tierInfo.borderImageUrl))
+                self.tierboerderImagView.kf.setImage(with: UrlConverter.convertImgUrl($0.summoner.leagueStats[0].tierInfo.borderImageUrl))
                 self.tierLabel.text = $0.summoner.leagueStats[0].tierInfo.tier
                 self.nameLabel.text = $0.summoner.name
-                self.profileImagView.kf.setImage(with: ImageUrlConverter.convertImgUrl($0.summoner.profileImageUrl))
+                self.profileImagView.kf.setImage(with: UrlConverter.convertImgUrl($0.summoner.profileImageUrl))
                 guard let win = $0.summoner.leagueStats[0].win,
                       let lose = $0.summoner.leagueStats[0].lose else {
                     return

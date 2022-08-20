@@ -13,19 +13,5 @@ import RxCocoa
 struct SkinsViewModel {
     let disPoseBag = DisposeBag()
     let skins = BehaviorRelay<[ChampionSkinInfo]>(value: [])
-    init(champion : Champion) {
-        let detailRepository = DetailRepository(champion: champion)
-        
-        detailRepository.getSkins(champion: champion)
-            .bind(to: skins)
-            .disposed(by: disPoseBag)
-    }
-    init(championKey : String, championName : String) {
-        let detailRepository = DetailRepository(championKey: championKey)
-        
-        detailRepository.getSkins(championKey: championKey, championName: championName)
-            .bind(to: skins)
-            .disposed(by: disPoseBag)
-    }
 }
 

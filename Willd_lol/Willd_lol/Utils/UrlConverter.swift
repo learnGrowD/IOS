@@ -14,13 +14,14 @@ enum ChampionImgType {
     case small
 }
 
-struct ImageUrlConverter {
+
+struct UrlConverter {
     private static let baseUrl = "https://ddragon.leagueoflegends.com"
-    private static let championFullImgPath   = ImageUrlConverter.baseUrl + "/cdn/img/champion/splash/"
-    private static let championMiddleImgPath = ImageUrlConverter.baseUrl + "/cdn/img/champion/loading/"
-    private static let championSmallImgPath  = ImageUrlConverter.baseUrl + "/cdn/12.14.1/img/champion/"
-    private static let passiveImgPath        = ImageUrlConverter.baseUrl + "/cdn/12.14.1/img/passive/"
-    private static let spellImgPath          = ImageUrlConverter.baseUrl + "/cdn/12.14.1/img/spell/"
+    private static let championFullImgPath   = UrlConverter.baseUrl + "/cdn/img/champion/splash/"
+    private static let championMiddleImgPath = UrlConverter.baseUrl + "/cdn/img/champion/loading/"
+    private static let championSmallImgPath  = UrlConverter.baseUrl + "/cdn/12.14.1/img/champion/"
+    private static let passiveImgPath        = UrlConverter.baseUrl + "/cdn/12.14.1/img/passive/"
+    private static let spellImgPath          = UrlConverter.baseUrl + "/cdn/12.14.1/img/spell/"
     
     static func convertChampionImgUrl(
         type : ChampionImgType,
@@ -47,5 +48,18 @@ struct ImageUrlConverter {
     
     static func convertImgUrl(_ imgPath : String?) -> URL? {
         URL(string: imgPath ?? "")
+    }
+    
+    static func convertVideoURl(championKey : String?, of skillKey : String) -> URL? {
+        var championKey = "\(championKey ?? "")"
+        (0...3).forEach { _ in
+            if championKey.count > 3 {
+                return
+            }
+            championKey = "0" + championKey
+        }
+        let baseVedioUrl = "https://d28xe8vt774jo5.cloudfront.net/champion-abilities/\(championKey)/ability_\(championKey)_\(skillKey)1.mp4"
+        
+        return URL(string: baseVedioUrl)
     }
 }

@@ -44,7 +44,7 @@ class ChampionListViewCell : UICollectionViewCell {
     }
     
     func configure(data : ChampionListApi.Champion) {
-        imagView.kf.setImage(with: ImageUrlConverter.convertChampionImgUrl(type: .middle, championKey: data.key))
+        imagView.kf.setImage(with: UrlConverter.convertChampionImgUrl(type: .middle, championKey: data.key))
         nameLabel.text = data.name
         
     }

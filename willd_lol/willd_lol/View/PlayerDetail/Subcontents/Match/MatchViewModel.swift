@@ -13,8 +13,8 @@ import RxSwift
 struct MatchViewModel {
     let disposeBag = DisposeBag()
     
-    init(_ detailRepository : DetailRepository = DetailRepository.instance) {
-        
-    }
+//    init(_ detailRepository : ChampionDetailRepository = DetailRepository.instance) {
+//
+//    }
     
 }

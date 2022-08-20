@@ -127,7 +127,7 @@ class RecommendCollectionViewCell : UICollectionViewCell {
         recommend
             .bind(onNext : { [weak self] in
                 guard let self = self else { return }
-                self.championImageView.kf.setImage(with: ImageUrlConverter.convertChampionImgUrl(
+                self.championImageView.kf.setImage(with: UrlConverter.convertChampionImgUrl(
                     type: .full,
                     championKey: $0.champion.championKey,
                     skinIdentity: 0

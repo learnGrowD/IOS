@@ -8,6 +8,7 @@
 import Foundation
 import RxSwift
 import RxCocoa
+import Accessibility
 
 struct ChampionSkinInfo : Codable {
     let championIdentity : String?
@@ -15,46 +16,52 @@ struct ChampionSkinInfo : Codable {
     let skinIdentity : Int
 }
 
+struct ChampionSkill : Codable {
+    let championDataKey : String? // identity key ex) 1, 2, 152 등....
+    let key : String?
+    let image : String?
+    let name : String?
+    let description : String?
+}
+
 typealias ChampionUserComment = (comment : [ChampionCommentApi.Comment], commentCount : Int)
 enum ChampionDetailPageDataModel {
     case skins(_ title : String?, _ data : [ChampionSkinInfo])
     case tags(_ title : String?, _ data : [String])
-    case skills(_ title : String?, _ data : [ChampionListApi.Champion.Skill])
+    case skills(_ title : String?, _ data : [ChampionSkill])
     case lore(_ title : String?, _ data : String)
     case playerLank(_ title : String?, _ data : [ChampionGoodAtPlayerApi.Player])
-    case championComment(_ title : String?, _ data : (commentCount : Int, comment : [ChampionCommentApi.Comment]))
+    case championComment(_ title : String?, _ data : [ChampionCommentApi.Comment])
 }
 
-protocol DetailRepositoryProtocal {
+protocol ChampionDetailRepositoryProtocal {
     func getSkins(champion : Champion) -> Observable<[ChampionSkinInfo]>
     func getSkins(championKey : String, championName : String) -> Observable<[ChampionSkinInfo]>
     
     func getTags() -> Observable<[String]>
 
-    func getSkills(champion : Observable<Champion>) -> Observable<[ChampionListApi.Champion.Skill]>
-    func getSkills(championInfo : Observable<(spells : [ChampionListApi.Champion.Skill], passive : ChampionListApi.Champion.Skill)>) -> Observable<[ChampionListApi.Champion.Skill]>
+    func getSkills() -> Observable<[ChampionSkill]>
     
     func getLore() -> Observable<String>
     
-    func getPlayerLank(champion : Observable<Champion>) -> Observable<[ChampionGoodAtPlayerApi.Player]>
-    func getPlayerLank(championKey : Observable<String>) -> Observable<[ChampionGoodAtPlayerApi.Player]>
+    func getPlayerLank(champion : Champion) -> Observable<[ChampionGoodAtPlayerApi.Player]>
+    func getPlayerLank(championKey : String) -> Observable<[ChampionGoodAtPlayerApi.Player]>
     
-    func getComment(champion : Observable<Champion> ) -> Observable<[ChampionCommentApi.Comment]>
-    func getComment(championKey : Observable<String> ) -> Observable<[ChampionCommentApi.Comment]>
+    func getComment(champion : Champion ) -> Observable<[ChampionCommentApi.Comment]>
+    func getComment(championKey : String ) -> Observable<[ChampionCommentApi.Comment]>
     
-    func getCommentCount(champion : Observable<Champion>) -> Observable<Int>
-    func getCommentCount(championKey : Observable<String>) -> Observable<Int>
+    func getCommentCount(champion : Champion) -> Observable<Int>
+    func getCommentCount(championKey : String) -> Observable<Int>
 }
 
-class DetailRepository : DetailRepositoryProtocal {
-    
-//    static let instance = DetailRepository()
+struct ChampionDetailRepository : ChampionDetailRepositoryProtocal {
     private let apiService : ApiService = ApiService.instance
     private let disposeBag = DisposeBag()
-    private let championDetailResult : Observable<ChampionDetailApi?>
+    private let championDetailResult = BehaviorSubject<ChampionDetailApi?>(value: nil)
+    
     
     init(champion : Champion) {
-        championDetailResult = apiService.championDetail(championKey: champion.key)
+        let _ = apiService.championDetail(championKey: champion.key)
             .map { result -> ChampionDetailApi? in
                 guard case .success(let api) = result else {
                     return nil
@@ -62,10 +69,12 @@ class DetailRepository : DetailRepositoryProtocal {
                 return api
             }
             .asObservable()
+            .bind(to: championDetailResult)
+            .disposed(by: disposeBag)
     }
     
     init(championKey : String) {
-        championDetailResult = apiService.championDetail(championKey: championKey)
+        let _ = apiService.championDetail(championKey: championKey)
             .map { result -> ChampionDetailApi? in
                 guard case .success(let api) = result else {
                     return nil
@@ -73,10 +82,13 @@ class DetailRepository : DetailRepositoryProtocal {
                 return api
             }
             .asObservable()
+            .bind(to: championDetailResult)
+            .disposed(by: disposeBag)
     }
     
     func getSkins(champion : Champion) -> Observable<[ChampionSkinInfo]> {
         let skins = self.championDetailResult
+            .filter { $0 != nil }
             .map { api -> [ChampionDetailApi.Data.Champion.Skin] in
                 guard let api = api else {
                     return []
@@ -101,6 +113,7 @@ class DetailRepository : DetailRepositoryProtocal {
     
     func getSkins(championKey : String, championName : String) -> Observable<[ChampionSkinInfo]> {
         let skins = self.championDetailResult
+            .filter { $0 != nil }
             .map { api -> [ChampionDetailApi.Data.Champion.Skin] in
                 guard let api = api else {
                     return []
@@ -127,6 +140,7 @@ class DetailRepository : DetailRepositoryProtocal {
     
     func getTags() -> Observable<[String]>{
         let tags = self.championDetailResult
+            .filter { $0 != nil }
             .map { api -> [String] in
                 guard let api = api else {
                     return []
@@ -140,26 +154,27 @@ class DetailRepository : DetailRepositoryProtocal {
     }
     
     
-    func getSkills(champion : Champion) -> Observable<[ChampionListApi.Champion.Skill]> {
-        return champion
-            .map { result -> [ChampionListApi.Champion.Skill] in
-                var spells = result.spells
-                spells.insert(result.passive, at: 0)
-                return spells
-            }
-    }
-    
-    func getSkills() -> Observable<[ChampionListApi.Champion.Skill]> {
-        return championInfo
-            .map { result -> [ChampionListApi.Champion.Skill] in
-                var spells = result.spells
-                spells.insert(result.passive, at: 0)
-                return spells
+    func getSkills() -> Observable<[ChampionSkill]> {
+        return championDetailResult
+            .filter { $0 != nil }
+            .map { api -> [ChampionSkill] in
+                guard let api = api else {
+                    return []
+                }
+                let result : [ChampionSkill] = [
+                    ChampionSkill(championDataKey : api.data.champion.key ,key: "P", image: api.data.champion.passive.image.full, name: api.data.champion.passive.name, description: api.data.champion.passive.description),
+                    ChampionSkill(championDataKey : api.data.champion.key ,key: "Q", image: api.data.champion.spells[0].image.full, name: api.data.champion.spells[0].name, description: api.data.champion.spells[0].description),
+                    ChampionSkill(championDataKey : api.data.champion.key ,key: "W", image: api.data.champion.spells[1].image.full, name: api.data.champion.spells[1].name, description: api.data.champion.spells[1].description),
+                    ChampionSkill(championDataKey : api.data.champion.key ,key: "E", image: api.data.champion.spells[2].image.full, name: api.data.champion.spells[2].name, description: api.data.champion.spells[2].description),
+                    ChampionSkill(championDataKey : api.data.champion.key ,key: "R", image: api.data.champion.spells[3].image.full, name: api.data.champion.spells[3].name, description: api.data.champion.spells[3].description)
+                ]
+                return result
             }
     }
     
     func getLore() -> Observable<String> {
         return self.championDetailResult
+            .filter { $0 != nil }
             .map { api -> String in
                 guard let api = api else {
                     return ""
@@ -168,45 +183,30 @@ class DetailRepository : DetailRepositoryProtocal {
             }
     }
     
-    func getPlayerLank(champion : Observable<Champion>) -> Observable<[ChampionGoodAtPlayerApi.Player]> {
-        let playerLankResult = champion
-            .flatMapLatest { [weak self] champion in
-                self?.apiService.championGoodAtPlayerRank(championKey: champion.key) ?? .just(.failure(.networkError))
-            }
-            .share()
-        
-        return playerLankResult
-            .map { result -> [ChampionGoodAtPlayerApi.Player] in
+    func getPlayerLank(champion : Champion) -> Observable<[ChampionGoodAtPlayerApi.Player]> {
+        return apiService.championGoodAtPlayerRank(championKey: champion.key)
+            .map { result ->  [ChampionGoodAtPlayerApi.Player] in
                 guard case .success(let api) = result else {
                     return []
                 }
                 return api.data
             }
+            .asObservable()
     }
     
-    func getPlayerLank(championKey : Observable<String>) -> Observable<[ChampionGoodAtPlayerApi.Player]> {
-        let playerLankResult = championKey
-            .flatMapLatest { [weak self] championKey in
-                self?.apiService.championGoodAtPlayerRank(championKey: championKey) ?? .just(.failure(.networkError))
-            }
-            .share()
-        
-        return playerLankResult
-            .map { result -> [ChampionGoodAtPlayerApi.Player] in
+    func getPlayerLank(championKey : String) -> Observable<[ChampionGoodAtPlayerApi.Player]> {
+        return apiService.championGoodAtPlayerRank(championKey: championKey)
+            .map { result ->  [ChampionGoodAtPlayerApi.Player] in
                 guard case .success(let api) = result else {
                     return []
                 }
                 return api.data
             }
+            .asObservable()
     }
     
-    func getComment(champion : Observable<Champion> ) -> Observable<[ChampionCommentApi.Comment]> {
-        let championCommentResult = champion
-            .flatMapLatest { [weak self] champion in
-                self?.apiService.championComment(championKey: champion.key) ?? .just(.failure(.networkError))
-            }
-            .share()
-        return championCommentResult
+    func getComment(champion : Champion) -> Observable<[ChampionCommentApi.Comment]> {
+        return apiService.championComment(championKey: champion.key)
             .map { result -> [ChampionCommentApi.Comment] in
                 guard case .success(let api) = result else {
                     return []
@@ -215,15 +215,11 @@ class DetailRepository : DetailRepositoryProtocal {
                     $0.vote ?? 0 > $1.vote ?? 0
                 }
             }
+            .asObservable()
     }
     
-    func getComment(championKey : Observable<String> ) -> Observable<[ChampionCommentApi.Comment]> {
-        let championCommentResult = championKey
-            .flatMapLatest { [weak self] championKey in
-                self?.apiService.championComment(championKey: championKey) ?? .just(.failure(.networkError))
-            }
-            .share()
-        return championCommentResult
+    func getComment(championKey : String) -> Observable<[ChampionCommentApi.Comment]> {
+        return apiService.championComment(championKey: championKey)
             .map { result -> [ChampionCommentApi.Comment] in
                 guard case .success(let api) = result else {
                     return []
@@ -232,36 +228,29 @@ class DetailRepository : DetailRepositoryProtocal {
                     $0.vote ?? 0 > $1.vote ?? 0
                 }
             }
+            .asObservable()
     }
     
-    func getCommentCount(champion : Observable<Champion>) -> Observable<Int> {
-        let championCommentCountResult = champion
-            .flatMapLatest { [weak self] champion in
-                self?.apiService.championCommentCount(championKey: champion.key) ?? .just(.failure(.networkError))
-            }
-            .share()
-        return championCommentCountResult
+    func getCommentCount(champion : Champion) -> Observable<Int> {
+        return apiService.championCommentCount(championKey: champion.key)
             .map { result -> Int in
                 guard case .success(let api) = result else {
                     return 0
                 }
                 return api.data.count ?? 0
             }
+            .asObservable()
     }
     
-    func getCommentCount(championKey : Observable<String>) -> Observable<Int> {
-        let championCommentCountResult = championKey
-            .flatMapLatest { [weak self] championKey in
-                self?.apiService.championCommentCount(championKey: championKey) ?? .just(.failure(.networkError))
-            }
-            .share()
-        return championCommentCountResult
+    func getCommentCount(championKey : String) -> Observable<Int> {
+        return apiService.championCommentCount(championKey: championKey)
             .map { result -> Int in
                 guard case .success(let api) = result else {
                     return 0
                 }
                 return api.data.count ?? 0
             }
+            .asObservable()
     }
     
 }

@@ -21,6 +21,8 @@ struct ChampionDetailApi : Codable {
             let lore : String?
             let tags : [String]
             let title : String?
+            let spells : [Spell]
+            let passive : Passive
             let id : String?
             let key : String?
             let name : String?
@@ -36,6 +38,29 @@ struct ChampionDetailApi : Codable {
             struct Image : Codable {
                 let full : String?
             }
+            
+            struct Spell : Codable {
+                let id : String?
+                let name : String?
+                let description : String?
+                let image : Image
+                
+                struct Image : Codable {
+                    let full : String?
+                }
+            }
+            
+            struct Passive : Codable {
+                let name : String?
+                let description : String?
+                let image : Image
+                
+                struct Image : Codable {
+                    let full : String?
+                }
+            }
+            
+            
             
         }
         
