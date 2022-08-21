@@ -6,12 +6,26 @@
 //
 
 import Foundation
+import RxCocoa
+import RxSwift
 
 
 struct PlayerDetailViewModel {
+    let disposeBag = DisposeBag()
+    let repository : PlayerDetailRepository
     
-//    init(_detailRepository : ChampionDetailRepository = DetailRepository.instance) {
-//        
-//    }
+    let summonerViewModel = SummonerViewModel()
+    let mostChampionViewModel = MostChampionViewModel()
+    let matchViewModel = MatchViewModel()
+
+    init(playerName : String) {
+        repository = PlayerDetailRepository(playerName: playerName)
+        
+        repository.getSummoner()
+            .bind(to: summonerViewModel.summonerData)
+            .disposed(by: disposeBag)
+        
+        
+    }
     
 }

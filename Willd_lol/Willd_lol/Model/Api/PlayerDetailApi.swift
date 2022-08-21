@@ -27,6 +27,7 @@ struct PlayerDetailApi : Codable {
             let soloRank : SoloRank
             
             struct SoloRank : Codable {
+                let division : String?
                 let lose : Int?
                 let lp : Int?
                 let matchCategory : String?

@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 import RxSwift
 import RxCocoa
+import Kingfisher
 import Then
 
 extension Reactive where Base : UIViewController {
@@ -22,6 +23,14 @@ extension Reactive where Base : UIViewController {
                 cotroller.title = data.name
             }
             base.show(detailVc, sender: nil)
+        }
+    }
+}
+
+extension Reactive where Base : UIImageView {
+    var setImage : Binder<URL?> {
+        return Binder(base) { base, data in
+            base.kf.setImage(with: data)
         }
     }
 }
