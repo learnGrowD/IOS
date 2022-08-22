@@ -56,6 +56,7 @@ class MainTabBarController : UITabBarController {
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super .init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         attribute()
+    
     }
     
     required init?(coder: NSCoder) {

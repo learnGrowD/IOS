@@ -50,6 +50,7 @@ class ChampionDetailViewController : UIViewController {
             .disposed(by: disposeBag)
         
         viewModel.detailPageData
+            .filter { !$0.isEmpty }
             .drive(onNext : { [weak self] data in
                 self?.detailPageData = data
                 self?.collectionView.reloadData()
@@ -114,12 +115,6 @@ extension ChampionDetailViewController {
         }
     }
     
-    private func createHeaderLayout() -> NSCollectionLayoutBoundarySupplementaryItem {
-        let size = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(24))
-        let section = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: size, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
-        return section
-    }
-    
     private func createSkinsLayout() -> NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
@@ -164,7 +159,7 @@ extension ChampionDetailViewController {
         
         let section = NSCollectionLayoutSection(group: group)
         section.orthogonalScrollingBehavior = .none
-        section.boundarySupplementaryItems = [self.createHeaderLayout()]
+        section.boundarySupplementaryItems = [createHeaderLayout()]
         section.contentInsets = .init(top: 18, leading: 18, bottom: 64, trailing: 18)
         return section
     }
@@ -177,7 +172,7 @@ extension ChampionDetailViewController {
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: 1)
         
         let section = NSCollectionLayoutSection(group: group)
-        section.boundarySupplementaryItems = [self.createHeaderLayout()]
+        section.boundarySupplementaryItems = [createHeaderLayout()]
         section.contentInsets = .init(top: 18, leading: 18, bottom: 64, trailing: 18)
         return section
         
@@ -191,7 +186,7 @@ extension ChampionDetailViewController {
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: 2)
         
         let section = NSCollectionLayoutSection(group: group)
-        section.boundarySupplementaryItems = [self.createHeaderLayout()]
+        section.boundarySupplementaryItems = [createHeaderLayout()]
         section.orthogonalScrollingBehavior = .continuous
         section.contentInsets = .init(top: 18, leading: 18, bottom: 64, trailing: 0)
 
@@ -209,7 +204,7 @@ extension ChampionDetailViewController {
         
         
         let section = NSCollectionLayoutSection(group: group)
-        section.boundarySupplementaryItems = [self.createHeaderLayout()]
+        section.boundarySupplementaryItems = [createHeaderLayout()]
         section.contentInsets = .init(top: 18, leading: 18, bottom: 64, trailing: 18)
         return section
         

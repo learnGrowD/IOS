@@ -67,10 +67,10 @@ struct PlayerDetailApi : Codable {
 
     struct Match : Codable {
         let matchId : Int?
-        let matchDate : Int?
+        let matchDate : Int? // t : 24 / m : 60 / s :60 / ms : 1000
         let matchCategory : String?
         let isClassic : Bool?
-        let gameTime : Int?
+        let gameTime : Int? // m : 60
         let result : String?
         let me : InGamePlayerData
 

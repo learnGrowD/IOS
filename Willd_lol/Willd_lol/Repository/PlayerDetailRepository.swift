@@ -11,6 +11,14 @@ import RxSwift
 import Then
 
 
+enum PlayerDetailData {
+    case summoner(_ title : String, _ data : (summoner : PlayerDetailApi.Summoner, stats : PlayerDetailApi.Summary)?)
+    case mostChampionGuide(_ title : String, _ data : PlayerDetailApi.MostChampion?)
+    case mostChampion(_ title : String, _ data : [PlayerDetailApi.MostChampion.Item])
+    case match(_ title : String, _ data : [PlayerDetailApi.Match])
+}
+
+
 
 struct PlayerDetailRepository {
     let disposeBag = DisposeBag()
@@ -40,11 +48,20 @@ struct PlayerDetailRepository {
             .asObservable()
     }
     
-    func getMostChampion() -> Observable<[PlayerDetailApi.MostChampion]> {
+    func getMostChampion() -> Observable<PlayerDetailApi.MostChampion> {
         playerDetailApi
             .filter { $0 != nil }
             .map {
-                $0!.mostChampions
+                $0!.mostChampions[0]
+            }
+            .asObservable()
+    }
+    
+    func getMostChampionItems() -> Observable<[PlayerDetailApi.MostChampion.Item]> {
+        playerDetailApi
+            .filter { $0 != nil }
+            .map {
+                $0!.mostChampions[0].items
             }
             .asObservable()
     }

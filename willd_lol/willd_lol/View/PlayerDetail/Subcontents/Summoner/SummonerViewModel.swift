@@ -27,6 +27,11 @@ struct SummonerViewModel {
     let tierImageUrl : Driver<UIImage?>
     
     init() {
+        summonerData
+            .bind(onNext : {
+                print($0)
+            })
+            .disposed(by: disposeBag)
         
         profileImageUrl = summonerData
             .filter { $0 != nil }

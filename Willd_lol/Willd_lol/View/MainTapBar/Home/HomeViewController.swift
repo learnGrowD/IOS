@@ -43,6 +43,7 @@ class HomeViewController : UIViewController {
             .disposed(by: disposeBag)
         
         viewModel.homeData
+            .filter { !$0.isEmpty }
             .drive(onNext : { [weak self] in
                 self?.homeData = $0
                 self?.collectionView.reloadData()
@@ -71,6 +72,14 @@ class HomeViewController : UIViewController {
                         vc.title = data[index.row].championName
                     }
                     self.show(championDetailVc, sender: nil)
+                case.playerLank( _, let data):
+                    let playerDeatilVc = PlayerDetailViewController().then {
+                        let viewModel = PlayerDetailViewModel(playerName: data[index.row].summonerName ?? "")
+                        $0.title = data[index.row].summonerName ?? ""
+                        $0.view.backgroundColor = .willdBlack
+                        $0.bind(viewModel)
+                    }
+                    self.show(playerDeatilVc, sender: nil)
                 default:
                     return
                 }
@@ -114,13 +123,6 @@ extension HomeViewController {
         }
     }
     
-    func createHeaderLayout() -> NSCollectionLayoutBoundarySupplementaryItem {
-        let size = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(24))
-        
-        let section = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: size, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
-        return section
-    }
-    
     func createChampionRecommendLayout() -> NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
@@ -148,7 +150,7 @@ extension HomeViewController {
         
         let section = NSCollectionLayoutSection(group: group)
         section.contentInsets = .init(top: 18, leading: 18, bottom: 12, trailing: 18)
-        section.boundarySupplementaryItems = [self.createHeaderLayout()]
+        section.boundarySupplementaryItems = [createHeaderLayout()]
         return section
     }
     
@@ -175,7 +177,7 @@ extension HomeViewController {
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: 2)
         
         let section = NSCollectionLayoutSection(group: group)
-        section.boundarySupplementaryItems = [self.createHeaderLayout()]
+        section.boundarySupplementaryItems = [createHeaderLayout()]
         section.contentInsets = .init(top: 18, leading: 10, bottom: 80, trailing: 10)
         section.interGroupSpacing = 32
         return section

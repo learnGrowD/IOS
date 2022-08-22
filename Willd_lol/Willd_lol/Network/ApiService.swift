@@ -255,7 +255,8 @@ class ApiService {
             let api = try JSONDecoder().decode(PlayerDetailApi.self, from: data)
             return .success(api)
         }
-        .catch { _ in
+        .catch { a in
+            print(a.localizedDescription)
             return .just(.failure(.networkError))
         }
         .asSingle()

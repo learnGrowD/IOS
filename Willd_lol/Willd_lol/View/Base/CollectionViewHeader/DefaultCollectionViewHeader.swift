@@ -36,6 +36,12 @@ class DefaultCollectionViewHeader : UICollectionReusableView {
     }
 }
 
+func createHeaderLayout() -> NSCollectionLayoutBoundarySupplementaryItem {
+    let size = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(24))
+    let section = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: size, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
+    return section
+}
+
 
 
 

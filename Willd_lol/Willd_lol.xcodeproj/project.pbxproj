@@ -16,6 +16,8 @@
 		B838E04228A2730A00169486 /* ChampionListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B838E04128A2730A00169486 /* ChampionListViewController.swift */; };
 		B838E04528A2941600169486 /* BaseExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B838E04428A2941600169486 /* BaseExtension.swift */; };
 		B84330E528B2A753001B679B /* PlayerDetailRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84330E428B2A753001B679B /* PlayerDetailRepository.swift */; };
+		B84330E828B2D48C001B679B /* MostChampionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84330E728B2D48C001B679B /* MostChampionViewModel.swift */; };
+		B84330EA28B2D4AC001B679B /* MostChampionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B84330E928B2D4AC001B679B /* MostChampionCollectionViewCell.swift */; };
 		B847DAB328AD61A200C257F8 /* TierTagViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B847DAB228AD61A200C257F8 /* TierTagViewModel.swift */; };
 		B847DAB528AD630B00C257F8 /* TierTagsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B847DAB428AD630B00C257F8 /* TierTagsCollectionViewCell.swift */; };
 		B8638779289F30D100331324 /* RxAlamofire in Frameworks */ = {isa = PBXBuildFile; productRef = B8638778289F30D100331324 /* RxAlamofire */; };
@@ -73,9 +75,9 @@
 		B8FFBA7D28AFF02B007867F5 /* PlayerDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8FFBA7C28AFF02B007867F5 /* PlayerDetailViewModel.swift */; };
 		B8FFBA8628AFF223007867F5 /* SummonerCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8FFBA8528AFF223007867F5 /* SummonerCollectionViewCell.swift */; };
 		B8FFBA8828AFF25D007867F5 /* SummonerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8FFBA8728AFF25D007867F5 /* SummonerViewModel.swift */; };
-		B8FFBA8C28AFF2CA007867F5 /* MostChampionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8FFBA8B28AFF2CA007867F5 /* MostChampionViewModel.swift */; };
+		B8FFBA8C28AFF2CA007867F5 /* MostChampionGuideViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8FFBA8B28AFF2CA007867F5 /* MostChampionGuideViewModel.swift */; };
 		B8FFBA8E28AFF2E0007867F5 /* MatchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8FFBA8D28AFF2E0007867F5 /* MatchViewModel.swift */; };
-		B8FFBA9228AFF35C007867F5 /* MostChampionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8FFBA9128AFF35C007867F5 /* MostChampionCollectionViewCell.swift */; };
+		B8FFBA9228AFF35C007867F5 /* MostChampionGuideCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8FFBA9128AFF35C007867F5 /* MostChampionGuideCollectionViewCell.swift */; };
 		B8FFBA9428AFF389007867F5 /* MatchCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B8FFBA9328AFF389007867F5 /* MatchCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -89,6 +91,8 @@
 		B838E04128A2730A00169486 /* ChampionListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChampionListViewController.swift; sourceTree = "<group>"; };
 		B838E04428A2941600169486 /* BaseExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseExtension.swift; sourceTree = "<group>"; };
 		B84330E428B2A753001B679B /* PlayerDetailRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerDetailRepository.swift; sourceTree = "<group>"; };
+		B84330E728B2D48C001B679B /* MostChampionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MostChampionViewModel.swift; sourceTree = "<group>"; };
+		B84330E928B2D4AC001B679B /* MostChampionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MostChampionCollectionViewCell.swift; sourceTree = "<group>"; };
 		B847DAB228AD61A200C257F8 /* TierTagViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TierTagViewModel.swift; sourceTree = "<group>"; };
 		B847DAB428AD630B00C257F8 /* TierTagsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TierTagsCollectionViewCell.swift; sourceTree = "<group>"; };
 		B86387BA289F55FA00331324 /* MainRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainRepository.swift; sourceTree = "<group>"; };
@@ -140,9 +144,9 @@
 		B8FFBA7C28AFF02B007867F5 /* PlayerDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerDetailViewModel.swift; sourceTree = "<group>"; };
 		B8FFBA8528AFF223007867F5 /* SummonerCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummonerCollectionViewCell.swift; sourceTree = "<group>"; };
 		B8FFBA8728AFF25D007867F5 /* SummonerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummonerViewModel.swift; sourceTree = "<group>"; };
-		B8FFBA8B28AFF2CA007867F5 /* MostChampionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MostChampionViewModel.swift; sourceTree = "<group>"; };
+		B8FFBA8B28AFF2CA007867F5 /* MostChampionGuideViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MostChampionGuideViewModel.swift; sourceTree = "<group>"; };
 		B8FFBA8D28AFF2E0007867F5 /* MatchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchViewModel.swift; sourceTree = "<group>"; };
-		B8FFBA9128AFF35C007867F5 /* MostChampionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MostChampionCollectionViewCell.swift; sourceTree = "<group>"; };
+		B8FFBA9128AFF35C007867F5 /* MostChampionGuideCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MostChampionGuideCollectionViewCell.swift; sourceTree = "<group>"; };
 		B8FFBA9328AFF389007867F5 /* MatchCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -230,6 +234,15 @@
 				B82F00A628A5268F0061E09E /* RxExtension.swift */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		B84330E628B2D3FB001B679B /* MostChampion */ = {
+			isa = PBXGroup;
+			children = (
+				B84330E928B2D4AC001B679B /* MostChampionCollectionViewCell.swift */,
+				B84330E728B2D48C001B679B /* MostChampionViewModel.swift */,
+			);
+			path = MostChampion;
 			sourceTree = "<group>";
 		};
 		B847DAB128AD618A00C257F8 /* TierTag */ = {
@@ -466,7 +479,8 @@
 			isa = PBXGroup;
 			children = (
 				B8FFBA8128AFF1A6007867F5 /* Summoner */,
-				B8FFBA8328AFF1F3007867F5 /* MostChampion */,
+				B8FFBA8328AFF1F3007867F5 /* MostChampionGuide */,
+				B84330E628B2D3FB001B679B /* MostChampion */,
 				B8FFBA8428AFF1FC007867F5 /* Match */,
 			);
 			path = Subcontents;
@@ -481,13 +495,13 @@
 			path = Summoner;
 			sourceTree = "<group>";
 		};
-		B8FFBA8328AFF1F3007867F5 /* MostChampion */ = {
+		B8FFBA8328AFF1F3007867F5 /* MostChampionGuide */ = {
 			isa = PBXGroup;
 			children = (
-				B8FFBA9128AFF35C007867F5 /* MostChampionCollectionViewCell.swift */,
-				B8FFBA8B28AFF2CA007867F5 /* MostChampionViewModel.swift */,
+				B8FFBA9128AFF35C007867F5 /* MostChampionGuideCollectionViewCell.swift */,
+				B8FFBA8B28AFF2CA007867F5 /* MostChampionGuideViewModel.swift */,
 			);
-			path = MostChampion;
+			path = MostChampionGuide;
 			sourceTree = "<group>";
 		};
 		B8FFBA8428AFF1FC007867F5 /* Match */ = {
@@ -589,6 +603,7 @@
 			files = (
 				B8D0674F28A79A130081E831 /* LoreCollectionViewCell.swift in Sources */,
 				B8D0674728A799410081E831 /* TagsCollectionViewCell.swift in Sources */,
+				B84330EA28B2D4AC001B679B /* MostChampionCollectionViewCell.swift in Sources */,
 				B86387D0289F744700331324 /* ChampionGoodAtPlayerApi.swift in Sources */,
 				B838E04528A2941600169486 /* BaseExtension.swift in Sources */,
 				B82F00A328A521BE0061E09E /* ChampionDetailViewController.swift in Sources */,
@@ -613,7 +628,7 @@
 				B8904A5D289FCFF90051D4E9 /* ChampionTierListApi.swift in Sources */,
 				B8953E2728A3C3D500AAC1E5 /* ChampionListViewCell.swift in Sources */,
 				B86387CD289F679400331324 /* ChampionCommentApi.swift in Sources */,
-				B8FFBA9228AFF35C007867F5 /* MostChampionCollectionViewCell.swift in Sources */,
+				B8FFBA9228AFF35C007867F5 /* MostChampionGuideCollectionViewCell.swift in Sources */,
 				B838E04228A2730A00169486 /* ChampionListViewController.swift in Sources */,
 				B84330E528B2A753001B679B /* PlayerDetailRepository.swift in Sources */,
 				B8953E2928A3E9EA00AAC1E5 /* HomeViewModel.swift in Sources */,
@@ -624,6 +639,7 @@
 				B8FFBA8828AFF25D007867F5 /* SummonerViewModel.swift in Sources */,
 				B86387D2289F792C00331324 /* PlayerMmrRankApi.swift in Sources */,
 				B82F00A728A5268F0061E09E /* RxExtension.swift in Sources */,
+				B84330E828B2D48C001B679B /* MostChampionViewModel.swift in Sources */,
 				B8904A55289F9B8D0051D4E9 /* SearchPreview.swift in Sources */,
 				B8B17D4528A0F1580093AFD1 /* ChampionDetailApi.swift in Sources */,
 				B8D0675128A79A500081E831 /* LoreViewModel.swift in Sources */,
@@ -636,7 +652,7 @@
 				B8EBEE3128ACE362002D170E /* DefaultCollectionViewHeader.swift in Sources */,
 				B86387C7289F5FF800331324 /* ChampionListApi.swift in Sources */,
 				B88AEA27289E2E4D000EAD22 /* ApiService.swift in Sources */,
-				B8FFBA8C28AFF2CA007867F5 /* MostChampionViewModel.swift in Sources */,
+				B8FFBA8C28AFF2CA007867F5 /* MostChampionGuideViewModel.swift in Sources */,
 				B8D0674B28A799B80081E831 /* SkillsCollectionViewCell.swift in Sources */,
 				B838E02D28A24C2400169486 /* ChampionDetailRepository.swift in Sources */,
 				B88AE9F5289E2B6B000EAD22 /* SceneDelegate.swift in Sources */,
