@@ -75,7 +75,8 @@ class HomeViewController : UIViewController {
                 case.playerLank( _, let data):
                     let playerDeatilVc = PlayerDetailViewController().then {
                         let viewModel = PlayerDetailViewModel(playerName: data[index.row].summonerName ?? "")
-                        $0.title = data[index.row].summonerName ?? ""
+                        $0.hidesBottomBarWhenPushed = true
+                        $0.title = data[index.row].displayName ?? ""
                         $0.view.backgroundColor = .willdBlack
                         $0.bind(viewModel)
                     }

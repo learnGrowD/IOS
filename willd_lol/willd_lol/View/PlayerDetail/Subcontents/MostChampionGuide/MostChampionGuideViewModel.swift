@@ -21,19 +21,20 @@ struct MostChampionGuideViewModel {
     let matchInfo : Driver<String>
     
     init() {
+        
         laneImageUrl = mostChampionGuideData
             .filter { $0 != nil }
             .map {
                 switch $0?.lane {
-                case "탑":
+                case "Top":
                     return UIImage(named: "Position_Diamond-Top")
-                case "정글":
+                case "Jug":
                     return UIImage(named: "Position_Diamond-Jungle")
-                case "미드":
+                case "Mid":
                     return UIImage(named: "Position_Diamond-Mid")
-                case "원딜":
+                case "Adc":
                     return UIImage(named: "Position_Diamond-Bot")
-                case "서폿":
+                case "Sup":
                     return UIImage(named: "Position_Diamond-Support")
                 default:
                     return UIImage(named: "")
@@ -51,7 +52,7 @@ struct MostChampionGuideViewModel {
         matchInfo = mostChampionGuideData
             .filter { $0 != nil }
             .map {
-                "\($0?.matchCount ?? 0) 경기 / 승률 \($0?.winRate ?? 0.0)%"
+                "\($0?.matchCount ?? 0)경기 / 승률 \($0?.winRate ?? 0.0)%"
             }
             .asDriver(onErrorDriveWith: .empty())
         

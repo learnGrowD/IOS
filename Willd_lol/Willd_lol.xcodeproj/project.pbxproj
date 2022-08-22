@@ -29,6 +29,8 @@
 		B86387D0289F744700331324 /* ChampionGoodAtPlayerApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86387CF289F744700331324 /* ChampionGoodAtPlayerApi.swift */; };
 		B86387D2289F792C00331324 /* PlayerMmrRankApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86387D1289F792C00331324 /* PlayerMmrRankApi.swift */; };
 		B86387D4289F843D00331324 /* PlayerDetailApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = B86387D3289F843D00331324 /* PlayerDetailApi.swift */; };
+		B877168528B406F8008C3738 /* TierDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B877168428B406F8008C3738 /* TierDetailViewController.swift */; };
+		B877168728B40713008C3738 /* SearchDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B877168628B40713008C3738 /* SearchDetailViewController.swift */; };
 		B88AE9F3289E2B6B000EAD22 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88AE9F2289E2B6B000EAD22 /* AppDelegate.swift */; };
 		B88AE9F5289E2B6B000EAD22 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B88AE9F4289E2B6B000EAD22 /* SceneDelegate.swift */; };
 		B88AE9FC289E2B6E000EAD22 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B88AE9FB289E2B6E000EAD22 /* Assets.xcassets */; };
@@ -103,6 +105,8 @@
 		B86387CF289F744700331324 /* ChampionGoodAtPlayerApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChampionGoodAtPlayerApi.swift; sourceTree = "<group>"; };
 		B86387D1289F792C00331324 /* PlayerMmrRankApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerMmrRankApi.swift; sourceTree = "<group>"; };
 		B86387D3289F843D00331324 /* PlayerDetailApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerDetailApi.swift; sourceTree = "<group>"; };
+		B877168428B406F8008C3738 /* TierDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TierDetailViewController.swift; sourceTree = "<group>"; };
+		B877168628B40713008C3738 /* SearchDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchDetailViewController.swift; sourceTree = "<group>"; };
 		B88AE9EF289E2B6B000EAD22 /* willd_lol.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = willd_lol.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B88AE9F2289E2B6B000EAD22 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B88AE9F4289E2B6B000EAD22 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -271,6 +275,8 @@
 				B82F00AD28A6216D0061E09E /* MainTapBar */,
 				B82F00B028A621DF0061E09E /* ChampionDetail */,
 				B8FFBA7928AFEF56007867F5 /* PlayerDetail */,
+				B877168228B406AC008C3738 /* SearchDetail */,
+				B877168328B406D0008C3738 /* TierDetail */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -299,6 +305,22 @@
 				B8B17D4628A13F530093AFD1 /* UrlConverter.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		B877168228B406AC008C3738 /* SearchDetail */ = {
+			isa = PBXGroup;
+			children = (
+				B877168628B40713008C3738 /* SearchDetailViewController.swift */,
+			);
+			path = SearchDetail;
+			sourceTree = "<group>";
+		};
+		B877168328B406D0008C3738 /* TierDetail */ = {
+			isa = PBXGroup;
+			children = (
+				B877168428B406F8008C3738 /* TierDetailViewController.swift */,
+			);
+			path = TierDetail;
 			sourceTree = "<group>";
 		};
 		B88AE9E6289E2B6B000EAD22 = {
@@ -607,6 +629,7 @@
 				B86387D0289F744700331324 /* ChampionGoodAtPlayerApi.swift in Sources */,
 				B838E04528A2941600169486 /* BaseExtension.swift in Sources */,
 				B82F00A328A521BE0061E09E /* ChampionDetailViewController.swift in Sources */,
+				B877168728B40713008C3738 /* SearchDetailViewController.swift in Sources */,
 				B8EBEE2428ACDFD7002D170E /* RecommendCollectionViewCell.swift in Sources */,
 				B8D0675328A79A6E0081E831 /* LankCollectionViewCell.swift in Sources */,
 				B86387BB289F55FA00331324 /* MainRepository.swift in Sources */,
@@ -645,6 +668,7 @@
 				B8D0675128A79A500081E831 /* LoreViewModel.swift in Sources */,
 				B8D0675728A79AB30081E831 /* CommentCollectionViewCell.swift in Sources */,
 				B8D0674528A7977B0081E831 /* SkinsViewModel.swift in Sources */,
+				B877168528B406F8008C3738 /* TierDetailViewController.swift in Sources */,
 				B8904A59289FCB850051D4E9 /* ChampionRecommendApi.swift in Sources */,
 				B8D0675528A79A990081E831 /* LankViewModel.swift in Sources */,
 				B8B0BE1128B1589E00546094 /* SkillDetailViewModel.swift in Sources */,

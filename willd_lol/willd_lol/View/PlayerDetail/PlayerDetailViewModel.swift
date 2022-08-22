@@ -41,22 +41,24 @@ struct PlayerDetailViewModel {
             .bind(to: matchViewModel.matchData)
             .disposed(by: disposeBag)
         
+    
         
         playerDetailData = Observable
-            .combineLatest(
+            .zip(
                 summonerViewModel.summonerData.asObservable(),
                 mostChampionGuideViewModel.mostChampionGuideData.asObservable(),
                 mostChampionViewModel.mostChampionData.asObservable(),
                 matchViewModel.matchData.asObservable()) { summoner, mostChampionGuide, mostChampion, match -> [PlayerDetailData] in
                     let result : [PlayerDetailData] = [
                         .summoner("A", summoner),
-                        .mostChampionGuide("B", mostChampionGuide),
+                        .mostChampionGuide("Most Champion", mostChampionGuide),
                         .mostChampion("C", mostChampion),
-                        .match("D", match)
+                        .match("최근 랭크 게임", match)
                     ]
                     return result
                 }
                 .asDriver(onErrorDriveWith: .empty())
+
     }
     
 }

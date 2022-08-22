@@ -80,7 +80,7 @@ class TierCollectionViewCell : UICollectionViewCell {
         UILabel().then {
             $0.textColor = .willdWhite
             $0.textAlignment = .center
-            $0.font = .systemFont(ofSize: 12, weight: .bold)
+            $0.font = .systemFont(ofSize: 11, weight: .bold)
         }
     }
     

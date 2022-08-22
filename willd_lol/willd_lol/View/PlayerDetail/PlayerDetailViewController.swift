@@ -44,9 +44,14 @@ class PlayerDetailViewController : UIViewController {
         viewModel.playerDetailData
             .filter { !$0.isEmpty }
             .drive(onNext : { [weak self] in
+                
                 self?.playerDetailData = $0
                 self?.collectionView.reloadData()
             })
+            .disposed(by: disposeBag)
+        
+        self.collectionView.rx
+            .setDataSource(self)
             .disposed(by: disposeBag)
         
         
@@ -92,24 +97,26 @@ extension PlayerDetailViewController {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalWidth(4/5))
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(240))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: 1)
         
         let section = NSCollectionLayoutSection(group: group)
-        section.orthogonalScrollingBehavior = .paging
-
+        section.orthogonalScrollingBehavior = .none
+        section.contentInsets = .init(top: 0, leading: 0, bottom: 80, trailing: 0)
         return section
     }
     
     private func createMostChampionGuideLayout() -> NSCollectionLayoutSection {
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(120))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalWidth(4/5))
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(120))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: 1)
         
         let section = NSCollectionLayoutSection(group: group)
-        section.orthogonalScrollingBehavior = .paging
+        section.orthogonalScrollingBehavior = .none
+        section.boundarySupplementaryItems = [createHeaderLayout()]
+        section.contentInsets = .init(top: 18, leading: 18, bottom: 0, trailing: 18)
 
         return section
     }
@@ -117,27 +124,29 @@ extension PlayerDetailViewController {
     private func createMostChampionLayout() -> NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        item.contentInsets.trailing = 18
         
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(100))
-        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: 5)
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.8), heightDimension: .estimated(160))
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: 2)
         
         let section = NSCollectionLayoutSection(group: group)
-        section.orthogonalScrollingBehavior = .none
-        section.boundarySupplementaryItems = [createHeaderLayout()]
-        section.contentInsets = .init(top: 18, leading: 18, bottom: 64, trailing: 18)
+        
+        section.orthogonalScrollingBehavior = .continuous
+        section.contentInsets = .init(top: 12, leading: 18, bottom: 80, trailing: 18)
         return section
     }
     
     private func createMatchLayout() -> NSCollectionLayoutSection {
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(224))
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(224))
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(120))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: 1)
         
         let section = NSCollectionLayoutSection(group: group)
         section.boundarySupplementaryItems = [createHeaderLayout()]
-        section.contentInsets = .init(top: 18, leading: 18, bottom: 64, trailing: 18)
+        section.interGroupSpacing = 24
+        section.contentInsets = .init(top: 18, leading: 18, bottom: 0, trailing: 18)
         return section
         
     }

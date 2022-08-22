@@ -17,8 +17,9 @@ class MostChampionViewModel {
     var championImageUrl : Driver<URL?>?
     var championName : Driver<String>?
     var winRate : Driver<String>?
-    
+
     func bind(index : IndexPath) {
+        
         let mostChampion = mostChampionData
             .map {
                 $0[index.row]
@@ -39,7 +40,7 @@ class MostChampionViewModel {
         
         winRate = mostChampion
             .map {
-                "\($0.winRate ?? 0.0)% (\($0.matchCount ?? 0) 경기)"
+                "승률 \(Int($0.winRate!))% (\($0.matchCount ?? 0)경기)"
             }
             .asDriver(onErrorDriveWith: .empty())
         

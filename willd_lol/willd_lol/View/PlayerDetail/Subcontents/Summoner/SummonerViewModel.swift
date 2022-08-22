@@ -26,13 +26,7 @@ struct SummonerViewModel {
     let kda : Driver<String>
     let tierImageUrl : Driver<UIImage?>
     
-    init() {
-        summonerData
-            .bind(onNext : {
-                print($0)
-            })
-            .disposed(by: disposeBag)
-        
+    init() {        
         profileImageUrl = summonerData
             .filter { $0 != nil }
             .map {
@@ -76,7 +70,9 @@ struct SummonerViewModel {
                 $0?.summoner.rank.soloRank
             }
             .map {
-                "\($0?.winRate ?? 0.0) (\($0?.win ?? 0)승 \($0?.lose ?? 0)패"
+                let total = ($0?.win ?? 0) + ($0?.lose ?? 0)
+                let winRate = ($0?.win ?? 0) * 100 / total
+                return "\(winRate)% (\($0?.win ?? 0)승 \($0?.lose ?? 0)패)"
             }
             .asDriver(onErrorDriveWith: .empty())
         

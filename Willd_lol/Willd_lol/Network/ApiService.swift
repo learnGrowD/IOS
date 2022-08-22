@@ -62,7 +62,7 @@ class ApiService {
             return .success(api)
         }
         .catch { _ in
-            .just(.failure(.networkError))
+            return .just(.failure(.networkError))
         }
         .asSingle()
     }
@@ -199,7 +199,6 @@ class ApiService {
     }
     
     func selectedPlayerMmrRank() -> Single<Result<PlayerMmrRankApi, NetworkError>> {
-        
         Observable.just(
             ApiService.scheme
             + ApiService.yourGgHost
@@ -229,13 +228,16 @@ class ApiService {
         .asSingle()
     }
     
-    func playerDetail(playerName : String?) -> Single<Result<PlayerDetailApi, NetworkError>> {
+    func playerDetail(playerName : String) -> Single<Result<PlayerDetailApi, NetworkError>> {
         Observable.just(
             ApiService.scheme
             + ApiService.yourGgHost
             + ApiService.youtGgPath
-            + "profile/\(playerName ?? "")"
+            + "profile/\(playerName)"
         )
+        .map {
+            $0.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)
+        }
         .flatMap { url -> Observable<Data> in
             let params = [
                 "lang" : "ko",
@@ -243,7 +245,7 @@ class ApiService {
                 "listMatchCategory" : ""
             ]
             return AF.request(
-                url,
+                url ?? "",
                 method: .get,
                 parameters: params,
                 encoding: URLEncoding.default,
@@ -261,6 +263,8 @@ class ApiService {
         }
         .asSingle()
     }
+    
+    
     
     func matchInfo(matchIdentity : Int) -> Single<Result<MatchInfoApi, NetworkError>> {
         Observable.just(

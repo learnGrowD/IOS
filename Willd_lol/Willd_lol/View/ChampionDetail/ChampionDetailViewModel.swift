@@ -105,7 +105,7 @@ struct ChampionDetailViewModel {
         
         
         self.detailPageData = Observable
-            .combineLatest(
+            .zip(
                 skinViewModel.skins.asObservable(),
                 tagsViewModel.tags.asObservable(),
                 skillsViewModel.skills.asObservable(),

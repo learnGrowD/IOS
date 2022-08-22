@@ -128,7 +128,7 @@ class SummonerCollectionViewCell : UICollectionViewCell {
         }
         
         playerNameLabel.snp.makeConstraints {
-            $0.leading.equalTo(profileImageView.snp.trailing).offset(8)
+            $0.leading.equalTo(profileImageView.snp.trailing).offset(16)
             $0.centerY.equalTo(profileImageView)
         }
         
@@ -139,8 +139,9 @@ class SummonerCollectionViewCell : UICollectionViewCell {
         }
         
         tierImageView.snp.makeConstraints {
-            $0.leading.equalTo(rankStackView.snp.trailing)
-            $0.centerY.equalTo(rankStackView)
+            $0.width.height.equalTo(124)
+            $0.trailing.equalToSuperview().inset(24)
+            $0.bottom.equalTo(rankStackView)
         }
         
         

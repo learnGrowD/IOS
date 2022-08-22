@@ -29,7 +29,7 @@ struct HomeViewModel {
         
         
         self.homeData = Observable
-            .combineLatest(
+            .zip(
                 recommendViewModel.championRecommendList.asObservable(),
                 tierListViewModel.tierList.asObservable(),
                 playerLankViewModel.playerRankList.asObservable()) { recommendList, tierList, playerLankList -> [HomePageData] in

@@ -29,6 +29,7 @@ class MatchViewModel {
     var killPoint : Driver<String>?
     
     func bind(index : IndexPath) {
+        
         let match = matchData
             .filter { !$0.isEmpty }
             .map {
@@ -55,15 +56,15 @@ class MatchViewModel {
         laneImage = match
             .map {
                 switch $0.me.lane {
-                case "탑":
+                case "Top":
                     return UIImage(named: "Position_Diamond-Top")
-                case "정글":
+                case "Jug":
                     return UIImage(named: "Position_Diamond-Jungle")
-                case "미드":
+                case "Mid":
                     return UIImage(named: "Position_Diamond-Mid")
-                case "원딜":
+                case "Adc":
                     return UIImage(named: "Position_Diamond-Bot")
-                case "서폿":
+                case "Sup":
                     return UIImage(named: "Position_Diamond-Support")
                 default:
                     return UIImage(named: "")
@@ -73,7 +74,7 @@ class MatchViewModel {
         
         let dateTiem = match
             .map { match -> String in
-                let currentMStime = Double(match.matchDate ?? 0 / 1000)
+                let currentMStime = Double(match.matchDate! / 1000)
                 let date = Date(timeIntervalSince1970: currentMStime)
                 let formatter = DateFormatter()
                 formatter.locale = Locale(identifier: "ko_kr")
@@ -84,11 +85,11 @@ class MatchViewModel {
         
          let playTime = match
             .map {
-                "\($0.gameTime ?? 0 / 60)분"
+                "\($0.gameTime! / 60)분"
             }
         
         gameTime = Observable
-            .combineLatest(
+            .zip(
                 dateTiem,
                 playTime) {
                     "\($0) / \($1)"
@@ -104,7 +105,7 @@ class MatchViewModel {
         
         kdaInfo = match
             .map {
-                "\($0.me.kills!) / \($0.me.deaths!) / \($0.me.assists!) (\($0.me.kda!)"
+                "\($0.me.kills!) / \($0.me.deaths!) / \($0.me.assists!) (\($0.me.kda!))"
             }
             .asDriver(onErrorDriveWith: .empty())
         
@@ -116,7 +117,7 @@ class MatchViewModel {
         
         killPoint = match
             .map {
-                "\($0.me.killParticipation!)% KP"
+                "\(Int($0.me.killParticipation!))% KP"
             }
             .asDriver(onErrorDriveWith: .empty())
     }

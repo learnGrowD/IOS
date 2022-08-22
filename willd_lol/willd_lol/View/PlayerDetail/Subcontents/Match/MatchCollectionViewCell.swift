@@ -18,7 +18,8 @@ class MatchCollectionViewCell : UICollectionViewCell {
     let disposeBag = DisposeBag()
     
     let backView = UIView().then {
-        $0.backgroundColor = .black
+        $0.alpha = 0.1
+        $0.layer.cornerRadius = 8
     }
     
     let resultLabel = UILabel().then {
@@ -27,7 +28,8 @@ class MatchCollectionViewCell : UICollectionViewCell {
     }
     let gameTimeLabel = UILabel().then {
         $0.textColor = .willdWhite
-        $0.font = .systemFont(ofSize: 14, weight: .light)
+        $0.font = .systemFont(ofSize: 12, weight: .light)
+        $0.alpha = 0.7
     }
     
     let championImageView = UIImageView().then {
@@ -55,7 +57,7 @@ class MatchCollectionViewCell : UICollectionViewCell {
     }
     let killpointLabel = UILabel().then {
         $0.textColor = .willdWhite
-        $0.font = .systemFont(ofSize: 14, weight: .light)
+        $0.font = .systemFont(ofSize: 14, weight: .bold)
     }
     
     
@@ -68,6 +70,10 @@ class MatchCollectionViewCell : UICollectionViewCell {
     
     func bind(index : IndexPath, _ viewModel : MatchViewModel) {
         viewModel.bind(index: index)
+        
+        viewModel.resultColor?
+            .drive(self.backView.rx.backgroundColor)
+            .disposed(by: disposeBag)
         
         viewModel.result?
             .drive(resultLabel.rx.text)
@@ -111,9 +117,9 @@ class MatchCollectionViewCell : UICollectionViewCell {
     
     private func layout() {
         [
+            killpointLabel,
             kdaInfoLabel,
-            csInfoLabel,
-            killpointLabel
+            csInfoLabel
         ].forEach {
             infoStackView.addArrangedSubview($0)
         }
@@ -134,29 +140,32 @@ class MatchCollectionViewCell : UICollectionViewCell {
             $0.edges.equalToSuperview()
         }
         
-        championImageView.snp.makeConstraints {
-            $0.width.height.equalTo(80)
-            $0.leading.equalToSuperview().inset(18)
-            $0.centerY.equalToSuperview()
-        }
-        
         laneImageView.snp.makeConstraints {
             $0.width.height.equalTo(24)
-            $0.leading.top.equalTo(championImageView)
+            $0.top.equalToSuperview().inset(8)
+            $0.leading.equalToSuperview().inset(18)
         }
         
         resultLabel.snp.makeConstraints {
-            $0.bottom.equalTo(championImageView.snp.bottom).offset(-8)
-            $0.leading.equalTo(championImageView)
+            $0.top.bottom.equalTo(laneImageView)
+            $0.leading.equalTo(laneImageView.snp.trailing).offset(4)
         }
+        
+        championImageView.snp.makeConstraints {
+            $0.width.height.equalTo(64)
+            $0.top.equalTo(laneImageView.snp.bottom).offset(8)
+            $0.leading.equalTo(laneImageView)
+        }
+
         
         infoStackView.snp.makeConstraints {
             $0.leading.equalTo(championImageView.snp.trailing).offset(18)
             $0.centerY.equalTo(championImageView)
         }
         
-        resultLabel.snp.makeConstraints {
-            $0.top.trailing.equalToSuperview().inset(18)
+        gameTimeLabel.snp.makeConstraints {
+            $0.top.bottom.equalTo(laneImageView)
+            $0.trailing.equalToSuperview().inset(18)
         }
         
         

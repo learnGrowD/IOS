@@ -68,6 +68,15 @@ class ChampionDetailViewController : UIViewController {
                     }
                     let navVc = UINavigationController(rootViewController: vc)
                     self?.show(navVc, sender: nil)
+                case.playerLank( _, let data):
+                    let playerDeatilVc = PlayerDetailViewController().then {
+                        let viewModel = PlayerDetailViewModel(playerName: data[index.row].summoner.name ?? "")
+                        $0.hidesBottomBarWhenPushed = true
+                        $0.title = data[index.row].summoner.name ?? ""
+                        $0.view.backgroundColor = .willdBlack
+                        $0.bind(viewModel)
+                    }
+                    self?.show(playerDeatilVc, sender: nil)
                 default:
                     return
                 }

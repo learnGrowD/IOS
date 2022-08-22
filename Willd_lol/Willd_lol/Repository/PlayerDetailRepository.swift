@@ -25,7 +25,7 @@ struct PlayerDetailRepository {
     let apiService = ApiService.instance
     let playerDetailApi = BehaviorSubject<PlayerDetailApi?>(value: nil)
     
-    init(playerName : String?) {
+    init(playerName : String) {
        apiService.playerDetail(playerName: playerName)
             .map { result -> PlayerDetailApi? in
                 guard case .success(let api) = result else {
@@ -61,7 +61,15 @@ struct PlayerDetailRepository {
         playerDetailApi
             .filter { $0 != nil }
             .map {
+                var result : [PlayerDetailApi.MostChampion.Item] = []
                 $0!.mostChampions[0].items
+                    .enumerated()
+                    .forEach { index, item in
+                        if index != 0 {
+                            result.append(item)
+                        }
+                    }
+                return result
             }
             .asObservable()
     }
