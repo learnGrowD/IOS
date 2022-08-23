@@ -24,6 +24,31 @@ class PlayerDetailViewController : UIViewController {
         $0.register(MatchCollectionViewCell.self, forCellWithReuseIdentifier: "MatchCollectionViewCell")
     }
     
+    
+    let activityIndicator = UIActivityIndicatorView().then {
+        $0.color = .white
+        $0.startAnimating()
+    }
+    
+    let indicatorBackView = UIView().then {
+        $0.backgroundColor = .willdBlack
+        $0.isHidden = true
+    }
+    
+    let alertLabel = UILabel().then {
+        $0.text = "검색결과가 없습니다."
+        $0.textAlignment = .center
+        $0.isHidden = true
+        $0.textColor = .willdWhite
+        $0.font = .systemFont(ofSize: 18, weight : .bold)
+    }
+    
+    let alertImageView = UIImageView().then {
+        $0.contentMode = .scaleToFill
+        $0.image = UIImage(systemName: "exclamationmark.triangle.fill")
+        $0.tintColor = .willdWhite
+    }
+    
     var playerDetailData : [PlayerDetailData] = []
     var viewModel : PlayerDetailViewModel?
     
@@ -41,10 +66,71 @@ class PlayerDetailViewController : UIViewController {
     func bind(_ viewModel : PlayerDetailViewModel) {
         self.viewModel = viewModel
         
+        
+        viewModel.uiState
+            .map {
+                switch $0 {
+                case.loading:
+                    return false
+                default:
+                    return true
+                }
+            }
+            .drive(activityIndicator.rx.isHidden)
+            .disposed(by: disposeBag)
+        
+        viewModel.uiState
+            .map {
+                switch $0 {
+                case.loading:
+                    return false
+                default:
+                    return true
+                }
+            }
+            .drive(indicatorBackView.rx.isHidden)
+            .disposed(by: disposeBag)
+        
+        viewModel.uiState
+            .map {
+                switch $0 {
+                case.invalid( _):
+                    return false
+                default:
+                    return true
+                }
+            }
+            .drive(alertImageView.rx.isHidden)
+            .disposed(by: disposeBag)
+        
+        viewModel.uiState
+            .map {
+                switch $0 {
+                case.invalid( _):
+                    return false
+                default:
+                    return true
+                }
+            }
+            .drive(alertLabel.rx.isHidden)
+            .disposed(by: disposeBag)
+        
+        viewModel.uiState
+            .map {
+                switch $0 {
+                case.invalid(let msg):
+                    return msg
+                default:
+                    return ""
+                }
+            }
+            .drive(alertLabel.rx.text)
+            .disposed(by: disposeBag)
+        
+        
         viewModel.playerDetailData
             .filter { !$0.isEmpty }
             .drive(onNext : { [weak self] in
-                
                 self?.playerDetailData = $0
                 self?.collectionView.reloadData()
             })
@@ -62,13 +148,39 @@ class PlayerDetailViewController : UIViewController {
     }
     
     private func layout() {
-        [collectionView].forEach {
+        [
+            collectionView,
+            indicatorBackView,
+            activityIndicator,
+            alertLabel,
+            alertImageView
+        ].forEach {
             view.addSubview($0)
         }
             
         collectionView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
+        
+        indicatorBackView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
+        
+        activityIndicator.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
+        
+        alertImageView.snp.makeConstraints {
+            $0.width.height.equalTo(48)
+            $0.center.equalToSuperview()
+        }
+        
+        alertLabel.snp.makeConstraints {
+            $0.top.equalTo(alertImageView.snp.bottom).offset(8)
+            $0.centerX.equalTo(alertImageView)
+        }
+        
+        
     }
 }
 

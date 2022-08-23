@@ -55,9 +55,9 @@ class SkillsCollectionViewCell : UICollectionViewCell {
             .bind(onNext : { [weak self] in
                 self?.skillKey.text = $0.key ?? ""
                 if $0.key == "P" {
-                    self?.skillImageView.kf.setImage(with: UrlConverter.convertPassiveImgUrl(passiveIdentity: $0.image ?? ""))
+                    self?.skillImageView.kf.setImage(with: UrlConverter.convertPassiveImgUrl(passiveIdentity: $0.image ?? ""), placeholder: UIImage(named: "skin_logo"))
                 } else {
-                    self?.skillImageView.kf.setImage(with: UrlConverter.convertSpellImgUrl(spellIdentity: $0.image ?? ""))
+                    self?.skillImageView.kf.setImage(with: UrlConverter.convertSpellImgUrl(spellIdentity: $0.image ?? ""), placeholder: UIImage(named: "skin_logo"))
                 }
                 self?.skillNameLabel.text = $0.name
             })

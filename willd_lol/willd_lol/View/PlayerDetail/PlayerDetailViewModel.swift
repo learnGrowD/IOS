@@ -12,17 +12,22 @@ import RxSwift
 
 struct PlayerDetailViewModel {
     let disposeBag = DisposeBag()
-    let repository : PlayerDetailRepository
+    let repository : PlayerDetailRepository = PlayerDetailRepository()
+    let uiState : Driver<UiState<PlayerDetailApi>>
+    
     
     let playerDetailData : Driver<[PlayerDetailData]>
-    
     let summonerViewModel = SummonerViewModel()
     let mostChampionGuideViewModel = MostChampionGuideViewModel()
     let mostChampionViewModel = MostChampionViewModel()
     let matchViewModel = MatchViewModel()
 
     init(playerName : String) {
-        repository = PlayerDetailRepository(playerName: playerName)
+        
+        uiState = repository
+            .getUiState(playerName: playerName)
+            .asDriver(onErrorDriveWith: .empty())
+        
         
         repository.getSummoner()
             .bind(to: summonerViewModel.summonerData)
@@ -55,7 +60,12 @@ struct PlayerDetailViewModel {
                         .mostChampion("C", mostChampion),
                         .match("최근 랭크 게임", match)
                     ]
-                    return result
+                    if summoner == nil || mostChampionGuide == nil || match.isEmpty {
+                        return []
+                    } else {
+                        return result
+                    }
+                    
                 }
                 .asDriver(onErrorDriveWith: .empty())
 

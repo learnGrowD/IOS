@@ -19,9 +19,9 @@ struct UrlConverter {
     private static let baseUrl = "https://ddragon.leagueoflegends.com"
     private static let championFullImgPath   = UrlConverter.baseUrl + "/cdn/img/champion/splash/"
     private static let championMiddleImgPath = UrlConverter.baseUrl + "/cdn/img/champion/loading/"
-    private static let championSmallImgPath  = UrlConverter.baseUrl + "/cdn/12.14.1/img/champion/"
-    private static let passiveImgPath        = UrlConverter.baseUrl + "/cdn/12.14.1/img/passive/"
-    private static let spellImgPath          = UrlConverter.baseUrl + "/cdn/12.14.1/img/spell/"
+    private static let championSmallImgPath  = UrlConverter.baseUrl + "/cdn/\(Configure.version)/img/champion/"
+    private static let passiveImgPath        = UrlConverter.baseUrl + "/cdn/\(Configure.version)/img/passive/"
+    private static let spellImgPath          = UrlConverter.baseUrl + "/cdn/\(Configure.version)/img/spell/"
     
     static func convertChampionImgUrl(
         type : ChampionImgType,

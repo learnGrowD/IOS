@@ -21,48 +21,119 @@ enum PlayerDetailData {
 
 
 struct PlayerDetailRepository {
-    let disposeBag = DisposeBag()
-    let apiService = ApiService.instance
-    let playerDetailApi = BehaviorSubject<PlayerDetailApi?>(value: nil)
+    private let disposeBag = DisposeBag()
+    private let apiService = ApiService.instance
+    private let playerDetailApi = BehaviorSubject<UiState<PlayerDetailApi>>(value: .loading)
     
-    init(playerName : String) {
-       apiService.playerDetail(playerName: playerName)
+    func getUiState(playerName : String) -> BehaviorSubject<UiState<PlayerDetailApi>> {
+        apiService.playerDetail(playerName: playerName)
+             .map { result -> UiState<PlayerDetailApi> in
+                 guard case .success(let api) = result else {
+                     return .invalid("네트워크 에러가 발생했습니다 : )")
+                 }
+                 if api.success == false {
+                     return .invalid("검색 결과가 없습니다.")
+                 } else {
+                     return .success(api)
+                 }
+             }
+             .asObservable()
+             .bind(to: self.playerDetailApi)
+             .disposed(by: disposeBag)
+        
+        return playerDetailApi
+    }
+    
+    
+//    func getSuccess() -> Observable<Bool> {
+//        playerDetailApi
+//            .filter {
+//                switch $0 {
+//                case.invalid( _):
+//                    return false
+//                default:
+//                    return true
+//                }
+//            }
+//            .map { result -> PlayerDetailApi? in
+//                guard case .success(let api) = result else {
+//                    return nil
+//                }
+//                return api
+//            }
+//            .map {
+//                $0?.success ?? true
+//            }
+//            .asObservable()
+//    }
+    
+    
+    func getSummoner() -> Observable<(summoner : PlayerDetailApi.Summoner, stats : PlayerDetailApi.Summary)> {
+        playerDetailApi
+            .filter {
+                switch $0 {
+                case.invalid( _):
+                    return false
+                default:
+                    return true
+                }
+            }
             .map { result -> PlayerDetailApi? in
                 guard case .success(let api) = result else {
                     return nil
                 }
                 return api
             }
-            .asObservable()
-            .bind(to: self.playerDetailApi)
-            .disposed(by: disposeBag)
-    }
-    
-    
-    func getSummoner() -> Observable<(summoner : PlayerDetailApi.Summoner, stats : PlayerDetailApi.Summary)> {
-        playerDetailApi
             .filter { $0 != nil }
             .map {
-                ($0!.summoner, $0!.summary)
+                ($0!.summoner!, $0!.summary!)
             }
             .asObservable()
     }
     
     func getMostChampion() -> Observable<PlayerDetailApi.MostChampion> {
         playerDetailApi
+            .filter {
+                switch $0 {
+                case.invalid( _):
+                    return false
+                default:
+                    return true
+                }
+            }
+            .map { result -> PlayerDetailApi? in
+                guard case .success(let api) = result else {
+                    return nil
+                }
+                return api
+            }
             .filter { $0 != nil }
             .map {
-                $0!.mostChampions[0]
+                $0!.mostChampions![0]
             }
             .asObservable()
     }
     
     func getMostChampionItems() -> Observable<[PlayerDetailApi.MostChampion.Item]> {
         playerDetailApi
+            .filter {
+                switch $0 {
+                case.invalid( _):
+                    return false
+                default:
+                    return true
+                }
+            }
+            .map { result -> PlayerDetailApi? in
+                guard case .success(let api) = result else {
+                    return nil
+                }
+                return api
+            }
             .filter { $0 != nil }
             .map {
                 var result : [PlayerDetailApi.MostChampion.Item] = []
-                $0!.mostChampions[0].items
+                $0!.mostChampions![0].items
                     .enumerated()
                     .forEach { index, item in
                         if index != 0 {
@@ -76,9 +147,23 @@ struct PlayerDetailRepository {
     
     func getMatches() -> Observable<[PlayerDetailApi.Match]> {
         playerDetailApi
+            .filter {
+                switch $0 {
+                case.invalid( _):
+                    return false
+                default:
+                    return true
+                }
+            }
+            .map { result -> PlayerDetailApi? in
+                guard case .success(let api) = result else {
+                    return nil
+                }
+                return api
+            }
             .filter { $0 != nil }
             .map {
-                $0!.matches
+                $0!.matches!
             }
             .asObservable()
     }

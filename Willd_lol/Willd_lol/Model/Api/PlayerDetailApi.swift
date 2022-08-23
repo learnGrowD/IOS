@@ -10,10 +10,11 @@ import Foundation
 
 struct PlayerDetailApi : Codable {
     
-    let summoner : Summoner
-    let mostChampions : [MostChampion]
-    let summary : Summary
-    let matches : [Match]
+    let success : Bool? 
+    let summoner : Summoner?
+    let mostChampions : [MostChampion]?
+    let summary : Summary?
+    let matches : [Match]?
     
     struct Summoner : Codable {
         let name : String?

@@ -45,8 +45,10 @@ class SkinsCollectionViewCell : UICollectionViewCell {
                 self?.imageView.kf.setImage(with: UrlConverter.convertChampionImgUrl(
                     type: .full,
                     championKey: $0.championIdentity,
-                    skinIdentity: $0.skinIdentity)
+                    skinIdentity: $0.skinIdentity
                 )
+                
+            )
                 self?.skinName.text = $0.skinName
             })
             .disposed(by: disposeBag)

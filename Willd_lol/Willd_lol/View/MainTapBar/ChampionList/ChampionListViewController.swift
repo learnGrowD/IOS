@@ -32,6 +32,7 @@ class ChampionListViewController : UIViewController {
     
     func bind(_ viewModel : ChampionListViewModel) {
         viewModel.shouldPresedentChampionList
+            .filter { !$0.isEmpty }
             .bind(to : self.collectionView.rx.items) { cv, row, data in
                 let index = IndexPath(row: row, section: 0)
                 guard let cell = cv.dequeueReusableCell(withReuseIdentifier: "ChampionListViewCell", for: index) as? ChampionListViewCell else {

@@ -69,7 +69,11 @@ struct ChampionDetailViewModel {
                             .playerLank("Rank", e),
                             .championComment("Comment", f)
                         ]
-                        return result
+                        if a.isEmpty || b.isEmpty || c.isEmpty || d.isEmpty || e.isEmpty || f.isEmpty {
+                            return []
+                        } else {
+                            return result
+                        }
                     }
                     .asDriver(onErrorDriveWith: .empty())
     }
@@ -120,7 +124,11 @@ struct ChampionDetailViewModel {
                         .playerLank("Rank", e),
                         .championComment("Comment", f)
                     ]
-                    return result
+                    if a.isEmpty || b.isEmpty || c.isEmpty || d.isEmpty || e.isEmpty || f.isEmpty {
+                        return []
+                    } else {
+                        return result
+                    }
                 }
                 .asDriver(onErrorDriveWith: .empty())
     }

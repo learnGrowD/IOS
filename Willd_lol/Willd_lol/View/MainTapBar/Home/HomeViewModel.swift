@@ -39,7 +39,12 @@ struct HomeViewModel {
                         .championTier("ChampionTier", tierList),
                         .playerLank("PalyerRank", playerLankList)
                     ]
-                    return result
+                    if recommendList.isEmpty || tierList.isEmpty || playerLankList.isEmpty {
+                        return []
+                    } else {
+                        return result
+                    }
+                    
                 }
                 .asDriver(onErrorDriveWith: .empty())
     }

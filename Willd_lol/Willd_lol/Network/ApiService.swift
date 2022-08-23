@@ -20,7 +20,7 @@ class ApiService {
     private init() {}
     private static let scheme = "https://"
     private static let riotHost = "ddragon.leagueoflegends.com"
-    private static let riotPath = "/cdn/12.14.1/data/ko_KR/"
+    private static let riotPath = "/cdn/\(Configure.version)/data/ko_KR/"
     
     private static let opGgHost = "www.op.gg"
     private static let opGgPath = "/api/"
@@ -257,8 +257,7 @@ class ApiService {
             let api = try JSONDecoder().decode(PlayerDetailApi.self, from: data)
             return .success(api)
         }
-        .catch { a in
-            print(a.localizedDescription)
+        .catch { _ in
             return .just(.failure(.networkError))
         }
         .asSingle()
