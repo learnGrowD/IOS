@@ -191,7 +191,8 @@ class ApiService {
                 let api = try JSONDecoder().decode(ChampionGoodAtPlayerApi.self, from: data)
                 return .success(api)
             }
-            .catch { _ in
+            .catch { e in
+                print(e.localizedDescription)
                 return .just(.failure(.networkError))
             }
             .asSingle()
@@ -222,7 +223,8 @@ class ApiService {
             let api = try JSONDecoder().decode(PlayerMmrRankApi.self, from: data)
             return .success(api)
         }
-        .catch { _ in
+        .catch { e in
+            print(e.localizedDescription)
             return .just(.failure(.networkError))
         }
         .asSingle()
@@ -348,7 +350,8 @@ class ApiService {
             let api = try JSONDecoder().decode(ChampionRecommendApi.self, from: data)
             return .success(api)
         }
-        .catch { _ in
+        .catch { e in
+            print(e.localizedDescription)
             return .just(.failure(.networkError))
         }
         .asSingle()
@@ -362,14 +365,14 @@ class ApiService {
             Observable.just(
                 ApiService.scheme
                 + ApiService.psHost
-                + "/lol/get_lane_champion_tier_list"
+                + "/lol/get_lane_champion_tier_list/"
             )
             .flatMap { url -> Observable<Data> in
                 let params = [
                     "tier" : "\(tier.rawValue)",
                     "lane" : "\(lane.rawValue)",
                     "order_by" : orderby.rawValue,
-                    "region" : "3",
+                    "region" : "0",
                     "count" : "\(listCount)"
                 ]
                 return AF.request(
@@ -385,7 +388,8 @@ class ApiService {
                 let api = try JSONDecoder().decode(ChampionTierListApi.self, from: data)
                 return .success(api)
             }
-            .catch { _ in
+            .catch { e in
+                print(e.localizedDescription)
                 return .just(.failure(.networkError))
             }
             .asSingle()

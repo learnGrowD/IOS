@@ -60,7 +60,7 @@ struct PlayerDetailViewModel {
                         .mostChampion("C", mostChampion),
                         .match("최근 랭크 게임", match)
                     ]
-                    if summoner == nil || mostChampionGuide == nil || match.isEmpty {
+                    if summoner == nil || mostChampionGuide == nil {
                         return []
                     } else {
                         return result
