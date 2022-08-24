@@ -9,6 +9,7 @@ import Foundation
 
 
 struct SearchPreview : Codable {
+    let division : String?
     let imageUrl : String?
     let lp : Int?
     let name : String?

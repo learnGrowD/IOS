@@ -43,31 +43,7 @@ struct PlayerDetailRepository {
         
         return playerDetailApi
     }
-    
-    
-//    func getSuccess() -> Observable<Bool> {
-//        playerDetailApi
-//            .filter {
-//                switch $0 {
-//                case.invalid( _):
-//                    return false
-//                default:
-//                    return true
-//                }
-//            }
-//            .map { result -> PlayerDetailApi? in
-//                guard case .success(let api) = result else {
-//                    return nil
-//                }
-//                return api
-//            }
-//            .map {
-//                $0?.success ?? true
-//            }
-//            .asObservable()
-//    }
-    
-    
+
     func getSummoner() -> Observable<(summoner : PlayerDetailApi.Summoner, stats : PlayerDetailApi.Summary)> {
         playerDetailApi
             .filter {
@@ -91,7 +67,7 @@ struct PlayerDetailRepository {
             .asObservable()
     }
     
-    func getMostChampion() -> Observable<PlayerDetailApi.MostChampion> {
+    func getMostChampion() -> Observable<PlayerDetailApi.MostChampion?> {
         playerDetailApi
             .filter {
                 switch $0 {
@@ -109,7 +85,12 @@ struct PlayerDetailRepository {
             }
             .filter { $0 != nil }
             .map {
-                $0!.mostChampions![0]
+                let isEmpty = $0?.mostChampions?.isEmpty ?? false
+                if isEmpty {
+                    return PlayerDetailApi.MostChampion.init(items: [], lane: "Mid", matchCount: 0, winRate: 0.0)
+                } else {
+                    return $0?.mostChampions?[0]
+                }
             }
             .asObservable()
     }
@@ -133,13 +114,18 @@ struct PlayerDetailRepository {
             .filter { $0 != nil }
             .map {
                 var result : [PlayerDetailApi.MostChampion.Item] = []
-                $0!.mostChampions![0].items
-                    .enumerated()
-                    .forEach { index, item in
-                        if index != 0 {
-                            result.append(item)
+                let isEmpty = $0?.mostChampions?.isEmpty ?? false
+                if !isEmpty {
+                    $0!.mostChampions?[0].items
+                        .enumerated()
+                        .forEach { index, item in
+                            if index != 0 {
+                                result.append(item)
+                            }
                         }
-                    }
+                } else {
+                    result.append(.init(championImage: "", championKey: "Teemo", matchCount: 0, winRate: 0.0, tier: ""))
+                }
                 return result
             }
             .asObservable()

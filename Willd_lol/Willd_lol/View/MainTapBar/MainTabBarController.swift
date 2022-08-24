@@ -10,6 +10,7 @@ import UIKit
 import RxCocoa
 import RxSwift
 import Then
+import SwiftUI
 
 //혼자서의 생명주기
 //- 1. addSubView 할때
@@ -92,3 +93,22 @@ class MainTabBarController : UITabBarController {
         }
     }
 }
+
+
+
+struct Preview: PreviewProvider {
+    static var previews: some View {
+        Container().edgesIgnoringSafeArea(.all)
+    }
+    
+    struct Container: UIViewControllerRepresentable {
+        func makeUIViewController(context: Context) -> UIViewController {
+            let rootViewController = MainTabBarController()
+            rootViewController.bind()
+            return rootViewController
+        }
+        func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {}
+        typealias UIViewControllerType = UIViewController
+    }
+}
+

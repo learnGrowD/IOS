@@ -13,6 +13,8 @@ import RxSwift
 
 struct HomeViewModel {
     let disposeBag = DisposeBag()
+    
+    let searchViewModel = SearchCollectionViewModel()
     let recommendViewModel = RecommendViewModel()
     let tierTagsViewModel = TierTagViewModel()
     let tierListViewModel = TierListViewModel()
@@ -34,6 +36,7 @@ struct HomeViewModel {
                 tierListViewModel.tierList.asObservable(),
                 playerLankViewModel.playerRankList.asObservable()) { recommendList, tierList, playerLankList -> [HomePageData] in
                     let result : [HomePageData] = [
+                        .summonerSearch,
                         .championRecommend("Recommend", recommendList),
                         .championTags("ChampionTier"),
                         .championTier("ChampionTier", tierList),

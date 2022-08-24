@@ -9,6 +9,7 @@ typealias ChampionTier = ChampionTierListApi.Champion
 typealias PlayerLank = PlayerMmrRankApi.PlayerInfo
 
 enum HomePageData {
+    case summonerSearch
     case championRecommend(_ title : String, _ data : [ChampionRecommend])
     case championTier(_ title : String, _ data : [ChampionTier])
     case championTags(_ title : String)

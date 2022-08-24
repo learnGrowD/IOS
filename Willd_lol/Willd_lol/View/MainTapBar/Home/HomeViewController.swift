@@ -18,7 +18,9 @@ class HomeViewController : UIViewController {
     var homeData : [HomePageData] = []
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout()).then {
         $0.backgroundColor = .willdBlack
+
         $0.register(DefaultCollectionViewHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "DefaultCollectionViewHeader")
+        $0.register(SearchCollectionViewCell.self, forCellWithReuseIdentifier: "SearchCollectionViewCell")
         $0.register(RecommendCollectionViewCell.self, forCellWithReuseIdentifier: "RecommendCollectionViewCell")
         $0.register(TierTagsCollectionViewCell.self, forCellWithReuseIdentifier: "TierTagsCollectionViewCell")
         $0.register(TierCollectionViewCell.self, forCellWithReuseIdentifier: "TierCollectionViewCell")
@@ -87,6 +89,21 @@ class HomeViewController : UIViewController {
                 }
             })
             .disposed(by: disposeBag)
+        
+        viewModel.searchViewModel.searchButtonTap
+            .bind(onNext : { [weak self] in
+                let vc = SearchDetailViewController().then {
+                    let viewModel = SearchDetailViewModel()
+                    $0.title = "소환사 검색"
+                    $0.hidesBottomBarWhenPushed = true
+                    $0.view.backgroundColor = .willdBlack
+                    $0.bind(viewModel)
+                }
+
+                self?.show(vc, sender: nil)
+            })
+            .disposed(by: disposeBag)
+            
     }
     
     private func attribute() {
@@ -112,6 +129,8 @@ extension HomeViewController {
         return UICollectionViewCompositionalLayout { [weak self] sectionNumber, environment -> NSCollectionLayoutSection? in
             guard let self = self else { return nil }
             switch self.homeData[sectionNumber] {
+            case .summonerSearch:
+                return self.createSearchLayout()
             case .championRecommend( _, _):
                 return self.createChampionRecommendLayout()
             case .championTier( _, _):
@@ -123,6 +142,20 @@ extension HomeViewController {
             
             }
         }
+    }
+    
+    func createSearchLayout() -> NSCollectionLayoutSection {
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        
+        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(36))
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: 1)
+        
+        let section = NSCollectionLayoutSection(group: group)
+        section.orthogonalScrollingBehavior = .none
+        section.contentInsets = .init(top: 18, leading: 18, bottom: 0, trailing: 18)
+
+        return section
     }
     
     func createChampionRecommendLayout() -> NSCollectionLayoutSection {
@@ -195,6 +228,8 @@ extension HomeViewController : UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch homeData[section] {
+        case .summonerSearch:
+            return 1
         case .championRecommend( _, let data):
             return data.count
         case.championTags( _):
@@ -208,6 +243,13 @@ extension HomeViewController : UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         switch homeData[indexPath.section] {
+        case .summonerSearch:
+            guard let viewModel = self.viewModel,
+                  let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SearchCollectionViewCell", for: indexPath) as? SearchCollectionViewCell else {
+                return UICollectionViewCell()
+            }
+            cell.bind(viewModel.searchViewModel)
+            return cell
         case .championRecommend( _, _):
             guard let viewModel = self.viewModel,
                   let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "RecommendCollectionViewCell", for: indexPath) as? RecommendCollectionViewCell else {
@@ -243,14 +285,12 @@ extension HomeViewController : UICollectionViewDataSource {
         if kind == UICollectionView.elementKindSectionHeader {
             let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "DefaultCollectionViewHeader", for: indexPath) as! DefaultCollectionViewHeader
             switch homeData[indexPath.section] {
-            case .championRecommend(let title, _):
-                header.configure(title: title)
             case.championTags(let title):
-                header.configure(title: title)
-            case .championTier(let title, _):
                 header.configure(title: title)
             case .playerLank(let title, _):
                 header.configure(title: title)
+            default:
+                return header
             }
             return header
         } else {

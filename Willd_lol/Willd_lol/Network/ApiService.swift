@@ -305,6 +305,7 @@ class ApiService {
         )
         .flatMap { url -> Observable<Data> in
             let params = [
+                "lang" : "ko",
                 "q" : searchQuery
             ]
             return AF.request(

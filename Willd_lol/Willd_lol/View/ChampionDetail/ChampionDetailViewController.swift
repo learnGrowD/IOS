@@ -29,8 +29,6 @@ class ChampionDetailViewController : UIViewController {
         $0.register(LankCollectionViewCell.self, forCellWithReuseIdentifier: "LankCollectionViewCell")
         $0.register(CommentCollectionViewCell.self, forCellWithReuseIdentifier: "CommentCollectionViewCell")
     }
-    
-    
 
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
@@ -232,7 +230,7 @@ extension ChampionDetailViewController : UICollectionViewDataSource {
             return data.count
         case .tags( _, let data):
             return data.count
-        case .skills( _, let data):
+        case .skills( _, _):
             return 5
         case .lore( _, _):
             return 1
@@ -319,6 +317,5 @@ extension ChampionDetailViewController : UICollectionViewDataSource {
             return UICollectionReusableView()
         }
     }
-    
 
 }

@@ -70,7 +70,10 @@ struct SummonerViewModel {
                 $0?.summoner.rank.soloRank
             }
             .map {
-                let total = ($0?.win ?? 0) + ($0?.lose ?? 0)
+                var total = ($0?.win ?? 0) + ($0?.lose ?? 0)
+                if total == 0 {
+                    total = 1
+                }
                 let winRate = ($0?.win ?? 0) * 100 / total
                 return "\(winRate)% (\($0?.win ?? 0)승 \($0?.lose ?? 0)패)"
             }

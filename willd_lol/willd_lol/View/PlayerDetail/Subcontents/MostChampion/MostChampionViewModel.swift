@@ -27,7 +27,7 @@ class MostChampionViewModel {
         
         championImageUrl = mostChampion
             .map {
-                UrlConverter.convertImgUrl($0.championImage ?? "")
+                UrlConverter.convertChampionImgUrl(type: .small, championKey: $0.championKey ?? "")
             }
             .asDriver(onErrorDriveWith: .empty())
         
