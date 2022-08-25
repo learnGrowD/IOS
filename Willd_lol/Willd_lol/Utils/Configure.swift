@@ -9,6 +9,6 @@ import Foundation
 
 
 struct Configure {
-    static let version = "12.15.1"
+    static let version = "12.16.1"
 }
 

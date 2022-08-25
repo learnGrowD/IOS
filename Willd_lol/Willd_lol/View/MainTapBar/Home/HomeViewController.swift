@@ -18,7 +18,6 @@ class HomeViewController : UIViewController {
     var homeData : [HomePageData] = []
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout()).then {
         $0.backgroundColor = .willdBlack
-
         $0.register(DefaultCollectionViewHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "DefaultCollectionViewHeader")
         $0.register(SearchCollectionViewCell.self, forCellWithReuseIdentifier: "SearchCollectionViewCell")
         $0.register(RecommendCollectionViewCell.self, forCellWithReuseIdentifier: "RecommendCollectionViewCell")
@@ -108,7 +107,6 @@ class HomeViewController : UIViewController {
     
     private func attribute() {
         collectionView.collectionViewLayout = generateLayout()
-            
     }
     
     private func layout() {
