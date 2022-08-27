@@ -96,19 +96,19 @@ class MainTabBarController : UITabBarController {
 
 
 
-struct Preview: PreviewProvider {
-    static var previews: some View {
-        Container().edgesIgnoringSafeArea(.all)
-    }
-    
-    struct Container: UIViewControllerRepresentable {
-        func makeUIViewController(context: Context) -> UIViewController {
-            let rootViewController = MainTabBarController()
-            rootViewController.bind()
-            return rootViewController
-        }
-        func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {}
-        typealias UIViewControllerType = UIViewController
-    }
-}
+//struct Preview: PreviewProvider {
+//    static var previews: some View {
+//        Container().edgesIgnoringSafeArea(.all)
+//    }
+//    
+//    struct Container: UIViewControllerRepresentable {
+//        func makeUIViewController(context: Context) -> UIViewController {
+//            let rootViewController = MainTabBarController()
+//            rootViewController.bind()
+//            return rootViewController
+//        }
+//        func updateUIViewController(_ uiViewController: UIViewControllerType, context: Context) {}
+//        typealias UIViewControllerType = UIViewController
+//    }
+//}
 

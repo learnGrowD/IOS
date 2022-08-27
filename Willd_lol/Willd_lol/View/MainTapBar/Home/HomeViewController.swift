@@ -30,6 +30,10 @@ class HomeViewController : UIViewController {
         super .init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         attribute()
         layout()
+        
+    
+        
+        
     }
     
     required init?(coder: NSCoder) {
