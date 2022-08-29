@@ -17,16 +17,23 @@ class SearchCollectionViewCell : UICollectionViewCell {
     var isFirstBinding = true
     
     let searchButton = UIButton().then {
-        var filled = UIButton.Configuration.filled()
-        filled.title = "소환사 검색"
-        filled.buttonSize = .large
-        filled.image = UIImage(systemName: "magnifyingglass")
-        filled.imagePlacement = .leading
-        filled.imagePadding = 8
-        filled.contentInsets = .init(top: 0, leading: 8, bottom: 0, trailing: 0)
-        filled.baseBackgroundColor = .willdBlack
-        $0.configuration = filled
-        
+        if #available(iOS 15.0, *) {
+            var filled = UIButton.Configuration.filled()
+            filled.title = "소환사 검색"
+            filled.buttonSize = .large
+            filled.image = UIImage(systemName: "magnifyingglass")
+            filled.imagePlacement = .leading
+            filled.imagePadding = 8
+            filled.contentInsets = .init(top: 0, leading: 8, bottom: 0, trailing: 0)
+            filled.baseBackgroundColor = .willdBlack
+            $0.configuration = filled
+        } else {
+            $0.setTitle("소환사 검색", for: .normal)
+            $0.setImage(UIImage(systemName: "magnifyingglass"), for: .normal)
+            $0.tintColor = .lightGray
+            $0.contentEdgeInsets = .init(top: 0, left: 16, bottom: 0, right: 0)
+            $0.imageEdgeInsets = .init(top: 0, left: -8, bottom: 0, right: 0)
+        }
         $0.setTitleColor(.willdWhite, for: .normal)
         $0.layer.borderColor = UIColor.lightGray.cgColor
         $0.layer.borderWidth = 1
