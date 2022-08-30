@@ -28,7 +28,7 @@ class ApiService {
     private static let yourGgHost = "api.your.gg"
     private static let youtGgPath = "/kr/api/"
     
-    private static let psHost = "lol.ps"
+    private static let psHost = "lol.ps/"
     
     
     func championDetail(championKey : String?) -> Single<Result<ChampionDetailApi, NetworkError>> {
@@ -333,7 +333,7 @@ class ApiService {
         Observable.just(
             ApiService.scheme
             + ApiService.psHost
-            + "/index_champ"
+            + "index_champ"
             
         )
         .flatMap { url -> Observable<Data> in
@@ -365,7 +365,7 @@ class ApiService {
             Observable.just(
                 ApiService.scheme
                 + ApiService.psHost
-                + "/lol/get_lane_champion_tier_list/"
+                + "lol/get_lane_champion_tier_list"
             )
             .flatMap { url -> Observable<Data> in
                 let params = [

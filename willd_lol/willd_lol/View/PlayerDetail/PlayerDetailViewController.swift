@@ -79,6 +79,12 @@ class PlayerDetailViewController : UIViewController {
             .drive(activityIndicator.rx.isHidden)
             .disposed(by: disposeBag)
         
+        
+        
+        
+        
+        
+        
         viewModel.uiState
             .map {
                 switch $0 {
