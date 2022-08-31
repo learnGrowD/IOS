@@ -83,8 +83,6 @@ class PlayerDetailViewController : UIViewController {
         
         
         
-        
-        
         viewModel.uiState
             .map {
                 switch $0 {
