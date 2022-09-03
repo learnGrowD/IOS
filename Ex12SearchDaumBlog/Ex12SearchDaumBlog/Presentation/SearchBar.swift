@@ -53,6 +53,7 @@ class SearchBar : UISearchBar {
             .disposed(by: disposeBag)
         
         
+        
         self.shouldLoadResult = searchButtonTapped
             .withLatestFrom(self.rx.text) {
                 $1 ?? ""
